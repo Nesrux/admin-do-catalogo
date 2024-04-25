@@ -47,6 +47,7 @@ public class Category {
         return description;
     }
 
+
     public boolean isActive() {
         return active;
     }
