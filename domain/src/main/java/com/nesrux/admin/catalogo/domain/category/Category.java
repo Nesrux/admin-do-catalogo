@@ -1,6 +1,7 @@
 package com.nesrux.admin.catalogo.domain.category;
 
 import com.nesrux.admin.catalogo.domain.AggregateRoot;
+import com.nesrux.admin.catalogo.domain.validation.ValidationHandler;
 
 import java.time.Instant;
 
@@ -38,6 +39,11 @@ public class Category extends AggregateRoot<CategoryId> {
 
     public CategoryId getId() {
         return id;
+    }
+
+    @Override
+    public void validate(final ValidationHandler handler) {
+        new CategoryValidator(handler, this);
     }
 
     public String getName() {
