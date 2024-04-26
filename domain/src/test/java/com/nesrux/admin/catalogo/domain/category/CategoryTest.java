@@ -33,7 +33,7 @@ public class CategoryTest {
     }
 
     @Test
-    @DisplayName("Falha ao validar nova categoria")
+    @DisplayName("Lança exception ao criar entidade Categoria com nome nulo")
     public void givenAnIvalidName_whenCallNewCategoryAndValidate_ThenShouldReciveError() {
         final String expectedName = null;
         final var expectedErrorCount = 1;
