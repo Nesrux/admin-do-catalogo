@@ -31,10 +31,11 @@ public class Category extends AggregateRoot<CategoryId> {
 
     }
 
-    public static Category newCategory(final String Aname, final String aDesciption, final boolean isAtive) {
+    public static Category newCategory(final String Aname, final String aDesciption, final boolean isActive) {
         final var id = CategoryId.unique();
         final var now = Instant.now();
-        return new Category(id, Aname, aDesciption, isAtive, now, now, null);
+        final var deletedAt = isActive ? null : now;
+        return new Category(id, Aname, aDesciption, isActive, now, now, deletedAt);
     }
 
     public CategoryId getId() {
