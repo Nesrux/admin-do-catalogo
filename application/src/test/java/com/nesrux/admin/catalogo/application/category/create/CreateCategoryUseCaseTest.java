@@ -1,7 +1,6 @@
 package com.nesrux.admin.catalogo.application.category.create;
 
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,7 +37,7 @@ public class CreateCategoryUseCaseTest {
                 .thenAnswer(returnsFirstArg());
 
 
-        final var actualOutput = useCase.execute(aCommand);
+        final var actualOutput = useCase.execute(aCommand).get();
 
         Assertions.assertNotNull(actualOutput);
         Assertions.assertNotNull(actualOutput.id());
@@ -64,10 +63,11 @@ public class CreateCategoryUseCaseTest {
         final var aCommand = CreateCategoryCommand
                 .with(expectedName, expectedDescription, expectedIsActive);
 
-        final var actualException = Assertions.assertThrows(DomainException.class,
-                () -> useCase.execute(aCommand));
+        final var notification = useCase.execute(aCommand).getLeft();
 
-        Assertions.assertEquals(expectedErrorMessage, actualException.getMessage());
+
+        Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());
+        Assertions.assertEquals(expectedErrorCount, notification.getErros().size());
 
         verify(categoryGateway,
                 times(0))
@@ -89,7 +89,7 @@ public class CreateCategoryUseCaseTest {
                 .thenAnswer(returnsFirstArg());
 
 
-        final var actualOutput = useCase.execute(aCommand);
+        final var actualOutput = useCase.execute(aCommand).get();
 
         Assertions.assertNotNull(actualOutput);
         Assertions.assertNotNull(actualOutput.id());
@@ -110,6 +110,7 @@ public class CreateCategoryUseCaseTest {
         final var expectedName = "filmes";
         final var expectedDescription = "A categoria mais assitida";
         final var expectedIsActive = true;
+        final var expectedErrorCount = 1;
         final var expectedErrorMessage = "Gateway error";
 
         final var aCommand = CreateCategoryCommand.with(expectedName, expectedDescription, expectedIsActive);
@@ -117,10 +118,14 @@ public class CreateCategoryUseCaseTest {
         when(categoryGateway.create(any()))
                 .thenThrow(new IllegalStateException(expectedErrorMessage));
 
-        final var actualException = Assertions.assertThrows(IllegalStateException.class,
-                () -> useCase.execute(aCommand));
+        final var notification = useCase.execute(aCommand).getLeft();
 
-        Assertions.assertEquals(expectedErrorMessage, actualException.getMessage());
+
+        Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());
+        Assertions.assertEquals(expectedErrorCount, notification.getErros().size());
+
+
+        Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());
         verify(categoryGateway, times(1)).create(argThat(aCategory ->
                 Objects.equals(expectedName, aCategory.getName()) &&
                         Objects.equals(expectedDescription, aCategory.getDescription()) &&
