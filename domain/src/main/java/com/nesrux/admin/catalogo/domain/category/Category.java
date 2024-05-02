@@ -5,7 +5,7 @@ import com.nesrux.admin.catalogo.domain.validation.ValidationHandler;
 
 import java.time.Instant;
 
-public class Category extends AggregateRoot<CategoryId> implements  Cloneable {
+public class Category extends AggregateRoot<CategoryId> implements Cloneable {
 
     private String name;
     private String description;
@@ -36,6 +36,10 @@ public class Category extends AggregateRoot<CategoryId> implements  Cloneable {
         final var now = Instant.now();
         final var deletedAt = isActive ? null : now;
         return new Category(id, Aname, aDesciption, isActive, now, now, deletedAt);
+    }
+
+    public static Category with(final Category category) {
+        return category.clone();
     }
 
     public Category activate() {

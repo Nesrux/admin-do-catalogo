@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Objects;
@@ -68,6 +69,31 @@ public class UpdateCategoryUsecaseTest {
                 ));
 //                .update(argThat(aUpdatedCategory -> Objects.equals(expectedName, aUpdatedCategory.getName()));
 
+    }
+
+    @Test
+    public void givenInvalidName_whenCallsUpdateCategory_thenShouldReturnDomainExcepion() {
+        final var aCategory = Category.newCategory("film", null, true);
+        final var expectedId = aCategory.getId();
+        final String expectedName = null;
+        final var expectedDescription = "A categoria mais assistida";
+        final var expectedIsActive = true;
+        final var expectedErrorCount = 1;
+        final var expectedErrorMessage = "'name' should not be null";
+
+        final var aCommand = UpdateCategoryCommand.with(expectedId.getValue(),
+                expectedName, expectedDescription, expectedIsActive);
+
+        when(categoryGateway.
+                findById(eq(expectedId)))
+                .thenReturn(Optional.of(Category.with(aCategory)));
+
+        final var notification = useCase.execute(aCommand).getLeft();
+
+        Assertions.assertEquals(expectedErrorCount, notification.getErros().size());
+        Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());
+
+        Mockito.verify(categoryGateway, times(1)).update(any());
     }
 }
 
