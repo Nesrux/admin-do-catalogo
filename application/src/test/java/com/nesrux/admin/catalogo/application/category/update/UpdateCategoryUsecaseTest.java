@@ -2,6 +2,8 @@ package com.nesrux.admin.catalogo.application.category.update;
 
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
+import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -86,14 +88,140 @@ public class UpdateCategoryUsecaseTest {
 
         when(categoryGateway.
                 findById(eq(expectedId)))
-                .thenReturn(Optional.of(Category.with(aCategory)));
+                .thenReturn(Optional.of(aCategory.clone()));
 
         final var notification = useCase.execute(aCommand).getLeft();
 
         Assertions.assertEquals(expectedErrorCount, notification.getErros().size());
         Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());
 
-        Mockito.verify(categoryGateway, times(1)).update(any());
+        Mockito.verify(categoryGateway, times(0)).update(any());
+    }
+
+    @Test
+    public void givenAcalidInactivateCommand_whenCallsUpdateCategory_shouldReturInactiveCategoryId() {
+        final var aCategory = Category.newCategory("Filne", null, true);
+
+        Assertions.assertTrue(aCategory.isActive());
+        Assertions.assertNull(aCategory.getDeletedAt());
+
+        final var expectedName = "filme";
+        final var expectedDescription = "A categoria mais acessada";
+        final var expectedIsActive = false;
+
+
+        final var expectedId = aCategory.getId();
+
+        final var aCommand = UpdateCategoryCommand.with(
+                aCategory.getId().getValue(),
+                expectedName, expectedDescription,
+                expectedIsActive);
+
+        when(categoryGateway
+                .findById(eq(expectedId)))
+                .thenReturn(Optional.of(aCategory.clone()));
+
+        when(categoryGateway.update(any()))
+                .thenAnswer(returnsFirstArg());
+
+        Assertions.assertTrue(aCategory.isActive());
+        Assertions.assertNull(aCategory.getDeletedAt());
+
+
+        final var actualOutput = useCase.execute(aCommand).get();
+
+        Assertions.assertNotNull(actualOutput);
+        Assertions.assertNotNull(actualOutput.id());
+
+        verify(categoryGateway, times(1))
+                .findById(expectedId);
+
+
+        verify(categoryGateway, times(1))
+                .update(argThat(aUpdatedCategory ->
+                        Objects.equals(expectedName, aUpdatedCategory.getName())
+                                && Objects.equals(expectedDescription, aUpdatedCategory.getDescription())
+                                && Objects.equals(expectedIsActive, aUpdatedCategory.isActive())
+                                && Objects.equals(expectedId, aUpdatedCategory.getId())
+                                && Objects.equals(aCategory.getCreatedAt(), aUpdatedCategory.getCreatedAt())
+                                && Objects.nonNull(aUpdatedCategory.getDeletedAt())
+                                && aUpdatedCategory.getUpdatedAt().isAfter(aCategory.getUpdatedAt())
+                ));
+    }
+
+    @Test
+    public void givenAvalidCommand_whenGatewayThrowsRandomExcepetion_shouldReturnAException() {
+        final var aCategory = Category.newCategory("Filne", null, true);
+
+        final var expectedName = "filmes";
+        final var expectedId = aCategory.getId();
+        final var expectedDescription = "A categoria mais assitida";
+        final var expectedIsActive = true;
+        final var expectedErrorCount = 1;
+        final var expectedErrorMessage = "Gateway error";
+
+        final var aCommand = UpdateCategoryCommand.with(
+                expectedId.getValue(),
+                expectedName, expectedDescription,
+                expectedIsActive);
+
+        when(categoryGateway
+                .findById(eq(expectedId)))
+                .thenReturn(Optional.of(aCategory.clone()));
+
+        when(categoryGateway.update(any()))
+                .thenThrow(new IllegalStateException(expectedErrorMessage));
+
+        final var notification = useCase.execute(aCommand).getLeft();
+
+
+        Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());
+        Assertions.assertEquals(expectedErrorCount, notification.getErros().size());
+
+
+        Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());
+        verify(categoryGateway, times(1))
+                .update(argThat(aUpdatedCategory ->
+                        Objects.equals(expectedName, aUpdatedCategory.getName())
+                                && Objects.equals(expectedDescription, aUpdatedCategory.getDescription())
+                                && Objects.equals(expectedIsActive, aUpdatedCategory.isActive())
+                                && Objects.equals(expectedId, aUpdatedCategory.getId())
+                                && Objects.equals(aCategory.getCreatedAt(), aUpdatedCategory.getCreatedAt())
+                                && Objects.isNull(aUpdatedCategory.getDeletedAt())
+                                && aUpdatedCategory.getUpdatedAt().isAfter(aCategory.getUpdatedAt())
+                ));
+
+    }
+
+    @Test
+    public void givenCommandWithInvalidId_whenCallsUpdateCategory_shouldReturnNotFoundReturn() {
+        final var expectedName = "filme";
+        final var expectedDescription = "A categoria mais acessada";
+        final var expectedIsActive = false;
+        final var expectedId = "123";
+        final var expectedErrorMessage = "Category with ID 123 was not found";
+        final var expectedErrorCount = 1;
+
+        final var aCommand = UpdateCategoryCommand.with(
+                expectedId,
+                expectedName, expectedDescription,
+                expectedIsActive);
+
+        when(categoryGateway
+                .findById(eq(CategoryId.from(expectedId))))
+                .thenReturn(Optional.empty());
+
+        final var actualException =
+                Assertions.assertThrows(DomainException.class, () -> useCase.execute(aCommand));
+
+        Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
+        Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
+
+
+        verify(categoryGateway, times(1))
+                .findById(CategoryId.from(expectedId));
+
+        verify(categoryGateway, times(0)).update(any());
     }
 }
 
