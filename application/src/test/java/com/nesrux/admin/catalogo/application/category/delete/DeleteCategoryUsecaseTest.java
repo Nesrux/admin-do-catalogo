@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.*;
@@ -62,7 +61,7 @@ public class DeleteCategoryUsecaseTest {
 
         doThrow(new IllegalStateException("Gateway error"))
                 .when(categoryGateway).deleteById(eq(expectedId));
-        Assertions.assertThrows( IllegalStateException.class, () -> useCase.execute(expectedId.getValue()));
+        Assertions.assertThrows(IllegalStateException.class, () -> useCase.execute(expectedId.getValue()));
 
         verify(categoryGateway, times(1)).deleteById(eq(expectedId));
 
