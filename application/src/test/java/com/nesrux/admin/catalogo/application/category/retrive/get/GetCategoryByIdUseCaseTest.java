@@ -1,4 +1,4 @@
-package com.nesrux.admin.catalogo.application.category.recive;
+package com.nesrux.admin.catalogo.application.category.retrive.get;
 
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
@@ -35,7 +35,7 @@ public class GetCategoryByIdUseCaseTest {
      * 3) teste erro no gatway*/
 
     @Test
-    public void givenAvalidId_whenCallsGetCategory_shouldReturnCategory() {
+    public void GivenAvalidId_whenCallsGetCategory_shouldReturnCategory() {
         final var expectedName = "Filmes";
         final var expectedDescription = "Só o filé";
         final var isActive = true;
@@ -49,33 +49,37 @@ public class GetCategoryByIdUseCaseTest {
         final var actualCategory = useCase.execute(expectedId.getValue());
 
         Assertions.assertEquals(expectedName, aCategory.getName());
-        Assertions.assertEquals(expectedId, actualCategory.getId());
+        Assertions.assertEquals(expectedId, actualCategory.id());
         Assertions.assertEquals(expectedDescription, aCategory.getDescription());
         Assertions.assertEquals(isActive, aCategory.isActive());
-        Assertions.assertEquals(aCategory.getCreatedAt(), actualCategory.getCreatedAt());
-        Assertions.assertEquals(aCategory.getUpdatedAt(), actualCategory.getUpdatedAt());
-        Assertions.assertNull(actualCategory.getDeletedAt());
+        Assertions.assertEquals(aCategory.getCreatedAt(), actualCategory.createdAt());
+        Assertions.assertEquals(aCategory.getUpdatedAt(), actualCategory.UpdatedAt());
+        Assertions.assertNull(actualCategory.deletedAt());
 
         Assertions.assertEquals(CategoryOutput.from(aCategory), actualCategory);
     }
 
     @Test
-    public void givenAInvalidId_whenCallsGetCategory_shouldReturnNotFound() {
+    public void Teste() {
+    }
+
+    @Test
+    public void GivenAInvalidId_whenCallsGetCategory_shouldReturnNotFound() {
         final var expectedId = CategoryId.from("123");
-        final var expectedErrorMessage = "";
+        final var expectedErrorMessage = "Category with ID 123 was not found";
 
         when(gateway.findById(eq(expectedId)))
                 .thenReturn(Optional.empty());
 
         final var actualException = Assertions.assertThrows(DomainException.class,
-                () -> useCase.execute(expectedId.getValue());
+                () -> useCase.execute(expectedId.getValue()));
 
         Assertions.assertEquals(expectedErrorMessage, actualException.getMessage());
 
     }
 
     @Test
-    public void givenAValidId_whenGatewayThrowsException_shouldReturnException() {
+    public void GivenAValidId_whenGatewayThrowsException_shouldReturnException() {
         final var expectedId = CategoryId.from("123");
         final var expectedErrorMessage = "Gateway Error";
 
@@ -83,7 +87,7 @@ public class GetCategoryByIdUseCaseTest {
                 .thenThrow(new IllegalStateException(expectedErrorMessage));
 
         final var actualException = Assertions.assertThrows(IllegalStateException.class,
-                () -> useCase.execute(expectedId.getValue());
+                () -> useCase.execute(expectedId.getValue()));
 
         Assertions.assertEquals(expectedErrorMessage, actualException.getMessage());
     }
