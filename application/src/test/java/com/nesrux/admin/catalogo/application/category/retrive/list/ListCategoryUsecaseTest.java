@@ -47,16 +47,16 @@ public class ListCategoryUsecaseTest {
 
 
         final var expectedItemsCount = 2;
-        final var expectedResult = expectedPagination.map(CategoryListOutPut::from);
+        final var expectedResult = expectedPagination.map(CategoryListOutput::from);
 
         when(categoryGateway.findAll(eq(aQuery))).thenReturn(expectedPagination);
 
         final var actualResult = useCase.execute(aQuery);
 
-        Assertions.assertEquals(expectedItemsCount, actualResult.items.size());
+        Assertions.assertEquals(expectedItemsCount, actualResult.itens().size());
         Assertions.assertEquals(expectedResult, actualResult);
         Assertions.assertEquals(expectedperPage, actualResult.perPage());
-        Assertions.assertEquals(expectedPage, actualResult.page());
+        Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(categories.size(), actualResult.total());
 
     }
