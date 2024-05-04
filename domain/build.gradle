@@ -3,6 +3,8 @@ plugins {
 }
 
 group = 'com.nesrux.admin.catalogo.domain'
+version '1.0-SNAPSHOT'
+
 
 repositories {
     mavenCentral()

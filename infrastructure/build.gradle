@@ -5,8 +5,14 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
-group 'com.fullcycle.admin.catalogo.infrastructure'
+group = 'com.nesrux.admin.catalogo.infrastructure'
 version '1.0-SNAPSHOT'
+
+bootJar {
+    archiveName 'application.jar'
+    destinationDirectory.set(file("${rootProject.buildDir}/libs"))
+}
+
 
 repositories {
     mavenCentral()
