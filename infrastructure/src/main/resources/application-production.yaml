@@ -1,0 +1,7 @@
+mysql:
+  username: ${DATABASE_MYSQL_USERNAME:root}
+  password: ${DATABASE_MYSQL_PASSWORD:123456}
+  schema: adm_videos
+  url: ${DATABASE_MYSQL_URL:locahost:3306}
+
+#twelve FACtors ou os 12 fatores
