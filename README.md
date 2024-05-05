@@ -20,7 +20,7 @@
 
 1. Clonar o repositório:
 ```sh
-git clone https://github.com/codeedu/micro-admin-videos-java.git
+git clone git@github.com:Nesrux/admin-do-catalogo.git
 ```
 
 2. Subir o banco de dados MySQL com Docker:
