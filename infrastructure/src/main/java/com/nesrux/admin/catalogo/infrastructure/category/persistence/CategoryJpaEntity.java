@@ -30,7 +30,7 @@ public class CategoryJpaEntity {
     @Column(name = "updated_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant updatedAt;
 
-    @Column(name = "deleted_at", nullable = false, columnDefinition = "DATETIME(6)")
+    @Column(name = "deleted_at",  columnDefinition = "DATETIME(6)")
     private Instant deletedAt;
 
     private CategoryJpaEntity(final String id,
