@@ -38,8 +38,26 @@ public class Category extends AggregateRoot<CategoryId> implements Cloneable {
         return new Category(id, Aname, aDesciption, isActive, now, now, deletedAt);
     }
 
+    /*também tem o with sem usar o clone, que é instanciado na mão*/
     public static Category with(final Category category) {
         return category.clone();
+    }
+
+    public static Category with(final CategoryId anId,
+                                final String name,
+                                final String description,
+                                final boolean isActive,
+                                final Instant createdAt,
+                                final Instant updatedAt,
+                                final Instant deletedAt) {
+        return new Category(
+                anId,
+                name,
+                description,
+                isActive,
+                createdAt,
+                updatedAt,
+                deletedAt);
     }
 
     public Category activate() {
