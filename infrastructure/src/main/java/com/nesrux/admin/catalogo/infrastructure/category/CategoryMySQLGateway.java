@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class CategoryMySqlGateway implements CategoryGateway {
+public class CategoryMySQLGateway implements CategoryGateway {
     private final CategoryRepository categoryRepository;
 
-    public CategoryMySqlGateway(CategoryRepository categoryRepository) {
+    public CategoryMySQLGateway(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
