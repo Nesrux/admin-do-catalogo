@@ -13,20 +13,20 @@ import java.util.Optional;
 
 @Service
 public class CategoryMySQLGateway implements CategoryGateway {
-    private final CategoryRepository categoryRepository;
+    private final CategoryRepository repository;
 
     public CategoryMySQLGateway(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+        this.repository = categoryRepository;
     }
 
     @Override
     public Category create(final Category aCategory) {
-        return this.categoryRepository.save(CategoryJpaEntity.from(aCategory)).toAggregate();
+        return save(aCategory);
     }
 
     @Override
-    public Category update(Category aCategory) {
-        return null;
+    public Category update(final Category aCategory) {
+        return save(aCategory);
     }
 
     @Override
@@ -42,5 +42,9 @@ public class CategoryMySQLGateway implements CategoryGateway {
     @Override
     public Pagination<Category> findAll(CategorySearchQuery aQuery) {
         return null;
+    }
+
+    private Category save(final Category aCategory) {
+        return this.repository.save(CategoryJpaEntity.from(aCategory)).toAggregate();
     }
 }
