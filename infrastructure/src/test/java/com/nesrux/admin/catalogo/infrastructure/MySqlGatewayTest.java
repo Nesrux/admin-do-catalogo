@@ -10,7 +10,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.lang.annotation.*;
 import java.util.Collection;
+
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
 
 @ActiveProfiles("test")
 @DataJpaTest
@@ -21,7 +26,7 @@ import java.util.Collection;
 public @interface MySqlGatewayTest {
 
 
-     class CleanUpExtensions implements BeforeEachCallback {
+    class CleanUpExtensions implements BeforeEachCallback {
         @Override
         public void beforeEach(final ExtensionContext context) {
             final var repositories = SpringExtension
