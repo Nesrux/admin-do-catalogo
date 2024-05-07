@@ -4,6 +4,7 @@ import com.nesrux.admin.catalogo.domain.AggregateRoot;
 import com.nesrux.admin.catalogo.domain.validation.ValidationHandler;
 
 import java.time.Instant;
+import java.util.Objects;
 
 public class Category extends AggregateRoot<CategoryId> implements Cloneable {
 
@@ -25,8 +26,8 @@ public class Category extends AggregateRoot<CategoryId> implements Cloneable {
         this.name = aName;
         this.description = aDescription;
         this.active = isActive;
-        this.createdAt = aCreationDate;
-        this.updatedAt = aUpdateDate;
+        this.createdAt = Objects.requireNonNull(aCreationDate, "'createdAt' should not be null");
+        this.updatedAt = Objects.requireNonNull(aCreationDate, "'updatedAt' should not be null");
         this.deletedAt = aDeleteDate;
 
     }
