@@ -1,6 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.category;
 
 import com.nesrux.admin.catalogo.domain.category.Category;
+import com.nesrux.admin.catalogo.domain.category.CategoryId;
 import com.nesrux.admin.catalogo.infrastructure.MySqlGatewayTest;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
@@ -99,4 +100,24 @@ public class CategoryMySqlGatewayTest {
         Assertions.assertNull(actualEntity.getDeletedAt());
     }
 
+    @Test
+    public void givenAprePersistedCategoryAndValidCategoryId_whenTrytodeleteIt_shouldDeleteCategory() {
+        final var aCategory = Category.newCategory("filmes", "só os filé", true);
+
+        Assertions.assertEquals(0, categoryRepository.count());
+
+        categoryRepository.saveAndFlush(CategoryJpaEntity.from(aCategory));
+        Assertions.assertEquals(1, categoryRepository.count());
+
+        categoryGateway.deleteById(aCategory.getId());
+        Assertions.assertEquals(0, categoryRepository.count());
+    }
+
+    @Test
+    public void givenInvalidCategoryId_whenTryDeleteIt_shouldDeleteCategory() {
+        Assertions.assertEquals(0, categoryRepository.count());
+
+        categoryGateway.deleteById(CategoryId.from("123456"));
+
+    }
 }
