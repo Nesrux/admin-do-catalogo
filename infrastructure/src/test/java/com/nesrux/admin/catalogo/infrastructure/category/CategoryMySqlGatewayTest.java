@@ -266,15 +266,15 @@ public class CategoryMySqlGatewayTest {
     }
 
     @Test
-    public void givenPrePersistedCategoriesAndMaisAssistidasAsTerms_whenCallsFindAllAndTermsMachsCategoryDescription_shouldReturnPAged() {
+    public void givenPrePersistedCategoriesAndMaisAssistidaAsTerms_whenCallsFindAllAndTermsMatchsCategoryDescription_shouldReturnPaginated() {
         final var expectedPage = 0;
         final var expectedPerPage = 1;
         final var expectedTotal = 1;
 
 
         final var filmes = Category.newCategory("Filmes", "A categoria mais assistida", true);
-        final var series = Category.newCategory("Séries", "Só os filés", true);
-        final var documentarios = Category.newCategory("Documentarios", "Uma categoria assitida", false);
+        final var series = Category.newCategory("Séries", "Uma categoria assistida", true);
+        final var documentarios = Category.newCategory("Documentários", "A categoria menos assistida", true);
 
         Assertions.assertEquals(0, categoryRepository.count());
 
@@ -286,14 +286,14 @@ public class CategoryMySqlGatewayTest {
 
         Assertions.assertEquals(3, categoryRepository.count());
 
-        final var query = new CategorySearchQuery(0, 1, "mais assistida", "name", "asc");
+        final var query = new CategorySearchQuery(0, 1, "MAIS ASSISTIDA", "name", "asc");
         final var actualResult = categoryGateway.findAll(query);
 
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(expectedTotal, actualResult.total());
+        Assertions.assertEquals(expectedPerPage, actualResult.itens().size());
         Assertions.assertEquals(filmes.getId(), actualResult.itens().get(0).getId());
-
     }
 }
 
