@@ -60,9 +60,9 @@ public class CategoryMySQLGateway implements CategoryGateway {
         );
 
         final var where = Optional.ofNullable(aQuery.terms())
-                .filter(String::isBlank)
-                .map(str -> SpecificationUtils
-                        .<CategoryJpaEntity>like("name", str)
+                .filter(str -> !str.isBlank())
+                .map(str ->
+                        SpecificationUtils.<CategoryJpaEntity>like("name", str)
                         .or(like("description", str)))
                 .orElse(null);
 
