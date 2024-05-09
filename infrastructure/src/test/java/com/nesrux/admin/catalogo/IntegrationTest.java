@@ -13,9 +13,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-
 @ActiveProfiles("test")
-@DataJpaTest
 @SpringBootTest(classes = {WebServerConfig.class})
 @ExtendWith(CleanUpExtension.class)
 public @interface IntegrationTest {
