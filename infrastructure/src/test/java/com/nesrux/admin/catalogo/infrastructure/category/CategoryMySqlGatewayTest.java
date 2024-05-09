@@ -3,7 +3,7 @@ package com.nesrux.admin.catalogo.infrastructure.category;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryId;
 import com.nesrux.admin.catalogo.domain.category.CategorySearchQuery;
-import com.nesrux.admin.catalogo.infrastructure.MySqlGatewayTest;
+import com.nesrux.admin.catalogo.MySqlGatewayTest;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.Assertions;
