@@ -21,13 +21,14 @@ public class CreateCategoryUseCaseTestIT {
         final var expectedDescription = "A categoria mais assitida";
         final var expectedIsActive = true;
 
-        final var aCommand = CreateCategoryCommand.with(expectedName, expectedDescription, expectedIsActive);
+        Assertions.assertEquals(0, categoryRepository.count());
 
+        final var aCommand = CreateCategoryCommand.with(expectedName, expectedDescription, expectedIsActive);
         final var actualOutput = useCase.execute(aCommand).get();
-        //final var actualOutput = useCase.execute(aCommand).get();
 
         Assertions.assertNotNull(actualOutput);
         Assertions.assertNotNull(actualOutput.id());
+        Assertions.assertEquals(1, categoryRepository.count());
 
         final var actualCategory =
                 categoryRepository.findById(actualOutput.id().getValue()).get();
@@ -38,7 +39,5 @@ public class CreateCategoryUseCaseTestIT {
         Assertions.assertNotNull(actualCategory.getCreatedAt());
         Assertions.assertNotNull(actualCategory.getUpdatedAt());
         Assertions.assertNull(actualCategory.getDeletedAt());
-
-
     }
 }
