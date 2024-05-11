@@ -11,12 +11,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
 import static org.mockito.Mockito.*;
 
 @IntegrationTest
 public class UpdateCategoryUseCaseIT {
+
+//Por causa do Problema do H2 dataBase, eu tive que truncar os a Classe Instant até os milis secundos
 
     @Autowired
     private UpdateCategoryUseCase useCase;
@@ -59,7 +62,8 @@ public class UpdateCategoryUseCaseIT {
         Assertions.assertEquals(expectedName, actualCategory.getName());
         Assertions.assertEquals(expectedDescription, actualCategory.getDescription());
         Assertions.assertEquals(expectedIsActive, actualCategory.isActive());
-        Assertions.assertEquals(aCategory.getCreatedAt(), actualCategory.getCreatedAt());
+        Assertions.assertEquals(aCategory.getCreatedAt().truncatedTo(ChronoUnit.MILLIS),
+                actualCategory.getCreatedAt().truncatedTo(ChronoUnit.MILLIS));
         Assertions.assertTrue(aCategory.getUpdatedAt().isBefore(actualCategory.getUpdatedAt()));
         Assertions.assertNull(actualCategory.getDeletedAt());
     }
@@ -123,7 +127,8 @@ public class UpdateCategoryUseCaseIT {
         Assertions.assertEquals(expectedName, actualCategory.getName());
         Assertions.assertEquals(expectedDescription, actualCategory.getDescription());
         Assertions.assertEquals(expectedIsActive, actualCategory.isActive());
-        Assertions.assertEquals(aCategory.getCreatedAt(), actualCategory.getCreatedAt());
+        Assertions.assertEquals(aCategory.getCreatedAt().truncatedTo(ChronoUnit.MILLIS),
+                actualCategory.getCreatedAt().truncatedTo(ChronoUnit.MILLIS));
         Assertions.assertTrue(aCategory.getUpdatedAt().isBefore(actualCategory.getUpdatedAt()));
         Assertions.assertNotNull(actualCategory.getDeletedAt());
     }
@@ -163,8 +168,13 @@ public class UpdateCategoryUseCaseIT {
         Assertions.assertEquals(aCategory.getName(), actualCategory.getName());
         Assertions.assertEquals(aCategory.getDescription(), actualCategory.getDescription());
         Assertions.assertEquals(aCategory.isActive(), actualCategory.isActive());
-        Assertions.assertEquals(aCategory.getCreatedAt(), actualCategory.getCreatedAt());
-        Assertions.assertEquals(aCategory.getUpdatedAt(), actualCategory.getUpdatedAt());
+
+        //Por causa do problema ocm H2 é necessario truncar para milisecundos
+        Assertions.assertEquals(aCategory.getCreatedAt().truncatedTo(ChronoUnit.MILLIS),
+                actualCategory.getCreatedAt().truncatedTo(ChronoUnit.MILLIS));
+        Assertions.assertEquals(aCategory.getUpdatedAt().truncatedTo(ChronoUnit.MILLIS),
+                actualCategory.getUpdatedAt().truncatedTo(ChronoUnit.MILLIS));
+
         Assertions.assertEquals(aCategory.getDeletedAt(), actualCategory.getDeletedAt());
     }
 

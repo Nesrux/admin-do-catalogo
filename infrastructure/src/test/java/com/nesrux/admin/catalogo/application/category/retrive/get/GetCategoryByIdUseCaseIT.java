@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
 import static org.mockito.Mockito.doThrow;
@@ -48,8 +49,11 @@ public class GetCategoryByIdUseCaseIT {
         Assertions.assertEquals(expectedIsActive, actualCategory.isActive());
         Assertions.assertEquals(aCategory.getDeletedAt(), actualCategory.deletedAt());
 
-        Assertions.assertEquals(aCategory.getCreatedAt(), actualCategory.createdAt());
-        Assertions.assertEquals(aCategory.getUpdatedAt(), actualCategory.UpdatedAt());
+        /*Por causa do problema com o H2  necessario truncar o tempo, pois ele não consegue chegar em nano segundso*/
+        Assertions.assertEquals(aCategory.getCreatedAt().truncatedTo(ChronoUnit.MILLIS),
+                actualCategory.createdAt().truncatedTo(ChronoUnit.MILLIS));
+        Assertions.assertEquals(aCategory.getUpdatedAt().truncatedTo(ChronoUnit.MILLIS),
+                actualCategory.UpdatedAt().truncatedTo(ChronoUnit.MILLIS));
     }
 
     @Test
