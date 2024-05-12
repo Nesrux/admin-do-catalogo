@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RequestMapping(value = "categories")
 @Tag(name = "Categories")
-public interface CategoryApi {
+public interface CategoryAPI {
 
     @PostMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
