@@ -3,6 +3,7 @@ package com.nesrux.admin.catalogo.infrastructure.api.controllers;
 import com.nesrux.admin.catalogo.application.category.create.CreateCategoryUseCase;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.infrastructure.api.CategoryAPI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,6 +11,7 @@ import java.util.Objects;
 
 @RestController
 public class CategoryController implements CategoryAPI {
+    @Autowired
     private final CreateCategoryUseCase createUseCase;
 
     public CategoryController(CreateCategoryUseCase createUseCase) {

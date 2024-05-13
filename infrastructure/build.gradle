@@ -36,14 +36,15 @@ dependencies {
     implementation('mysql:mysql-connector-java')
     implementation('com.h2database:h2')
 
+
+    implementation('org.springdoc:springdoc-openapi-webmvc-core:1.6.8')
+    implementation('org.springdoc:springdoc-openapi-ui:1.6.8')
+
     implementation('org.springframework.boot:spring-boot-starter-web') {
         exclude module: 'spring-boot-starter-tomcat'
     }
     implementation('org.springframework.boot:spring-boot-starter-undertow')
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-
-    implementation('org.springdoc:springdoc-openapi-webmvc-core:1.6.8')
-    implementation('org.springdoc:springdoc-openapi-ui:1.6.8')
 
     testImplementation('org.flywaydb:flyway-core')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
@@ -60,5 +61,4 @@ flyway {
 test {
     useJUnitPlatform()
 }
-group = 'com.nesrux.admin.catalogo.infrastructure'
-version '1.0-SNAPSHOT'
+
