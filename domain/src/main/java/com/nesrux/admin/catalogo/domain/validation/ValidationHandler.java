@@ -9,15 +9,15 @@ public interface ValidationHandler {
 
     ValidationHandler validate(Validation aValidation);
 
-    List<Error> getErros();
+    List<Error> getErrors();
 
     default boolean hasError() {
-        return getErros() != null && !getErros().isEmpty();
+        return getErrors() != null && !getErrors().isEmpty();
     }
 
     default Error firstError() {
         if (hasError()) {
-            return getErros().get(0);
+            return getErrors().get(0);
         } else return null;
     }
 

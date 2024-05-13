@@ -9,11 +9,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 
-import java.util.Objects;
-
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.*;
 
 @IntegrationTest
 public class CreateCategoryUseCaseTestIT {
@@ -70,7 +66,7 @@ public class CreateCategoryUseCaseTestIT {
 
 
         Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());
-        Assertions.assertEquals(expectedErrorCount, notification.getErros().size());
+        Assertions.assertEquals(expectedErrorCount, notification.getErrors().size());
         Assertions.assertEquals(0, categoryRepository.count());
 
         Mockito.verify(categoryGateway, Mockito.times(0)).create(Mockito.any());
@@ -117,7 +113,7 @@ public class CreateCategoryUseCaseTestIT {
         final var notification = useCase.execute(aCommand).getLeft();
 
         Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());
-        Assertions.assertEquals(expectedErrorCount, notification.getErros().size());
+        Assertions.assertEquals(expectedErrorCount, notification.getErrors().size());
 
     }
 

@@ -34,7 +34,7 @@ public class Notification implements ValidationHandler {
 
     @Override
     public Notification append(final ValidationHandler anHandler) {
-        this.errors.addAll(anHandler.getErros());
+        this.errors.addAll(anHandler.getErrors());
         return this;
     }
 
@@ -51,8 +51,7 @@ public class Notification implements ValidationHandler {
         return this;
     }
 
-    @Override
-    public List<Error> getErros() {
+    public List<Error> getErrors() {
         return this.errors;
     }
 }

@@ -98,7 +98,7 @@ public class UpdateCategoryUsecaseTest {
 
         final var notification = useCase.execute(aCommand).getLeft();
 
-        Assertions.assertEquals(expectedErrorCount, notification.getErros().size());
+        Assertions.assertEquals(expectedErrorCount, notification.getErrors().size());
         Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());
 
         Mockito.verify(categoryGateway, times(0)).update(any());
@@ -182,7 +182,7 @@ public class UpdateCategoryUsecaseTest {
 
 
         Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());
-        Assertions.assertEquals(expectedErrorCount, notification.getErros().size());
+        Assertions.assertEquals(expectedErrorCount, notification.getErrors().size());
 
 
         Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());

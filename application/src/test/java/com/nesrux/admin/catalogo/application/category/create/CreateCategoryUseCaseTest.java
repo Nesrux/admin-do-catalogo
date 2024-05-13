@@ -73,7 +73,7 @@ public class CreateCategoryUseCaseTest {
 
 
         Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());
-        Assertions.assertEquals(expectedErrorCount, notification.getErros().size());
+        Assertions.assertEquals(expectedErrorCount, notification.getErrors().size());
 
         verify(categoryGateway,
                 times(0))
@@ -127,7 +127,7 @@ public class CreateCategoryUseCaseTest {
         final var notification = useCase.execute(aCommand).getLeft();
 
         Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());
-        Assertions.assertEquals(expectedErrorCount, notification.getErros().size());
+        Assertions.assertEquals(expectedErrorCount, notification.getErrors().size());
 
         verify(categoryGateway, times(1)).create(argThat(aCategory ->
                 Objects.equals(expectedName, aCategory.getName()) &&
