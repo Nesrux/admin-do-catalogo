@@ -3,11 +3,13 @@ package com.nesrux.admin.catalogo.infrastructure.api.controllers;
 import com.nesrux.admin.catalogo.application.category.create.CreateCategoryCommand;
 import com.nesrux.admin.catalogo.application.category.create.CreateCategoryOutput;
 import com.nesrux.admin.catalogo.application.category.create.CreateCategoryUseCase;
+import com.nesrux.admin.catalogo.application.category.retrive.get.GetCategoryByIdUseCase;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
 import com.nesrux.admin.catalogo.infrastructure.api.CategoryAPI;
+import com.nesrux.admin.catalogo.infrastructure.category.models.CategoryApiOutput;
 import com.nesrux.admin.catalogo.infrastructure.category.models.CreateCategoryApiInput;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.nesrux.admin.catalogo.infrastructure.category.presenters.CategoryApiPresenter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,11 +19,15 @@ import java.util.function.Function;
 
 @RestController
 public class CategoryController implements CategoryAPI {
-    @Autowired
-    private final CreateCategoryUseCase createUseCase;
 
-    public CategoryController(CreateCategoryUseCase createUseCase) {
-        Objects.requireNonNull(this.createUseCase = createUseCase);
+    private final CreateCategoryUseCase createUseCase;
+    private final GetCategoryByIdUseCase getCategoryByIdUseCase;
+
+    public CategoryController(final CreateCategoryUseCase createUseCase,
+                              final GetCategoryByIdUseCase getCategoryByIdUseCase) {
+
+        this.getCategoryByIdUseCase = Objects.requireNonNull(getCategoryByIdUseCase);
+        this.createUseCase = Objects.requireNonNull(createUseCase);
     }
 
     @Override
@@ -43,5 +49,10 @@ public class CategoryController implements CategoryAPI {
     @Override
     public Pagination<?> listCategories(String search, int page, int perPage, String sort, String dir) {
         return null;
+    }
+
+    @Override
+    public CategoryApiOutput getById(String id) {
+        return CategoryApiOutput.from(this.getCategoryByIdUseCase.execute(id));
     }
 }
