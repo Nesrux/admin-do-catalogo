@@ -215,6 +215,7 @@ public class CategoryAPITest {
                 .andExpect(jsonPath("$.message", equalTo(expectedErrorMessage)));
     }
 
+    @Test
     public void givenAValidCommand_whenCallsUpdateCategory_shouldReturnCategoryId() throws Exception {
         //given
         final var expectedId = "123";
@@ -237,7 +238,8 @@ public class CategoryAPITest {
 
 
         //then
-        response.andExpect(status().isNoContent())
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", equalTo(expectedId)))
                 .andExpect(header().string("Content-type", MediaType.APPLICATION_JSON_VALUE));
 
         verify(updateCategoryUseCase, times(1)).execute(argThat(cmd ->
@@ -245,5 +247,42 @@ public class CategoryAPITest {
                         && Objects.equals(expectedDescription, cmd.description())
                         && Objects.equals(expectedIsActive, cmd.isActive())));
 
+    }
+
+    @Test
+    public void givenACommandWithInvalidID_whenCallsUpdateCategory_shouldReturnNotFoundException() throws Exception {
+        // given
+        final var expectedId = "not-found";
+        final var expectedName = "Filmes";
+        final var expectedDescription = "A categoria mais assistida";
+        final var expectedIsActive = true;
+
+        final var expectedErrorMessage = "Category with ID not-found was not found";
+
+        when(updateCategoryUseCase.execute(any()))
+                .thenThrow(NotFoundException.with(Category.class, CategoryId.from(expectedId)));
+
+        final var aCommand =
+                new UpdateCategoryApiOutput(expectedName, expectedDescription, expectedIsActive);
+
+        // when
+        final var request = put("/categories/{id}", expectedId)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(aCommand));
+
+        final var response = this.mvc.perform(request)
+                .andDo(print());
+
+        // then
+        response.andExpect(status().isNotFound())
+                .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.message", equalTo(expectedErrorMessage)));
+
+        verify(updateCategoryUseCase, times(1)).execute(argThat(cmd ->
+                Objects.equals(expectedName, cmd.name())
+                        && Objects.equals(expectedDescription, cmd.description())
+                        && Objects.equals(expectedIsActive, cmd.isActive())
+        ));
     }
 }
