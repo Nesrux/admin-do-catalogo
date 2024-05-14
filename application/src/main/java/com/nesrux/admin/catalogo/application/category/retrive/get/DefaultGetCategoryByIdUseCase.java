@@ -1,9 +1,9 @@
 package com.nesrux.admin.catalogo.application.category.retrive.get;
 
+import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
 import com.nesrux.admin.catalogo.domain.category.CategoryId;
-import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
-import com.nesrux.admin.catalogo.domain.validation.Error;
+import com.nesrux.admin.catalogo.domain.exceptions.NotFoundException;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -23,9 +23,8 @@ public class DefaultGetCategoryByIdUseCase extends GetCategoryByIdUseCase {
                 .orElseThrow(notFound(aCategoryId));
     }
 
-    private Supplier<DomainException> notFound(final CategoryId anId) {
-        return () -> DomainException.with(
-                new Error("Category with ID %s was not found".formatted(anId.getValue())));
+    private Supplier<NotFoundException> notFound(final CategoryId anId) {
+        return () -> NotFoundException.with(Category.class, anId);
     }
 
 }

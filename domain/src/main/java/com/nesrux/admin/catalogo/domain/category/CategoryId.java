@@ -12,6 +12,7 @@ public class CategoryId extends Identifier {
         this.value = value;
     }
 
+    @Override
     public String getValue() {
         return value;
     }

@@ -9,6 +9,7 @@ import com.nesrux.admin.catalogo.application.category.retrive.get.GetCategoryByI
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryId;
 import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
+import com.nesrux.admin.catalogo.domain.exceptions.NotFoundException;
 import com.nesrux.admin.catalogo.domain.validation.Error;
 import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
 import com.nesrux.admin.catalogo.infrastructure.category.models.CreateCategoryApiInput;
@@ -194,7 +195,7 @@ public class CategoryAPITest {
         final var expectedId = CategoryId.from("123");
 
         when(getCategoryByIdUseCase.execute(any()))
-                .thenThrow(DomainException.with(new Error("Category with ID %s was not found".formatted(expectedId.getValue()))));
+                .thenThrow(NotFoundException.with(Category.class, expectedId));
 
         // when
         final var request = get("/categories/%s".formatted(expectedId.getValue()))
