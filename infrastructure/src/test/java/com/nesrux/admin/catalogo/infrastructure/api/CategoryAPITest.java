@@ -161,13 +161,16 @@ public class CategoryAPITest {
 
         final var aCategory =
                 Category.newCategory(expectedName, expectedDescription, expectedIsActive);
+
         final var expectedId = aCategory.getId();
 
         when(getCategoryByIdUseCase.execute(any()))
                 .thenReturn(CategoryOutput.from(aCategory));
 
         //when
-        final var request = get("/categories/{}", expectedId.getValue());
+        final var request = get("/categories/%s".formatted(expectedId.getValue()))
+                .contentType(MediaType.APPLICATION_JSON);
+
         final var response = this.mvc.perform(request).andDo(print());
 
 
@@ -178,7 +181,7 @@ public class CategoryAPITest {
                 .andExpect(jsonPath("$.description", equalTo(aCategory.getDescription())))
                 .andExpect(jsonPath("$.created_at", equalTo(aCategory.getCreatedAt().toString())))
                 .andExpect(jsonPath("$.updated_at", equalTo(aCategory.getUpdatedAt().toString())))
-                .andExpect(jsonPath("$.deleted_at", equalTo(aCategory.getDeletedAt().toString())));
+                .andExpect(jsonPath("$.deleted_at", equalTo(aCategory.getDeletedAt())));
 
         verify(getCategoryByIdUseCase, times(1)).execute(expectedId.getValue());
 
@@ -186,21 +189,23 @@ public class CategoryAPITest {
 
     @Test
     public void givenAInvalidId_whenCallsGetCategory_shouldReturnNotFund() throws Exception {
-        //given
+        // given
         final var expectedErrorMessage = "Category with ID 123 was not found";
         final var expectedId = CategoryId.from("123");
 
+        when(getCategoryByIdUseCase.execute(any()))
+                .thenThrow(DomainException.with(new Error("Category with ID %s was not found".formatted(expectedId.getValue()))));
 
-        //when
-        final var request =
-                get("/categories/{}", expectedId.getValue());
+        // when
+        final var request = get("/categories/%s".formatted(expectedId.getValue()))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
 
-        final var response =
-                this.mvc.perform(request).andDo(print());
+        final var response = this.mvc.perform(request)
+                .andDo(print());
 
-        //then
+        // then
         response.andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message", equalTo(expectedErrorMessage)));
-
     }
 }
