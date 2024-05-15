@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nesrux.admin.catalogo.ControllerTest;
 import com.nesrux.admin.catalogo.application.category.create.CreateCategoryOutput;
 import com.nesrux.admin.catalogo.application.category.create.CreateCategoryUseCase;
+import com.nesrux.admin.catalogo.application.category.delete.DeleteCategoryUseCase;
 import com.nesrux.admin.catalogo.application.category.retrive.get.CategoryOutput;
 import com.nesrux.admin.catalogo.application.category.retrive.get.GetCategoryByIdUseCase;
 import com.nesrux.admin.catalogo.application.category.update.UpdateCategoryOutput;
@@ -50,6 +51,9 @@ public class CategoryAPITest {
 
     @MockBean
     private UpdateCategoryUseCase updateCategoryUseCase;
+
+    @MockBean
+    private DeleteCategoryUseCase deleteCategoryUseCase;
 
     @Test
     public void givenAValidCommand_WhenCallsCreateCAtegory_ShouldReturnCategoryID() throws Exception {
@@ -284,5 +288,27 @@ public class CategoryAPITest {
                         && Objects.equals(expectedDescription, cmd.description())
                         && Objects.equals(expectedIsActive, cmd.isActive())
         ));
+    }
+
+    @Test
+    public void givenAValidId_whenCallsDeleteCategory_shouldReturnNoContent() throws Exception {
+        // given
+        final var expectedId = "123";
+
+        doNothing()
+                .when(deleteCategoryUseCase).execute(any());
+
+        // when
+        final var request = delete("/categories/{id}", expectedId)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        final var response = this.mvc.perform(request)
+                .andDo(print());
+
+        // then
+        response.andExpect(status().isNoContent());
+
+        verify(deleteCategoryUseCase, times(1)).execute(eq(expectedId));
     }
 }
