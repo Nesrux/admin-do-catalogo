@@ -53,7 +53,7 @@ public class ListCategoryUsecaseTest {
 
         final var actualResult = useCase.execute(aQuery);
 
-        Assertions.assertEquals(expectedItemsCount, actualResult.itens().size());
+        Assertions.assertEquals(expectedItemsCount, actualResult.items().size());
         Assertions.assertEquals(expectedResult, actualResult);
         Assertions.assertEquals(expectedperPage, actualResult.perPage());
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
@@ -82,7 +82,7 @@ public class ListCategoryUsecaseTest {
 
         final var actualResult = useCase.execute(aQuery);
 
-        Assertions.assertEquals(expectedItemsCount, actualResult.itens().size());
+        Assertions.assertEquals(expectedItemsCount, actualResult.items().size());
         Assertions.assertEquals(expectedResult, actualResult);
         Assertions.assertEquals(expectedperPage, actualResult.perPage());
         Assertions.assertEquals(expectedPage, actualResult.currentPage());

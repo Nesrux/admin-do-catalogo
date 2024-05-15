@@ -55,7 +55,7 @@ public class ListCategoriesUseCaseIT {
 
         final var actualResult = useCase.execute(aQuery);
 
-        Assertions.assertEquals(expectedItemsCount, actualResult.itens().size());
+        Assertions.assertEquals(expectedItemsCount, actualResult.items().size());
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(expectedTotal, actualResult.total());
@@ -86,11 +86,11 @@ public class ListCategoriesUseCaseIT {
 
         final var actualResult = useCase.execute(aQuery);
 
-        Assertions.assertEquals(expectedItemsCount, actualResult.itens().size());
+        Assertions.assertEquals(expectedItemsCount, actualResult.items().size());
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(expectedTotal, actualResult.total());
-        Assertions.assertEquals(expectedCategoryName, actualResult.itens().get(0).name());
+        Assertions.assertEquals(expectedCategoryName, actualResult.items().get(0).name());
     }
 
     @ParameterizedTest
@@ -116,11 +116,11 @@ public class ListCategoriesUseCaseIT {
 
         final var actualResult = useCase.execute(aQuery);
 
-        Assertions.assertEquals(expectedItemsCount, actualResult.itens().size());
+        Assertions.assertEquals(expectedItemsCount, actualResult.items().size());
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(expectedTotal, actualResult.total());
-        Assertions.assertEquals(expectedCategoryName, actualResult.itens().get(0).name());
+        Assertions.assertEquals(expectedCategoryName, actualResult.items().get(0).name());
     }
 
     @ParameterizedTest
@@ -146,14 +146,14 @@ public class ListCategoriesUseCaseIT {
 
         final var actualResult = useCase.execute(aQuery);
 
-        Assertions.assertEquals(expectedItemsCount, actualResult.itens().size());
+        Assertions.assertEquals(expectedItemsCount, actualResult.items().size());
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(expectedTotal, actualResult.total());
 
         int index = 0;
         for (final String expectedName : expectedCategoriesName.split(";")) {
-            final String actualName = actualResult.itens().get(index).name();
+            final String actualName = actualResult.items().get(index).name();
             Assertions.assertEquals(expectedName, actualName);
             index++;
         }
