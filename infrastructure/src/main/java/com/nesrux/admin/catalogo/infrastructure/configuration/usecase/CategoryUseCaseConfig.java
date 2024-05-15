@@ -7,7 +7,7 @@ import com.nesrux.admin.catalogo.application.category.delete.DeleteCategoryUseCa
 import com.nesrux.admin.catalogo.application.category.retrive.get.DefaultGetCategoryByIdUseCase;
 import com.nesrux.admin.catalogo.application.category.retrive.get.GetCategoryByIdUseCase;
 import com.nesrux.admin.catalogo.application.category.retrive.list.DefaultListCategoryUseCase;
-import com.nesrux.admin.catalogo.application.category.retrive.list.ListCategoriesUSeCase;
+import com.nesrux.admin.catalogo.application.category.retrive.list.ListCategoriesUseCase;
 import com.nesrux.admin.catalogo.application.category.update.DefaultUpdateCategoryUseCase;
 import com.nesrux.admin.catalogo.application.category.update.UpdateCategoryUseCase;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
@@ -44,7 +44,7 @@ public class CategoryUseCaseConfig {
     }
 
     @Bean
-    public ListCategoriesUSeCase listCategoriesUSeCase() {
+    public ListCategoriesUseCase listCategoriesUSeCase() {
         return new DefaultListCategoryUseCase(gateway);
     }
 }

@@ -6,7 +6,7 @@ import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 
 import java.util.Objects;
 
-public class DefaultListCategoryUseCase extends ListCategoriesUSeCase {
+public class DefaultListCategoryUseCase extends ListCategoriesUseCase {
     private final CategoryGateway categoryGateway;
 
     public DefaultListCategoryUseCase(CategoryGateway categoryGateway) {

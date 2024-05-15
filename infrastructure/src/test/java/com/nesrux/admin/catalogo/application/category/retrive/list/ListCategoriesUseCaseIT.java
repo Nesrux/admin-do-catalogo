@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 public class ListCategoriesUseCaseIT {
 
     @Autowired
-    private ListCategoriesUSeCase useCase;
+    private ListCategoriesUseCase useCase;
 
     @Autowired
     private CategoryRepository categoryRepository;
