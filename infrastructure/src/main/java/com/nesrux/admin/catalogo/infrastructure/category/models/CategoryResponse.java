@@ -5,7 +5,7 @@ import com.nesrux.admin.catalogo.application.category.retrive.get.CategoryOutput
 
 import java.time.Instant;
 
-public record CategoryApiOutput(
+public record CategoryResponse(
         @JsonProperty("id") String id,
         @JsonProperty("name") String name,
         @JsonProperty("description") String description,
@@ -15,8 +15,8 @@ public record CategoryApiOutput(
         @JsonProperty("deleted_at") Instant deletedAt
 ) {
 
-    public static CategoryApiOutput from(final CategoryOutput out) {
-        return new CategoryApiOutput(
+    public static CategoryResponse from(final CategoryOutput out) {
+        return new CategoryResponse(
                 out.id().getValue(),
                 out.name(),
                 out.description(),
