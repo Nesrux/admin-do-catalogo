@@ -160,7 +160,7 @@ public class CategoryMySqlGatewayTest {
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(expectedTotal, actualResult.total());
-        Assertions.assertEquals(documentarios.getId(), actualResult.itens().get(0).getId());
+        Assertions.assertEquals(documentarios.getId(), actualResult.items().get(0).getId());
 
     }
 
@@ -179,7 +179,7 @@ public class CategoryMySqlGatewayTest {
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(expectedTotal, actualResult.total());
-        // Assertions.assertEquals(documentarios.getId(), actualResult.itens().get(2).getId());
+        // Assertions.assertEquals(documentarios.getId(), actualResult.items().get(2).getId());
 
 
     }
@@ -210,8 +210,8 @@ public class CategoryMySqlGatewayTest {
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(expectedTotal, actualResult.total());
-        Assertions.assertEquals(expectedPerPage, actualResult.itens().size());
-        Assertions.assertEquals(documentarios.getId(), actualResult.itens().get(0).getId());
+        Assertions.assertEquals(expectedPerPage, actualResult.items().size());
+        Assertions.assertEquals(documentarios.getId(), actualResult.items().get(0).getId());
 
         // Page 1
         expectedPage = 1;
@@ -222,8 +222,8 @@ public class CategoryMySqlGatewayTest {
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(expectedTotal, actualResult.total());
-        Assertions.assertEquals(expectedPerPage, actualResult.itens().size());
-        Assertions.assertEquals(filmes.getId(), actualResult.itens().get(0).getId());
+        Assertions.assertEquals(expectedPerPage, actualResult.items().size());
+        Assertions.assertEquals(filmes.getId(), actualResult.items().get(0).getId());
 
         // Page 2
         expectedPage = 2;
@@ -234,8 +234,8 @@ public class CategoryMySqlGatewayTest {
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(expectedTotal, actualResult.total());
-        Assertions.assertEquals(expectedPerPage, actualResult.itens().size());
-        Assertions.assertEquals(series.getId(), actualResult.itens().get(0).getId());
+        Assertions.assertEquals(expectedPerPage, actualResult.items().size());
+        Assertions.assertEquals(series.getId(), actualResult.items().get(0).getId());
     }
 
     @Test
@@ -265,7 +265,7 @@ public class CategoryMySqlGatewayTest {
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(expectedTotal, actualResult.total());
-        Assertions.assertEquals(documentarios.getId(), actualResult.itens().get(0).getId());
+        Assertions.assertEquals(documentarios.getId(), actualResult.items().get(0).getId());
 
     }
 
@@ -296,8 +296,8 @@ public class CategoryMySqlGatewayTest {
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(expectedTotal, actualResult.total());
-        Assertions.assertEquals(expectedPerPage, actualResult.itens().size());
-        Assertions.assertEquals(filmes.getId(), actualResult.itens().get(0).getId());
+        Assertions.assertEquals(expectedPerPage, actualResult.items().size());
+        Assertions.assertEquals(filmes.getId(), actualResult.items().get(0).getId());
     }
 }
 

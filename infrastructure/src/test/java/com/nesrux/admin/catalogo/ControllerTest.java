@@ -1,5 +1,6 @@
 package com.nesrux.admin.catalogo;
 
+import com.nesrux.admin.catalogo.infrastructure.configuration.ObjectMapperConfig;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;

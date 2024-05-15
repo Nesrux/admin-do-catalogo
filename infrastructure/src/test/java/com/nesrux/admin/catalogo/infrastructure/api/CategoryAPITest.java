@@ -18,8 +18,8 @@ import com.nesrux.admin.catalogo.domain.exceptions.NotFoundException;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.domain.validation.Error;
 import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
-import com.nesrux.admin.catalogo.infrastructure.category.models.CreateCategoryApiInput;
-import com.nesrux.admin.catalogo.infrastructure.category.models.UpdateCategoryApiOutput;
+import com.nesrux.admin.catalogo.infrastructure.category.models.CreateCategoryRequest;
+import com.nesrux.admin.catalogo.infrastructure.category.models.UpdateCategoryRequest;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +69,7 @@ public class CategoryAPITest {
         final var expectedIsActive = true;
 
         final var aInput =
-                new CreateCategoryApiInput(expectedName, expectedDescription, expectedIsActive);
+                new CreateCategoryRequest(expectedName, expectedDescription, expectedIsActive);
 
         //when
         when(createCategoryUseCase.execute(any()))
@@ -106,7 +106,7 @@ public class CategoryAPITest {
         final var expectedMessage = "'name' should not be null";
 
         final var aInput =
-                new CreateCategoryApiInput(expectedName, expectedDescription, expectedIsActive);
+                new CreateCategoryRequest(expectedName, expectedDescription, expectedIsActive);
 
         //when
         when(createCategoryUseCase.execute(any()))
@@ -141,7 +141,7 @@ public class CategoryAPITest {
         final var expectedMessage = "'name' should not be null";
 
         final var aInput =
-                new CreateCategoryApiInput(expectedName, expectedDescription, expectedIsActive);
+                new CreateCategoryRequest(expectedName, expectedDescription, expectedIsActive);
 
         //when
         when(createCategoryUseCase.execute(any()))
@@ -237,7 +237,7 @@ public class CategoryAPITest {
         when(updateCategoryUseCase.execute(any()))
                 .thenReturn(Right(UpdateCategoryOutput.from(expectedId)));
 
-        final var aCommand = new UpdateCategoryApiOutput(expectedName, expectedDescription, expectedIsActive);
+        final var aCommand = new UpdateCategoryRequest(expectedName, expectedDescription, expectedIsActive);
 
         //when
         final var request = put("/categories/%s".formatted(expectedId))
@@ -273,7 +273,7 @@ public class CategoryAPITest {
                 .thenThrow(NotFoundException.with(Category.class, CategoryId.from(expectedId)));
 
         final var aCommand =
-                new UpdateCategoryApiOutput(expectedName, expectedDescription, expectedIsActive);
+                new UpdateCategoryRequest(expectedName, expectedDescription, expectedIsActive);
 
         // when
         final var request = put("/categories/{id}", expectedId)
