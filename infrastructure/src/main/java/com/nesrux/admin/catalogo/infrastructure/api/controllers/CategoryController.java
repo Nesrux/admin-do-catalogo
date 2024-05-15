@@ -13,6 +13,7 @@ import com.nesrux.admin.catalogo.domain.category.CategorySearchQuery;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
 import com.nesrux.admin.catalogo.infrastructure.api.CategoryAPI;
+import com.nesrux.admin.catalogo.infrastructure.category.models.CategoryListResponse;
 import com.nesrux.admin.catalogo.infrastructure.category.models.CategoryResponse;
 import com.nesrux.admin.catalogo.infrastructure.category.models.CreateCategoryRequest;
 import com.nesrux.admin.catalogo.infrastructure.category.models.UpdateCategoryRequest;
@@ -64,7 +65,7 @@ public class CategoryController implements CategoryAPI {
     }
 
     @Override
-    public Pagination<?> listCategories(
+    public Pagination<CategoryListResponse> listCategories(
             final String search,
             final int page,
             final int perPage,

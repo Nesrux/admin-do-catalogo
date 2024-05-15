@@ -1,6 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.api;
 
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
+import com.nesrux.admin.catalogo.infrastructure.category.models.CategoryListResponse;
 import com.nesrux.admin.catalogo.infrastructure.category.models.CategoryResponse;
 import com.nesrux.admin.catalogo.infrastructure.category.models.CreateCategoryRequest;
 import com.nesrux.admin.catalogo.infrastructure.category.models.UpdateCategoryRequest;
@@ -36,7 +37,7 @@ public interface CategoryAPI {
             @ApiResponse(responseCode = "422", description = "A invalid parameter was recived"),
             @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
     })
-    Pagination<?> listCategories(
+    Pagination<CategoryListResponse> listCategories(
             @RequestParam(name = "search", required = false, defaultValue = "") final String search,
             @RequestParam(name = "page", required = false, defaultValue = "0") final int page,
             @RequestParam(name = "perPage", required = false, defaultValue = "0") final int perPage,
