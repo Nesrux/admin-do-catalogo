@@ -3,6 +3,7 @@ package com.nesrux.admin.catalogo.infrastructure.api.controllers;
 import com.nesrux.admin.catalogo.application.category.create.CreateCategoryCommand;
 import com.nesrux.admin.catalogo.application.category.create.CreateCategoryOutput;
 import com.nesrux.admin.catalogo.application.category.create.CreateCategoryUseCase;
+import com.nesrux.admin.catalogo.application.category.delete.DeleteCategoryUseCase;
 import com.nesrux.admin.catalogo.application.category.retrive.get.GetCategoryByIdUseCase;
 import com.nesrux.admin.catalogo.application.category.update.UpdateCategoryCommand;
 import com.nesrux.admin.catalogo.application.category.update.UpdateCategoryOutput;
@@ -26,14 +27,17 @@ public class CategoryController implements CategoryAPI {
     private final CreateCategoryUseCase createUseCase;
     private final GetCategoryByIdUseCase getCategoryByIdUseCase;
     private final UpdateCategoryUseCase updateCategoryUseCase;
+    private final DeleteCategoryUseCase deleteCategoryUseCase;
 
     public CategoryController(final CreateCategoryUseCase createUseCase,
                               final GetCategoryByIdUseCase getCategoryByIdUseCase,
-                              final UpdateCategoryUseCase updateCategoryUseCase) {
+                              final UpdateCategoryUseCase updateCategoryUseCase,
+                              final DeleteCategoryUseCase deleteCategoryUseCase) {
 
         this.getCategoryByIdUseCase = Objects.requireNonNull(getCategoryByIdUseCase);
         this.createUseCase = Objects.requireNonNull(createUseCase);
         this.updateCategoryUseCase = Objects.requireNonNull(updateCategoryUseCase);
+        this.deleteCategoryUseCase = Objects.requireNonNull(deleteCategoryUseCase);
     }
 
     @Override
@@ -77,5 +81,10 @@ public class CategoryController implements CategoryAPI {
 
         return this.updateCategoryUseCase.execute(aCommand)
                 .fold(onError, onSuccess);
+    }
+
+    @Override
+    public void deleteById(final String anId) {
+        this.deleteCategoryUseCase.execute(anId);
     }
 }
