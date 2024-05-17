@@ -68,7 +68,9 @@ public class CategoryE2ETest {
     }
 
     private CategoryResponse retriveACategory(final String anId) throws Exception {
-        final var aRequest = get("/categories/" + anId);
+        final var aRequest = get("/categories/" + anId)
+                .contentType(MediaType.APPLICATION_JSON);
+
         final var json = this.mvc.perform(aRequest)
                 .andExpect(status().isOk())
                 .andReturn()
