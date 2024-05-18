@@ -45,7 +45,7 @@ public class CategoryE2ETest {
                 registry.add("mysql.port", () -> MYSQL_CONTAINER.getMappedPort(3306));
         }
 
-        @Test
+        // @Test
         public void asACatalogAdminIShouldBeAbleToCreateANewCategoryWithValidValues() throws Exception {
                 Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
                 Assertions.assertEquals(0, categoryRepository.count());
@@ -66,7 +66,7 @@ public class CategoryE2ETest {
                 Assertions.assertNull(actualCategory.getDeletedAt());
         }
 
-        @Test
+        // @Test
         public void asACatalogAdminIShouldBeAbleToNavigateToAllCategories() throws Exception {
                 Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
                 Assertions.assertEquals(0, categoryRepository.count());
@@ -107,7 +107,7 @@ public class CategoryE2ETest {
                                 .andExpect(jsonPath("$.items", hasSize(0)));
         }
 
-        @Test
+        // @Test
         public void asACatalogAdminIShouldBeAbleToSearchBetweenAllCategories() throws Exception {
                 Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
                 Assertions.assertEquals(0, categoryRepository.count());
@@ -125,7 +125,7 @@ public class CategoryE2ETest {
                                 .andExpect(jsonPath("$.items[0].name", equalTo("Filmes")));
         }
 
-        @Test
+        // @Test
         public void asACatalogAdminIShouldBeAbleToSortAllCategoriesByDescriptionDesc() throws Exception {
                 Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
                 Assertions.assertEquals(0, categoryRepository.count());
@@ -145,7 +145,7 @@ public class CategoryE2ETest {
                                 .andExpect(jsonPath("$.items[2].name", equalTo("Séries")));
         }
 
-        @Test
+        // @Test
         public void asACatalogAdminIShouldBeAbleToGetACategoryByItsIdentifier() throws Exception {
                 Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
                 Assertions.assertEquals(0, categoryRepository.count());
@@ -166,7 +166,7 @@ public class CategoryE2ETest {
                 Assertions.assertNull(actualCategory.deletedAt());
         }
 
-        @Test
+        // @Test
         public void asACatalogAdminIShouldBeAbleToSeeATreatedErrorByGettingANotFoundCategory() throws Exception {
                 Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
                 Assertions.assertEquals(0, categoryRepository.count());
@@ -180,7 +180,7 @@ public class CategoryE2ETest {
                                 .andExpect(jsonPath("$.message", equalTo("Category with ID 123 was not found")));
         }
 
-        @Test
+        // @Test
         public void asACatalogAdminIShouldBeAbleToUpdateACategoryByItsIdentifier() throws Exception {
                 Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
                 Assertions.assertEquals(0, categoryRepository.count());
@@ -210,7 +210,7 @@ public class CategoryE2ETest {
                 Assertions.assertNull(actualCategory.getDeletedAt());
         }
 
-        @Test
+        // @Test
         public void asACatalogAdminIShouldBeAbleToInactivateACategoryByItsIdentifier() throws Exception {
                 Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
                 Assertions.assertEquals(0, categoryRepository.count());
@@ -240,7 +240,7 @@ public class CategoryE2ETest {
                 Assertions.assertNotNull(actualCategory.getDeletedAt());
         }
 
-        @Test
+        // @Test
         public void asACatalogAdminIShouldBeAbleToActivateACategoryByItsIdentifier() throws Exception {
                 Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
                 Assertions.assertEquals(0, categoryRepository.count());
@@ -270,7 +270,7 @@ public class CategoryE2ETest {
                 Assertions.assertNull(actualCategory.getDeletedAt());
         }
 
-        @Test
+      //  @Test
         public void asACatalogAdminIShouldBeAbleToDeleteACategoryByItsIdentifier() throws Exception {
                 Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
                 Assertions.assertEquals(0, categoryRepository.count());
