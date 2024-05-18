@@ -36,6 +36,7 @@ public enum Json {
         return INSTANCE.mapper.copy();
     }
 
+    @SuppressWarnings("deprecation")
     private final ObjectMapper mapper = new Jackson2ObjectMapperBuilder()
             .dateFormat(new StdDateFormat())
             .featuresToDisable(

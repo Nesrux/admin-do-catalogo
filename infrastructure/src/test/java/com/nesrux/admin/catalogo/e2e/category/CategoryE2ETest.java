@@ -1,6 +1,5 @@
 package com.nesrux.admin.catalogo.e2e.category;
 
-import com.nesrux.admin.catalogo.E2ETest;
 import com.nesrux.admin.catalogo.domain.category.CategoryId;
 import com.nesrux.admin.catalogo.infrastructure.category.models.CategoryResponse;
 import com.nesrux.admin.catalogo.infrastructure.category.models.CreateCategoryRequest;
@@ -8,7 +7,6 @@ import com.nesrux.admin.catalogo.infrastructure.category.models.UpdateCategoryRe
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 import com.nesrux.admin.catalogo.infrastructure.configuration.json.Json;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -17,8 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,6 +30,7 @@ public class CategoryE2ETest {
         @Autowired
         private CategoryRepository categoryRepository;
 
+        @SuppressWarnings("rawtypes")
         @Container
         private static final MySQLContainer MYSQL_CONTAINER = new MySQLContainer("mysql:latest")
                         .withPassword("123456")
@@ -311,6 +308,7 @@ public class CategoryE2ETest {
                 return this.mvc.perform(aRequest);
         }
 
+        @SuppressWarnings("null")
         private CategoryId givenACategory(final String aName, final String aDescription, final boolean isActive)
                         throws Exception {
                 final var aRequestBody = new CreateCategoryRequest(aName, aDescription, isActive);
