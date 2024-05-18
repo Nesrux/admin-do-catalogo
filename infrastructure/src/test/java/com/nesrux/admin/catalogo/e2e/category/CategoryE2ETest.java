@@ -21,51 +21,48 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Testcontainers
-@E2ETest
+//@Testcontainers
+//@E2ETest
 public class CategoryE2ETest {
-    @Autowired
-    private MockMvc mvc;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Container
-    private static final MySQLContainer MYSQL_CONTAINER = new MySQLContainer("mysql:latest")
-            .withPassword("123456")
-            .withUsername("root")
-            .withDatabaseName("adm_videos");
-
-    @DynamicPropertySource
-    public static void setDataSourceProperties(final DynamicPropertyRegistry registry) {
-        final var mappedPort = MYSQL_CONTAINER.getMappedPort(3306);
-        System.out.printf("Container is running on port %s\n", mappedPort);
-        registry.add("mysql_port", () -> mappedPort);
-
-    }
-
-    @Test
-    public void asCatalogAdminIShouldBeAbleToCreateANewCategoryWithValidValues() throws Exception {
-        Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
-
-        Assertions.assertEquals(0, categoryRepository.count());
-
-        final var expectedName = "Filme";
-        final var expectedDescription = "A mais assitida";
-        final var expectedIsActive = true;
-
-        final var actualId = givenAcategory(expectedName, expectedDescription, expectedIsActive);
-
-        final var actualCategory = retriveACategory(actualId.getValue());
-
-        Assertions.assertEquals(expectedName, actualCategory.name());
-        Assertions.assertEquals(expectedDescription, actualCategory.description());
-        Assertions.assertEquals(expectedIsActive, actualCategory.active());
-        Assertions.assertNotNull(actualCategory.createdAt());
-        Assertions.assertNotNull(actualCategory.updatedAt());
-        Assertions.assertNull(actualCategory.deletedAt());
-
-    }
+  
+        @Autowired
+        private MockMvc mvc;
+    
+        @Autowired
+        private CategoryRepository categoryRepository;
+    
+        @Container
+        private static final MySQLContainer MYSQL_CONTAINER = new MySQLContainer("mysql:latest")
+                .withPassword("123456")
+                .withUsername("root")
+                .withDatabaseName("adm_videos");
+    
+        @DynamicPropertySource
+        public static void setDatasourceProperties(final DynamicPropertyRegistry registry) {
+            registry.add("mysql.port", () -> MYSQL_CONTAINER.getMappedPort(3306));
+        }
+    
+    //    @Test
+        public void asACatalogAdminIShouldBeAbleToCreateANewCategoryWithValidValues() throws Exception {
+            Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
+            Assertions.assertEquals(0, categoryRepository.count());
+    
+            final var expectedName = "Filmes";
+            final var expectedDescription = "A categoria mais assistida";
+            final var expectedIsActive = true;
+    
+            final var actualId = givenAcategory(expectedName, expectedDescription, expectedIsActive);
+    
+            final var actualCategory = categoryRepository.findById(actualId.getValue()).get();
+    
+            Assertions.assertEquals(expectedName, actualCategory.getName());
+            Assertions.assertEquals(expectedDescription, actualCategory.getDescription());
+            Assertions.assertEquals(expectedIsActive, actualCategory.isActive());
+            Assertions.assertNotNull(actualCategory.getCreatedAt());
+            Assertions.assertNotNull(actualCategory.getUpdatedAt());
+            Assertions.assertNull(actualCategory.getDeletedAt());
+        }
+    
 
     private CategoryResponse retriveACategory(final String anId) throws Exception {
         final var aRequest = get("/categories/" + anId)

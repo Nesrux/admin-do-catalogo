@@ -8,8 +8,8 @@ import org.springframework.core.env.AbstractEnvironment;
 @SpringBootApplication
 public class Main {
     public static void main(String[] args) {
-        // TODO : descomentar isso antes do deploy
-        // System.setProperty(AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME, "development");
+        // System.setProperty(AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME,
+        // "development");
         System.setProperty(AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME, "low");
         SpringApplication.run(WebServerConfig.class, args);
     }
