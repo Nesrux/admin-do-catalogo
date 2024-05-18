@@ -7,6 +7,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Collection;
 
+@SuppressWarnings("rawtypes")
 public class MySQLCleanUpExtension implements BeforeEachCallback {
     @Override
     public void beforeEach(final ExtensionContext context) {
@@ -17,8 +18,7 @@ public class MySQLCleanUpExtension implements BeforeEachCallback {
         cleanUp(repositories);
     }
 
-    private void cleanUp(@SuppressWarnings("rawtypes") final Collection<CrudRepository> repositories) {
+    private void cleanUp(final Collection<CrudRepository> repositories) {
         repositories.forEach(CrudRepository::deleteAll);
     }
 }
-
