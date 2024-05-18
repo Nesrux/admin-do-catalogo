@@ -12,7 +12,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.util.concurrent.Callable;
 
-
+@SuppressWarnings("deprecation")
 public enum Json {
     INSTANCE;
 
@@ -36,7 +36,6 @@ public enum Json {
         return INSTANCE.mapper.copy();
     }
 
-    @SuppressWarnings("deprecation")
     private final ObjectMapper mapper = new Jackson2ObjectMapperBuilder()
             .dateFormat(new StdDateFormat())
             .featuresToDisable(

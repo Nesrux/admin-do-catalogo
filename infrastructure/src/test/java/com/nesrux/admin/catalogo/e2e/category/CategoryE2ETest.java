@@ -23,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 //@Testcontainers
 //@E2ETest
+@SuppressWarnings("rawtypes")
 public class CategoryE2ETest {
         @Autowired
         private MockMvc mvc;
@@ -30,7 +31,6 @@ public class CategoryE2ETest {
         @Autowired
         private CategoryRepository categoryRepository;
 
-        @SuppressWarnings("rawtypes")
         @Container
         private static final MySQLContainer MYSQL_CONTAINER = new MySQLContainer("mysql:latest")
                         .withPassword("123456")
