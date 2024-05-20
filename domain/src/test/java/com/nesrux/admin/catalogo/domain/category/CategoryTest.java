@@ -15,9 +15,7 @@ public class CategoryTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
 
-
-        final var actualCategory =
-                Category.newCategory(expectedName, expectedDescription, expectedIsActive);
+        final var actualCategory = Category.newCategory(expectedName, expectedDescription, expectedIsActive);
 
         assertNotNull(actualCategory);
         assertNotNull(actualCategory.getId());
@@ -38,10 +36,9 @@ public class CategoryTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
 
-
-        final var actualCategory =
-                Category.newCategory(expectedName, expectedDescription, expectedIsActive);
-        final var actualException = assertThrows(DomainException.class, () -> actualCategory.validate(new ThrowsValidationHandler()));
+        final var actualCategory = Category.newCategory(expectedName, expectedDescription, expectedIsActive);
+        final var actualException = assertThrows(DomainException.class,
+                () -> actualCategory.validate(new ThrowsValidationHandler()));
 
         assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
         assertEquals(expectedErrorCount, actualException.getErrors().size());
@@ -57,10 +54,9 @@ public class CategoryTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
 
-
-        final var actualCategory =
-                Category.newCategory(expectedName, expectedDescription, expectedIsActive);
-        final var actualException = assertThrows(DomainException.class, () -> actualCategory.validate(new ThrowsValidationHandler()));
+        final var actualCategory = Category.newCategory(expectedName, expectedDescription, expectedIsActive);
+        final var actualException = assertThrows(DomainException.class,
+                () -> actualCategory.validate(new ThrowsValidationHandler()));
 
         assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
         assertEquals(expectedErrorCount, actualException.getErrors().size());
@@ -76,10 +72,9 @@ public class CategoryTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
 
-
-        final var actualCategory =
-                Category.newCategory(expectedName, expectedDescription, expectedIsActive);
-        final var actualException = assertThrows(DomainException.class, () -> actualCategory.validate(new ThrowsValidationHandler()));
+        final var actualCategory = Category.newCategory(expectedName, expectedDescription, expectedIsActive);
+        final var actualException = assertThrows(DomainException.class,
+                () -> actualCategory.validate(new ThrowsValidationHandler()));
 
         assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
         assertEquals(expectedErrorCount, actualException.getErrors().size());
@@ -100,10 +95,9 @@ public class CategoryTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
 
-
-        final var actualCategory =
-                Category.newCategory(expectedName, expectedDescription, expectedIsActive);
-        final var actualException = assertThrows(DomainException.class, () -> actualCategory.validate(new ThrowsValidationHandler()));
+        final var actualCategory = Category.newCategory(expectedName, expectedDescription, expectedIsActive);
+        final var actualException = assertThrows(DomainException.class,
+                () -> actualCategory.validate(new ThrowsValidationHandler()));
 
         assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
         assertEquals(expectedErrorCount, actualException.getErrors().size());
@@ -117,10 +111,7 @@ public class CategoryTest {
         final var expectedDescription = "  ";
         final var expectedIsActive = true;
 
-
-        final var actualCategory =
-                Category.newCategory(expectedName, expectedDescription, expectedIsActive);
-
+        final var actualCategory = Category.newCategory(expectedName, expectedDescription, expectedIsActive);
 
         assertDoesNotThrow(() -> actualCategory.validate(new ThrowsValidationHandler()));
         assertNotNull(actualCategory);
@@ -140,11 +131,8 @@ public class CategoryTest {
         final var expectedDescription = "A Categoria mais assitida";
         final var expectedIsActive = false;
 
-
-        final var actualCategory =
-                Category.newCategory(expectedName, expectedDescription,
-                        expectedIsActive);
-
+        final var actualCategory = Category.newCategory(expectedName, expectedDescription,
+                expectedIsActive);
 
         assertDoesNotThrow(() -> actualCategory.validate(new ThrowsValidationHandler()));
         assertNotNull(actualCategory);
@@ -164,8 +152,7 @@ public class CategoryTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = false;
 
-        final var aCategory =
-                Category.newCategory(expectedName, expectedDescription, true);
+        final var aCategory = Category.newCategory(expectedName, expectedDescription, true);
 
         assertDoesNotThrow(() -> aCategory.validate(new ThrowsValidationHandler()));
 
@@ -196,8 +183,7 @@ public class CategoryTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
 
-        final var aCategory =
-                Category.newCategory(expectedName, expectedDescription, false);
+        final var aCategory = Category.newCategory(expectedName, expectedDescription, false);
 
         assertDoesNotThrow(() -> aCategory.validate(new ThrowsValidationHandler()));
 
@@ -227,8 +213,7 @@ public class CategoryTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
 
-        final var aCategory =
-                Category.newCategory("Filme", "A categoria", false);
+        final var aCategory = Category.newCategory("Filme", "A categoria", false);
 
         assertDoesNotThrow(() -> aCategory.validate(new ThrowsValidationHandler()));
 
@@ -255,9 +240,7 @@ public class CategoryTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = false;
 
-        final var aCategory =
-                Category.newCategory("Filme", "A categoria", true);
-
+        final var aCategory = Category.newCategory("Filme", "A categoria", true);
 
         assertDoesNotThrow(() -> aCategory.validate(new ThrowsValidationHandler()));
         assertTrue(aCategory.isActive());
@@ -286,9 +269,7 @@ public class CategoryTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
 
-        final var aCategory =
-                Category.newCategory("Filme", "A categoria", expectedIsActive);
-
+        final var aCategory = Category.newCategory("Filme", "A categoria", expectedIsActive);
 
         assertDoesNotThrow(() -> aCategory.validate(new ThrowsValidationHandler()));
 
