@@ -4,8 +4,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 import com.nesrux.admin.catalogo.domain.Identifier;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
-
 public class GenreID extends Identifier {
     private final String value;
 

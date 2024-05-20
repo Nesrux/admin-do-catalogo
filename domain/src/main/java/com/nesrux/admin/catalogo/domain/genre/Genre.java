@@ -7,7 +7,9 @@ import java.util.List;
 
 import com.nesrux.admin.catalogo.domain.AggregateRoot;
 import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.validation.ValidationHandler;
+import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
 
 public class Genre extends AggregateRoot<GenreID> {
 
@@ -33,6 +35,13 @@ public class Genre extends AggregateRoot<GenreID> {
         this.createdAt = aCreatedAt;
         this.updatedAt = aUpdatedAt;
         this.deletedAt = aDeletedAt;
+
+        final var notification = Notification.create();
+        validate(notification);
+
+        if (notification.hasError()) {
+            throw new NotificationException("", notification);
+        }
     }
 
     public static Genre newGenre(final String aName, final boolean isActive) {
@@ -66,6 +75,7 @@ public class Genre extends AggregateRoot<GenreID> {
 
     @Override
     public void validate(final ValidationHandler handler) {
+        new GenreValidator(this, handler);
     }
 
     public String getName() {
