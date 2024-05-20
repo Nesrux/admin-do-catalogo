@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
-import com.nesrux.admin.catalogo.domain.validation.ValidationHandler;
+import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.validation.handler.ThrowsValidationHandler;
 
 public class GenreTest {
@@ -33,10 +33,8 @@ public class GenreTest {
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'name' should not be null";
 
-        final var expectedGenre = Genre.newGenre(expectedName, expectedIsActive);
-
-        final var actualException = Assertions.assertThrows(DomainException.class, () -> {
-            expectedGenre.validate(new ThrowsValidationHandler());
+        final var actualException = Assertions.assertThrows(NotificationException.class, () -> {
+            Genre.newGenre(expectedName, expectedIsActive);
         });
 
         Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
@@ -50,10 +48,8 @@ public class GenreTest {
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'name' should not be empty";
 
-        final var expectedGenre = Genre.newGenre(expectedName, expectedIsActive);
-
-        final var actualException = Assertions.assertThrows(DomainException.class, () -> {
-            expectedGenre.validate(new ThrowsValidationHandler());
+        final var actualException = Assertions.assertThrows(NotificationException.class, () -> {
+            Genre.newGenre(expectedName, expectedIsActive);
         });
 
         Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
@@ -72,12 +68,10 @@ public class GenreTest {
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'name' must be between 1 and 255 characters";
 
-        final var expectedGenre = Genre.newGenre(expectedName, expectedIsActive);
-
-        final var actualException = Assertions.assertThrows(DomainException.class, () -> {
-            expectedGenre.validate(new ThrowsValidationHandler());
+        final var actualException = Assertions.assertThrows(NotificationException.class, () -> {
+            Genre.newGenre(expectedName, expectedIsActive);
         });
-
+        
         Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
         Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
     }
