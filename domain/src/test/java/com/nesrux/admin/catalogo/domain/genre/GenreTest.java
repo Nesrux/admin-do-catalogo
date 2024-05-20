@@ -23,7 +23,7 @@ public class GenreTest {
         Assertions.assertEquals(expectedCategories, expectedGenre.getCategories().size());
         Assertions.assertNotNull(expectedGenre.getCreatedAt());
         Assertions.assertNotNull(expectedGenre.getUpdatedAt());
-        Assertions.assertNull(expectedGenre.getDeletedAt);
+        Assertions.assertNull(expectedGenre.getDeletedAt());
     }
 
     @Test
