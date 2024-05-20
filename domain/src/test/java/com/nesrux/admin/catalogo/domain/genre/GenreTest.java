@@ -3,9 +3,7 @@ package com.nesrux.admin.catalogo.domain.genre;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
-import com.nesrux.admin.catalogo.domain.validation.handler.ThrowsValidationHandler;
 
 public class GenreTest {
     @Test
@@ -71,7 +69,7 @@ public class GenreTest {
         final var actualException = Assertions.assertThrows(NotificationException.class, () -> {
             Genre.newGenre(expectedName, expectedIsActive);
         });
-        
+
         Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
         Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
     }

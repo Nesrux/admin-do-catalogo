@@ -40,7 +40,7 @@ public class Genre extends AggregateRoot<GenreID> {
         validate(notification);
 
         if (notification.hasError()) {
-            throw new NotificationException("", notification);
+            throw new NotificationException("Failed to create a Aggregate Genre", notification);
         }
     }
 
@@ -75,7 +75,7 @@ public class Genre extends AggregateRoot<GenreID> {
 
     @Override
     public void validate(final ValidationHandler handler) {
-        new GenreValidator(this, handler);
+        new GenreValidator(this, handler).validate();
     }
 
     public String getName() {
