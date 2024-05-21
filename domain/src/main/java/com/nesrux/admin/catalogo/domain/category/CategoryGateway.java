@@ -1,5 +1,6 @@
 package com.nesrux.admin.catalogo.domain.category;
 
+import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 
 import java.util.Optional;
@@ -13,6 +14,6 @@ public interface CategoryGateway {
 
     Optional<Category> findById(CategoryId anId);
 
-    Pagination<Category> findAll(CategorySearchQuery aQuery);
+    Pagination<Category> findAll(SearchQuery aQuery);
 
 }

@@ -2,7 +2,7 @@ package com.nesrux.admin.catalogo.application.category.retrive.list;
 
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategorySearchQuery;
+import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,7 +43,7 @@ public class ListCategoryUsecaseTest {
         final var expectedPagination = new Pagination<>(expectedPage, expectedperPage, categories.size(), categories);
 
 
-        final var aQuery = new CategorySearchQuery(expectedPage, expectedperPage, expectedTerms, expectedSort, expectedDirection);
+        final var aQuery = new SearchQuery(expectedPage, expectedperPage, expectedTerms, expectedSort, expectedDirection);
 
 
         final var expectedItemsCount = 2;
@@ -72,7 +72,7 @@ public class ListCategoryUsecaseTest {
         final var expectedPagination = new Pagination<>(expectedPage, expectedperPage, categories.size(), categories);
 
 
-        final var aQuery = new CategorySearchQuery(expectedPage, expectedperPage, expectedTerms, expectedSort, expectedDirection);
+        final var aQuery = new SearchQuery(expectedPage, expectedperPage, expectedTerms, expectedSort, expectedDirection);
 
 
         final var expectedItemsCount = 0;
@@ -100,7 +100,7 @@ public class ListCategoryUsecaseTest {
         final var expectedErrorMessage = "Gateway error";
 
         final var aQuery =
-                new CategorySearchQuery(expectedPage, expectedperPage, expectedTerms, expectedSort, expectedDirection);
+                new SearchQuery(expectedPage, expectedperPage, expectedTerms, expectedSort, expectedDirection);
 
 
         when(categoryGateway.findAll(eq(aQuery)))

@@ -3,7 +3,7 @@ package com.nesrux.admin.catalogo.infrastructure.category;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
 import com.nesrux.admin.catalogo.domain.category.CategoryId;
-import com.nesrux.admin.catalogo.domain.category.CategorySearchQuery;
+import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
@@ -51,7 +51,7 @@ public class CategoryMySQLGateway implements CategoryGateway {
     }
 
     @Override
-    public Pagination<Category> findAll(final CategorySearchQuery aQuery) {
+    public Pagination<Category> findAll(final SearchQuery aQuery) {
         //Paginação
         final var page = PageRequest.of(
                 aQuery.page(),

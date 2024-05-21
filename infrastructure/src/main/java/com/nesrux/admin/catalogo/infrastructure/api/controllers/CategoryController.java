@@ -9,7 +9,7 @@ import com.nesrux.admin.catalogo.application.category.retrive.list.ListCategorie
 import com.nesrux.admin.catalogo.application.category.update.UpdateCategoryCommand;
 import com.nesrux.admin.catalogo.application.category.update.UpdateCategoryOutput;
 import com.nesrux.admin.catalogo.application.category.update.UpdateCategoryUseCase;
-import com.nesrux.admin.catalogo.domain.category.CategorySearchQuery;
+import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
 import com.nesrux.admin.catalogo.infrastructure.api.CategoryAPI;
@@ -72,7 +72,7 @@ public class CategoryController implements CategoryAPI {
             final String sort,
             final String dir) {
 
-        return listCategoriesUseCase.execute(new CategorySearchQuery(page, perPage, search, sort, dir))
+        return listCategoriesUseCase.execute(new SearchQuery(page, perPage, search, sort, dir))
                 .map(CategoryApiPresenter::present);
     }
 
