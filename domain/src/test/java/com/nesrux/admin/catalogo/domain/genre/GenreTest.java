@@ -141,8 +141,8 @@ public class GenreTest {
         final var actualGenre = Genre.newGenre("assão", true);
 
         Assertions.assertNotNull(actualGenre);
-        Assertions.assertFalse(actualGenre.isActive());
-        Assertions.assertNotNull(actualGenre.getDeletedAt());
+        Assertions.assertTrue(actualGenre.isActive());
+        Assertions.assertNull(actualGenre.getDeletedAt());
 
         final var actualCreatedAt = actualGenre.getCreatedAt();
         final var actualUpdatedAt = actualGenre.getUpdatedAt();
@@ -164,7 +164,7 @@ public class GenreTest {
         final var expectedIsActive = true;
         final var expectedCategories = List.of(CategoryId.from("1234"));
         final var expectedErrorCount = 1;
-        final var expectedErrorMessage = "'name' should not be null";
+        final var expectedErrorMessage = "'name' should not be empty";
 
         final var actualGenre = Genre.newGenre("assão", false);
 
@@ -193,6 +193,5 @@ public class GenreTest {
         Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
         Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
     }
-
 
 }
