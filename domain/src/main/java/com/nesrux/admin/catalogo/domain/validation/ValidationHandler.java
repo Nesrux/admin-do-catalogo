@@ -7,7 +7,7 @@ public interface ValidationHandler {
 
     ValidationHandler append(ValidationHandler anHandler);
 
-    ValidationHandler validate(Validation aValidation);
+    <T> T validate(Validation<T> aValidation);
 
     List<Error> getErrors();
 
@@ -18,11 +18,12 @@ public interface ValidationHandler {
     default Error firstError() {
         if (hasError()) {
             return getErrors().get(0);
-        } else return null;
+        } else
+            return null;
     }
 
-    interface Validation {
-        void validate();
+    interface Validation<T> {
+        T validate();
     }
 
 }
