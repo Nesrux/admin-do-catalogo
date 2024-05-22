@@ -98,7 +98,7 @@ public class Genre extends AggregateRoot<GenreID> {
     }
 
     public Genre addCategories(final List<CategoryId> ids) {
-        if (ids.isEmpty() || ids == null) {
+        if (ids == null || ids.isEmpty()) {
             return this;
         }
         this.categories.addAll(ids);
