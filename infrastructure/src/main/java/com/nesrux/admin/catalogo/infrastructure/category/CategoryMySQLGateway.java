@@ -13,6 +13,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static com.nesrux.admin.catalogo.infrastructure.utils.SpecificationUtils.like;
@@ -52,33 +54,35 @@ public class CategoryMySQLGateway implements CategoryGateway {
 
     @Override
     public Pagination<Category> findAll(final SearchQuery aQuery) {
-        //Paginação
+        // Paginação
         final var page = PageRequest.of(
                 aQuery.page(),
                 aQuery.perPage(),
-                Sort.by(Direction.fromString(aQuery.direction()), aQuery.sort())
-        );
+                Sort.by(Direction.fromString(aQuery.direction()), aQuery.sort()));
 
         final var where = Optional.ofNullable(aQuery.terms())
                 .filter(str -> !str.isBlank())
-                .map(str ->
-                        SpecificationUtils.<CategoryJpaEntity>like("name", str)
+                .map(str -> SpecificationUtils.<CategoryJpaEntity>like("name", str)
                         .or(like("description", str)))
                 .orElse(null);
 
         final var pageResult = this.repository.findAll(where, page);
-
 
         return new Pagination<>(
                 pageResult.getNumber(),
                 pageResult.getSize(),
                 pageResult.getTotalElements(),
                 pageResult.map(CategoryJpaEntity::toAggregate)
-                        .toList()
-        );
+                        .toList());
     }
 
     private Category save(final Category aCategory) {
         return this.repository.save(CategoryJpaEntity.from(aCategory)).toAggregate();
+    }
+
+    @Override
+    public List<CategoryId> existsByIds(final Iterable<CategoryId> ids) {
+        // TODO: implementar quando chegar na camada de infrastruct de Genre
+        return Collections.emptyList();
     }
 }
