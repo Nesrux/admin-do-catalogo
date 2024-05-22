@@ -5,7 +5,6 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class CreateUseCaseGenreTest {
     private CategoryGateway CategoryGateway;
 
     @Test
-    private void givenAValidCommand_whenCallsCreateGenre_shouldReturnGenreId() {
+    public void givenAValidCommand_whenCallsCreateGenre_shouldReturnGenreId() {
         // given
         final var expectedName = "Ação";
         final var expectedIsActive = true;
@@ -44,7 +43,7 @@ public class CreateUseCaseGenreTest {
         when(genreGateway.create(any())).thenAnswer(returnsFirstArg());
 
         // when
-        final var actualOutput = usecase.execute();
+        final var actualOutput = useCase.execute(aCommand);
 
         // then
         Assertions.assertNotNull(actualOutput);
@@ -54,6 +53,7 @@ public class CreateUseCaseGenreTest {
                 .create(argThat(aGenre -> Objects.equals(expectedName, aGenre.getName())
                         && Objects.equals(expectedIsActive, aGenre.isActive())
                         && Objects.equals(expectedCategories, aGenre.getCategories())
+                        && Objects.nonNull(aGenre.getId())
                         && Objects.nonNull(aGenre.getCreatedAt())
                         && Objects.nonNull(aGenre.getUpdatedAt())
                         && Objects.isNull(aGenre.getDeletedAt())));
