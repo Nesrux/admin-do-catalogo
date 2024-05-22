@@ -243,6 +243,31 @@ public class GenreTest {
     }
 
     @Test
+    public void givenAValidEmptyCategoriesGenre_WhenCallAddCategories_ShouldReceiveOk() {
+        final String expectedName = "Ação";
+        final var expectedIsActive = true;
+        final var seriesId = CategoryId.from("123");
+        final var filmesId = CategoryId.from("456");
+        final var expectedCategories = List.of(seriesId, filmesId);
+
+        final var actualGenre = Genre.newGenre(expectedName, expectedIsActive);
+        Assertions.assertEquals(0, actualGenre.getCategories().size());
+
+        final var actualCreatedAt = actualGenre.getCreatedAt();
+        final var actualUpdatedAt = actualGenre.getUpdatedAt();
+
+        actualGenre.addCategories(List.of(seriesId, filmesId));
+
+        Assertions.assertNotNull(actualGenre.getId());
+        Assertions.assertEquals(expectedName, actualGenre.getName());
+        Assertions.assertEquals(expectedIsActive, actualGenre.isActive());
+        Assertions.assertEquals(expectedCategories, actualGenre.getCategories());
+        Assertions.assertEquals(actualCreatedAt, actualGenre.getCreatedAt());
+        Assertions.assertTrue(actualUpdatedAt.isBefore(actualGenre.getUpdatedAt()));
+        Assertions.assertNull(actualGenre.getDeletedAt());
+    }
+
+    @Test
     public void givenAValidGenreWithTwoCategories_WhenCallremove_ShouldReceiveOk() {
         final String expectedName = "Ação";
         final var expectedIsActive = true;
