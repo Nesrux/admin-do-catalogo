@@ -57,7 +57,7 @@ public class DefaultCreateGenreUseCase extends CreateGenreUseCase {
                     .collect(Collectors.joining(", "));
 
             notification.append(
-                    new Error("Some categories could not be found %s".formatted(missingIdsMessage)));
+                    new Error("Some categories could not be found: %s".formatted(missingIdsMessage)));
         }
 
         return notification;
