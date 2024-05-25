@@ -23,7 +23,7 @@ import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateUseCaseGenreTest {
+public class CreateGenreUseCaseTest {
         @InjectMocks
         private DefaultCreateGenreUseCase useCase;
         @Mock
