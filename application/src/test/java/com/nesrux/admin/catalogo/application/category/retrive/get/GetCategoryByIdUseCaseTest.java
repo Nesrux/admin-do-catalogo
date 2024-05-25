@@ -1,38 +1,36 @@
 package com.nesrux.admin.catalogo.application.category.retrive.get;
 
+import com.nesrux.admin.catalogo.application.UseCaseTest;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
 import com.nesrux.admin.catalogo.domain.category.CategoryId;
 import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
+import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
-public class GetCategoryByIdUseCaseTest {
+public class GetCategoryByIdUseCaseTest extends UseCaseTest {
     @InjectMocks
     private DefaultGetCategoryByIdUseCase useCase;
 
     @Mock
     private CategoryGateway gateway;
 
-    @BeforeEach
-    void cleanUp() {
-        reset(gateway);
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(gateway);
     }
-
     /*
      * 1) teste onde eu passo o id que existe
      * 2) teste de onde o Id não existe
-     * 3) teste erro no gatway*/
+     * 3) teste erro no gatway
+     */
 
     @Test
     public void GivenAvalidId_whenCallsGetCategory_shouldReturnCategory() {
