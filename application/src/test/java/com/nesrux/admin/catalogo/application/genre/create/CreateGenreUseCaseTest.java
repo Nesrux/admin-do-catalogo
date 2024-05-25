@@ -12,24 +12,27 @@ import java.util.Objects;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.nesrux.admin.catalogo.application.UseCaseTest;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
 import com.nesrux.admin.catalogo.domain.category.CategoryId;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 
-@ExtendWith(MockitoExtension.class)
-public class CreateGenreUseCaseTest {
+public class CreateGenreUseCaseTest extends UseCaseTest {
         @InjectMocks
         private DefaultCreateGenreUseCase useCase;
         @Mock
         private GenreGateway genreGateway;
         @Mock
         private CategoryGateway categoryGateway;
+       
+        @Override
+        protected List<Object> getMocks(){
+                return List.of(genreGateway, categoryGateway);
+        }
 
         @Test
         public void givenAValidCommand_whenCallsCreateGenre_shouldReturnGenreId() {
@@ -88,7 +91,6 @@ public class CreateGenreUseCaseTest {
                                                 && Objects.nonNull(aGenre.getUpdatedAt())
                                                 && Objects.nonNull(aGenre.getDeletedAt())));
         }
-
 
         @Test
         public void givenAValidCommandWithCategories_whenCallsCreateGenre_shouldREturnGenreIds() {
@@ -281,11 +283,10 @@ public class CreateGenreUseCaseTest {
 
         }
 
-      
-
         private List<String> asString(final List<CategoryId> categories) {
                 return categories.stream()
                                 .map(CategoryId::getValue)
                                 .toList();
         }
+
 }
