@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
@@ -28,7 +27,7 @@ import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 @ExtendWith(MockitoExtension.class)
 public class UpdateGenreUseCaseTest {
     @InjectMocks
-    private defaultUpdateGenreUseCase useCase;
+    private DefaultUpdateGenreUseCase useCase;
 
     @Mock
     private CategoryGateway categoryGateway;
@@ -47,8 +46,10 @@ public class UpdateGenreUseCaseTest {
         final var expectedCategories = List.<CategoryId>of();
 
         final var aCommand = UpdateGenreCommand.with(
-                expectedId.getValue(), expectedName,
-                expectedIsActive, expectedCategories);
+                expectedId.getValue(),
+                expectedName,
+                expectedIsActive,
+                asString(expectedCategories));
 
         when(genreGateway.findById(any()))
                 .thenReturn(Optional.of(Genre.with(aGenre)));
@@ -60,20 +61,25 @@ public class UpdateGenreUseCaseTest {
 
         // then
         Assertions.assertNotNull(actualOutput);
-        Assertions.assertEquals(expectedId, actualOutput.Id());
+        Assertions.assertEquals(expectedId.getValue(), actualOutput.id());
 
         verify(genreGateway, times(1))
                 .findById(eq(expectedId));
         verify(genreGateway, times(1))
-                .update(argThat(updatedGenre -> Objects.equals(expectedId, updatedGenre.getName())
+                .update(argThat(updatedGenre -> Objects.equals(expectedId, updatedGenre.getId())
                         && Objects.equals(expectedName, updatedGenre.getName())
                         && Objects.equals(expectedCategories, updatedGenre.getCategories())
                         && Objects.equals(expectedIsActive, updatedGenre.isActive())
                         && Objects.equals(aGenre.getCreatedAt(), updatedGenre.getCreatedAt())
                         && Objects.isNull(updatedGenre.getDeletedAt())
-                        && aGenre.getUpdatedAt().isBefore(updatedGenre.getUpdatedAt())
-                ));
+                        && aGenre.getUpdatedAt().isBefore(updatedGenre.getUpdatedAt())));
 
+    }
+
+    private List<String> asString(final List<CategoryId> ids) {
+        return ids.stream()
+                .map(CategoryId::getValue)
+                .toList();
     }
 
 }
