@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import com.nesrux.admin.catalogo.application.UseCaseTest;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
@@ -17,9 +19,9 @@ import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
 
 public class DeleteGenreUseCaseTest extends UseCaseTest {
-
-    private DefaultDeleteUseCase useCase;
-
+    @InjectMocks
+    private DefaultDeleteGenreUseCase useCase;
+    @Mock
     private GenreGateway gateway;
 
     @Override
@@ -37,7 +39,7 @@ public class DeleteGenreUseCaseTest extends UseCaseTest {
                 .when(gateway).deleteById(any());
 
         // when
-        Assertions.assertDoesNotThrow(() -> usecase.execute(expectedId.getValue()));
+        Assertions.assertDoesNotThrow(() -> useCase.execute(expectedId.getValue()));
 
         verify(gateway, times(1)).deleteById(expectedId);
 
@@ -52,7 +54,7 @@ public class DeleteGenreUseCaseTest extends UseCaseTest {
                 .when(gateway).deleteById(any());
 
         // when
-        Assertions.assertDoesNotThrow(() -> usecase.execute(expectedId.getValue()));
+        Assertions.assertDoesNotThrow(() -> useCase.execute(expectedId.getValue()));
 
         verify(gateway, times(1)).deleteById(expectedId);
 
@@ -68,7 +70,7 @@ public class DeleteGenreUseCaseTest extends UseCaseTest {
 
         // when
         Assertions.assertThrows(IllegalStateException.class,
-                () -> usecase.execute(expectedId.getValue()));
+                () -> useCase.execute(expectedId.getValue()));
 
         verify(gateway, times(1)).deleteById(expectedId);
 
