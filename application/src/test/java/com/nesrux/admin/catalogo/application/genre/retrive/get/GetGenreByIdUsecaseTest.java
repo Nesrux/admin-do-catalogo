@@ -24,7 +24,7 @@ public class GetGenreByIdUsecaseTest extends UseCaseTest {
     @Mock
     private GenreGateway genreGateway;
     @InjectMocks
-    private DefaultGetGenreById useCase;
+    private DefaultGetGenreByIdUseCase useCase;
 
     @Override
     protected List<Object> getMocks() {
@@ -57,14 +57,14 @@ public class GetGenreByIdUsecaseTest extends UseCaseTest {
         Assertions.assertEquals(aGenre.getUpdatedAt(), actualGenre.updatedAt());
         Assertions.assertNull(actualGenre.deletedAt());
 
-        verify(genreGateway, times(1)).deleteById(expectedId);
+        verify(genreGateway, times(0)).deleteById(expectedId);
 
     }
 
     @Test
     public void givenAvalidId_whenCallsGetGenreAndDoesNotExistis_shouldREturnNotfound() {
         // given
-        final var expectedErrorMessage = "Genre With ID was not found";
+        final var expectedErrorMessage = "Genre with ID 1234 was not found";
         final var expectedId = GenreID.from("1234");
 
         when(genreGateway.findById(expectedId)).thenReturn(Optional.empty());
