@@ -1,12 +1,13 @@
 package com.nesrux.admin.catalogo.infrastructure.genre.persistence;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class GenreCategoryID {
+public class GenreCategoryID implements Serializable{
     @Column(name = "genre_id", nullable = false)
     private String genreId;
 

@@ -9,9 +9,9 @@ import org.springframework.core.env.AbstractEnvironment;
 public class Main {
     public static void main(String[] args) {
         // remover os surpress warnings do código pois estava dando problema na ide
-        System.setProperty(AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME, "development");
         // System.setProperty(AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME,
-        // "low");
+        // "development");
+        System.setProperty(AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME, "low");
         SpringApplication.run(WebServerConfig.class, args);
     }
 
