@@ -9,54 +9,53 @@ import javax.persistence.Embeddable;
 public class GenreCategoryID {
     @Column(name = "genre_id", nullable = false)
     private String genreId;
+
     @Column(name = "category_id", nullable = false)
     private String categoryId;
 
     public GenreCategoryID() {
     }
 
-    private GenreCategoryID(final String genreId, final String categoryId) {
-        this.genreId = genreId;
-        this.categoryId = categoryId;
+    private GenreCategoryID(final String aGenreId, final String aCategoryId) {
+        this.genreId = aGenreId;
+        this.categoryId = aCategoryId;
     }
 
-    public static GenreCategoryID from(final String genreId, final String categoryId) {
-        return new GenreCategoryID(genreId, categoryId);
+    public static GenreCategoryID from(final String aGenreId, final String aCategoryId) {
+        return new GenreCategoryID(aGenreId, aCategoryId);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        final GenreCategoryID that = (GenreCategoryID) o;
+        return Objects.equals(getGenreId(), that.getGenreId()) && Objects.equals(getCategoryId(), that.getCategoryId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getGenreId(), getCategoryId());
     }
 
     public String getGenreId() {
         return genreId;
     }
 
-    public void setGenreId(String genreId) {
+    public GenreCategoryID setGenreId(String genreId) {
         this.genreId = genreId;
+        return this;
     }
 
     public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public GenreCategoryID setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+        return this;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(genreId, categoryId);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        GenreCategoryID other = (GenreCategoryID) obj;
-        return Objects.equals(genreId, other.genreId) && Objects.equals(categoryId, other.categoryId);
-    }
-
-    
 
 }
