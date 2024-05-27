@@ -17,8 +17,6 @@ import com.nesrux.admin.catalogo.domain.category.CategoryId;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
 
-import net.bytebuddy.agent.builder.AgentBuilder.PoolStrategy.Eager;
-
 @Entity
 @Table(name = "genres")
 public class GenreJpaEntity {
@@ -93,7 +91,7 @@ public class GenreJpaEntity {
         this.categories.add(GenreCategoryJpaEntity.from(this, anId));
     }
 
-    private void removeCategory(final CategoryId anId) {
+    public void removeCategory(final CategoryId anId) {
         this.categories.remove(GenreCategoryJpaEntity.from(this, anId));
     }
 
