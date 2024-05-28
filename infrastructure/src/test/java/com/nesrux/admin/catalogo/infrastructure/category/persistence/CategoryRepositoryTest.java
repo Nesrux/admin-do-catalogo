@@ -1,14 +1,15 @@
 package com.nesrux.admin.catalogo.infrastructure.category.persistence;
 
-import com.nesrux.admin.catalogo.domain.category.Category;
-import com.nesrux.admin.catalogo.MySqlGatewayTest;
 import org.hibernate.PropertyValueException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
-@MySqlGatewayTest
+import com.nesrux.admin.catalogo.MySQLGatewayTest;
+import com.nesrux.admin.catalogo.domain.category.Category;
+
+@MySQLGatewayTest
 public class CategoryRepositoryTest {
 
     @Autowired

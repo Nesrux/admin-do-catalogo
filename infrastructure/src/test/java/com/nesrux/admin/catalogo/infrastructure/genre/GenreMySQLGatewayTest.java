@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.nesrux.admin.catalogo.MySqlGatewayTest;
+import com.nesrux.admin.catalogo.MySQLGatewayTest;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 import com.nesrux.admin.catalogo.infrastructure.category.CategoryMySQLGateway;
 import com.nesrux.admin.catalogo.infrastructure.genre.persistence.GenreRepository;
 
-@MySqlGatewayTest
+@MySQLGatewayTest
 public class GenreMySQLGatewayTest {
     @Autowired
     private CategoryMySQLGateway categoryGateway;

@@ -1,5 +1,15 @@
 package com.nesrux.admin.catalogo.application.category.retrive.get;
 
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doThrow;
+
+import java.util.Arrays;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+
 import com.nesrux.admin.catalogo.IntegrationTest;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
@@ -7,16 +17,6 @@ import com.nesrux.admin.catalogo.domain.category.CategoryId;
 import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.SpyBean;
-
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.eq;
 
 @IntegrationTest
 public class GetCategoryByIdUseCaseIT {

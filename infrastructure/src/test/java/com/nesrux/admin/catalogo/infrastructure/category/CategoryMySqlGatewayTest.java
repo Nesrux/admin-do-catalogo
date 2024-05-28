@@ -1,18 +1,19 @@
 package com.nesrux.admin.catalogo.infrastructure.category;
 
-import com.nesrux.admin.catalogo.domain.category.Category;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
-import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
-import com.nesrux.admin.catalogo.MySqlGatewayTest;
-import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
-import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
+import com.nesrux.admin.catalogo.MySQLGatewayTest;
+import com.nesrux.admin.catalogo.domain.category.Category;
+import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
+import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
+import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 
-@MySqlGatewayTest
+@MySQLGatewayTest
 public class CategoryMySqlGatewayTest {
     @Autowired
     private CategoryMySQLGateway categoryGateway;
