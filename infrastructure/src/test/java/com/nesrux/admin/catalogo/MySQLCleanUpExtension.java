@@ -1,11 +1,10 @@
 package com.nesrux.admin.catalogo;
 
-import java.util.List;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -22,22 +21,9 @@ public class MySQLCleanUpExtension implements BeforeEachCallback {
         cleanUp(List.of(
                 appContext.getBean(GenreRepository.class),
                 appContext.getBean(CategoryRepository.class)));
-
-        final var em = appContext.getBean(TestEntityManager.class);
-        em.flush();
-        em.clear();
     }
 
     private void cleanUp(final Collection<CrudRepository> repositories) {
         repositories.forEach(CrudRepository::deleteAll);
     }
-
-    // @Override
-    // public void beforeEach(final ExtensionContext context) {
-    // final var repositories = SpringExtension
-    // .getApplicationContext(context)
-    // .getBeansOfType(CrudRepository.class)
-    // .values();
-    // cleanUp(repositories);
-    // }
 }
