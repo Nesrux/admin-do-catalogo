@@ -1,25 +1,26 @@
 package com.nesrux.admin.catalogo.infrastructure.category;
 
-import com.nesrux.admin.catalogo.domain.category.Category;
-import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
-import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
-import com.nesrux.admin.catalogo.domain.pagination.Pagination;
-import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
-import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
-import com.nesrux.admin.catalogo.infrastructure.utils.SpecificationUtils;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.stereotype.Service;
+import static com.nesrux.admin.catalogo.infrastructure.utils.SpecificationUtils.like;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static com.nesrux.admin.catalogo.infrastructure.utils.SpecificationUtils.like;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Component;
 
-@Service
+import com.nesrux.admin.catalogo.domain.category.Category;
+import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
+import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.pagination.Pagination;
+import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
+import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
+import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
+import com.nesrux.admin.catalogo.infrastructure.utils.SpecificationUtils;
+
+@Component
 public class CategoryMySQLGateway implements CategoryGateway {
     private final CategoryRepository repository;
 
