@@ -62,8 +62,8 @@ public class UpdateCategoryUseCaseIT {
         Assertions.assertEquals(expectedName, actualCategory.getName());
         Assertions.assertEquals(expectedDescription, actualCategory.getDescription());
         Assertions.assertEquals(expectedIsActive, actualCategory.isActive());
-        Assertions.assertEquals(aCategory.getCreatedAt().truncatedTo(ChronoUnit.MILLIS),
-                actualCategory.getCreatedAt().truncatedTo(ChronoUnit.MILLIS));
+        Assertions.assertEquals(aCategory.getCreatedAt(),
+                actualCategory.getCreatedAt());
         Assertions.assertTrue(aCategory.getUpdatedAt().isBefore(actualCategory.getUpdatedAt()));
         Assertions.assertNull(actualCategory.getDeletedAt());
     }
@@ -127,8 +127,8 @@ public class UpdateCategoryUseCaseIT {
         Assertions.assertEquals(expectedName, actualCategory.getName());
         Assertions.assertEquals(expectedDescription, actualCategory.getDescription());
         Assertions.assertEquals(expectedIsActive, actualCategory.isActive());
-        Assertions.assertEquals(aCategory.getCreatedAt().truncatedTo(ChronoUnit.MILLIS),
-                actualCategory.getCreatedAt().truncatedTo(ChronoUnit.MILLIS));
+        Assertions.assertEquals(aCategory.getCreatedAt(),
+                actualCategory.getCreatedAt());
         Assertions.assertTrue(aCategory.getUpdatedAt().isBefore(actualCategory.getUpdatedAt()));
         Assertions.assertNotNull(actualCategory.getDeletedAt());
     }
@@ -170,10 +170,10 @@ public class UpdateCategoryUseCaseIT {
         Assertions.assertEquals(aCategory.isActive(), actualCategory.isActive());
 
         //Por causa do problema ocm H2 é necessario truncar para milisecundos
-        Assertions.assertEquals(aCategory.getCreatedAt().truncatedTo(ChronoUnit.MILLIS),
-                actualCategory.getCreatedAt().truncatedTo(ChronoUnit.MILLIS));
-        Assertions.assertEquals(aCategory.getUpdatedAt().truncatedTo(ChronoUnit.MILLIS),
-                actualCategory.getUpdatedAt().truncatedTo(ChronoUnit.MILLIS));
+        Assertions.assertEquals(aCategory.getCreatedAt(),
+                actualCategory.getCreatedAt());
+        Assertions.assertEquals(aCategory.getUpdatedAt(),
+                actualCategory.getUpdatedAt());
 
         Assertions.assertEquals(aCategory.getDeletedAt(), actualCategory.getDeletedAt());
     }

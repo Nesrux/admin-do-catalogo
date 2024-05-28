@@ -20,76 +20,72 @@ import static org.mockito.Mockito.eq;
 
 @IntegrationTest
 public class GetCategoryByIdUseCaseIT {
-    @Autowired
-    private GetCategoryByIdUseCase useCase;
+        @Autowired
+        private GetCategoryByIdUseCase useCase;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+        @Autowired
+        private CategoryRepository categoryRepository;
 
-    @SpyBean
-    private CategoryGateway categoryGateway;
+        @SpyBean
+        private CategoryGateway categoryGateway;
 
-    @Test
-    public void givenAValidId_whenCallsGetCategory_shouldReturnCategory() {
-        final var expectedName = "Filmes";
-        final var expectedDescription = "A categoria mais assistida";
-        final var expectedIsActive = true;
-        final var aCategory =
-                Category.newCategory(expectedName, expectedDescription, expectedIsActive);
-        final var expectedId = aCategory.getId();
+        @Test
+        public void givenAValidId_whenCallsGetCategory_shouldReturnCategory() {
+                final var expectedName = "Filmes";
+                final var expectedDescription = "A categoria mais assistida";
+                final var expectedIsActive = true;
+                final var aCategory = Category.newCategory(expectedName, expectedDescription, expectedIsActive);
+                final var expectedId = aCategory.getId();
 
+                save(aCategory);
 
-        save(aCategory);
+                final var actualCategory = useCase.execute(expectedId.getValue());
 
-        final var actualCategory = useCase.execute(expectedId.getValue());
+                Assertions.assertEquals(expectedId, actualCategory.id());
+                Assertions.assertEquals(expectedName, actualCategory.name());
+                Assertions.assertEquals(expectedDescription, actualCategory.description());
+                Assertions.assertEquals(expectedIsActive, actualCategory.isActive());
+                Assertions.assertEquals(aCategory.getDeletedAt(), actualCategory.deletedAt());
 
-        Assertions.assertEquals(expectedId, actualCategory.id());
-        Assertions.assertEquals(expectedName, actualCategory.name());
-        Assertions.assertEquals(expectedDescription, actualCategory.description());
-        Assertions.assertEquals(expectedIsActive, actualCategory.isActive());
-        Assertions.assertEquals(aCategory.getDeletedAt(), actualCategory.deletedAt());
+                /*
+                 * Por causa do problema com o H2 necessario truncar o tempo, pois ele não
+                 * consegue chegar em nano segundso
+                 */
+                Assertions.assertEquals(aCategory.getCreatedAt(), actualCategory.createdAt());
+                Assertions.assertEquals(aCategory.getUpdatedAt(), actualCategory.UpdatedAt());
+        }
 
-        /*Por causa do problema com o H2  necessario truncar o tempo, pois ele não consegue chegar em nano segundso*/
-        Assertions.assertEquals(aCategory.getCreatedAt().truncatedTo(ChronoUnit.MILLIS),
-                actualCategory.createdAt().truncatedTo(ChronoUnit.MILLIS));
-        Assertions.assertEquals(aCategory.getUpdatedAt().truncatedTo(ChronoUnit.MILLIS),
-                actualCategory.UpdatedAt().truncatedTo(ChronoUnit.MILLIS));
-    }
+        @Test
+        public void givenAInvalidId_whenCallsGetCategory_shouldReturnNotFound() {
+                final var expectedErrorMessage = "Category with ID 123 was not found";
+                final var expectedId = CategoryId.from("123");
 
-    @Test
-    public void givenAInvalidId_whenCallsGetCategory_shouldReturnNotFound() {
-        final var expectedErrorMessage = "Category with ID 123 was not found";
-        final var expectedId = CategoryId.from("123");
+                final var actualException = Assertions.assertThrows(
+                                DomainException.class,
+                                () -> useCase.execute(expectedId.getValue()));
 
-        final var actualException = Assertions.assertThrows(
-                DomainException.class,
-                () -> useCase.execute(expectedId.getValue())
-        );
+                Assertions.assertEquals(expectedErrorMessage, actualException.getMessage());
+        }
 
-        Assertions.assertEquals(expectedErrorMessage, actualException.getMessage());
-    }
+        @Test
+        public void givenAValidId_whenGatewayThrowsException_shouldReturnException() {
+                final var expectedErrorMessage = "Gateway error";
+                final var expectedId = CategoryId.from("123");
 
-    @Test
-    public void givenAValidId_whenGatewayThrowsException_shouldReturnException() {
-        final var expectedErrorMessage = "Gateway error";
-        final var expectedId = CategoryId.from("123");
+                doThrow(new IllegalStateException(expectedErrorMessage))
+                                .when(categoryGateway).findById(eq(expectedId));
 
-        doThrow(new IllegalStateException(expectedErrorMessage))
-                .when(categoryGateway).findById(eq(expectedId));
+                final var actualException = Assertions.assertThrows(
+                                IllegalStateException.class,
+                                () -> useCase.execute(expectedId.getValue()));
 
-        final var actualException = Assertions.assertThrows(
-                IllegalStateException.class,
-                () -> useCase.execute(expectedId.getValue())
-        );
+                Assertions.assertEquals(expectedErrorMessage, actualException.getMessage());
+        }
 
-        Assertions.assertEquals(expectedErrorMessage, actualException.getMessage());
-    }
-
-    private void save(final Category... aCategory) {
-        categoryRepository.saveAllAndFlush(
-                Arrays.stream(aCategory)
-                        .map(CategoryJpaEntity::from)
-                        .toList()
-        );
-    }
+        private void save(final Category... aCategory) {
+                categoryRepository.saveAllAndFlush(
+                                Arrays.stream(aCategory)
+                                                .map(CategoryJpaEntity::from)
+                                                .toList());
+        }
 }
