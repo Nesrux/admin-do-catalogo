@@ -41,8 +41,7 @@ public class GenreMySQLGateway implements GenreGateway {
 
     @Override
     public Genre update(final Genre genre) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        return save(genre);
     }
 
     @Override
