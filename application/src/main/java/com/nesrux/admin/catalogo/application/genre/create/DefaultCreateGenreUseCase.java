@@ -18,7 +18,7 @@ public class DefaultCreateGenreUseCase extends CreateGenreUseCase {
     private final CategoryGateway categoryGateway;
     private final GenreGateway genreGateway;
 
-    public DefaultCreateGenreUseCase(final CategoryGateway categoryGateway, final GenreGateway genreGateway) {
+    public DefaultCreateGenreUseCase(final GenreGateway genreGateway, final CategoryGateway categoryGateway) {
         this.categoryGateway = Objects.requireNonNull(categoryGateway);
         this.genreGateway = Objects.requireNonNull(genreGateway);
     }
