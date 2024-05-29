@@ -209,6 +209,7 @@ public class GenreMySQLGatewayTest {
         Assertions.assertNull(persistedGenre.getDeletedAt());
     }
 
+    @Test
     public void givenAPrepersistedGenre_whenCallsDeleteById_shouldDeleteGenre() {
         // given
         final var aGenre = Genre.newGenre("Ação", true);
@@ -226,6 +227,7 @@ public class GenreMySQLGatewayTest {
         Assertions.assertEquals(0, genreRepository.count());
     }
 
+    @Test
     public void givenAInvalidGenre_whenCallsDeleteById_shouldReturnOk() {
         // given
         Assertions.assertEquals(0, genreRepository.count());
@@ -235,6 +237,61 @@ public class GenreMySQLGatewayTest {
 
         // then
         Assertions.assertEquals(0, genreRepository.count());
+    }
+
+    @Test
+    protected void givenAprePersistedGenre_whenCallsGetById_shouldReturnGenre() {
+        // given
+        final var filmes = categoryGateway
+                .create(Category.newCategory("Filmes", null, true));
+
+        final var series = categoryGateway
+                .create(Category.newCategory("Series", null, true));
+
+        final var expectedName = "Ação";
+        final var expectedIsActive = true;
+        final var expectedCategories = List.of(filmes.getId(), series.getId());
+
+        final var aGenre = Genre.newGenre(expectedName, expectedIsActive);
+
+        final var expectedId = aGenre.getId();
+
+        aGenre.addCategories(expectedCategories);
+
+        Assertions.assertEquals(0, genreRepository.count());
+
+        genreRepository.saveAndFlush(GenreJpaEntity.from(aGenre));
+
+        Assertions.assertEquals(1, genreRepository.count());
+
+        // when
+        final var actualGenre = genreGateway.findById(aGenre.getId()).get();
+
+        // then
+        // then
+        Assertions.assertEquals(1, genreRepository.count());
+
+        Assertions.assertEquals(expectedId, actualGenre.getId());
+        Assertions.assertEquals(expectedName, actualGenre.getName());
+        Assertions.assertEquals(expectedIsActive, actualGenre.isActive());
+        Assertions.assertEquals(expectedCategories, actualGenre.getCategories());
+        Assertions.assertEquals(aGenre.getCreatedAt(), actualGenre.getCreatedAt());
+        Assertions.assertEquals(aGenre.getUpdatedAt(), actualGenre.getUpdatedAt());
+        Assertions.assertNull(aGenre.getDeletedAt());
+    }
+
+    @Test
+    protected void givenAInvalidGenreID_whenCallsGetById_shouldReturnGenreEmpty() {
+        // given
+        final var expectedId = GenreID.from("12345");
+
+        
+        // when
+        final var actualGenre = genreGateway.findById(expectedId);
+        Assertions.assertEquals(0, genreRepository.count());
+
+        // then
+        Assertions.assertTrue(actualGenre.isEmpty());
     }
 
     private List<CategoryId> sorted(final List<CategoryId> expectedCategories) {
