@@ -12,6 +12,7 @@ import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryId;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
+import com.nesrux.admin.catalogo.domain.genre.GenreID;
 import com.nesrux.admin.catalogo.infrastructure.category.CategoryMySQLGateway;
 import com.nesrux.admin.catalogo.infrastructure.genre.persistence.GenreJpaEntity;
 import com.nesrux.admin.catalogo.infrastructure.genre.persistence.GenreRepository;
@@ -112,11 +113,9 @@ public class GenreMySQLGatewayTest {
     @Test
     public void givenAValidGenreWithoutCategories_whenCallsUpdateGenreWithCategories_shouldPersistGenre() {
         // given
-        final var filmes =
-                categoryGateway.create(Category.newCategory("Filmes", null, true));
+        final var filmes = categoryGateway.create(Category.newCategory("Filmes", null, true));
 
-        final var series =
-                categoryGateway.create(Category.newCategory("Séries", null, true));
+        final var series = categoryGateway.create(Category.newCategory("Séries", null, true));
 
         final var expectedName = "Ação";
         final var expectedIsActive = true;
@@ -136,8 +135,7 @@ public class GenreMySQLGatewayTest {
         // when
         final var actualGenre = genreGateway.update(
                 Genre.with(aGenre)
-                        .update(expectedName, expectedIsActive, expectedCategories)
-        );
+                        .update(expectedName, expectedIsActive, expectedCategories));
 
         // then
         Assertions.assertEquals(1, genreRepository.count());
@@ -164,11 +162,9 @@ public class GenreMySQLGatewayTest {
     @Test
     public void givenAValidGenreWithCategories_whenCallsUpdateGenreCleaningCategories_shouldPersistGenre() {
         // given
-        final var filmes =
-                categoryGateway.create(Category.newCategory("Filmes", null, true));
+        final var filmes = categoryGateway.create(Category.newCategory("Filmes", null, true));
 
-        final var series =
-                categoryGateway.create(Category.newCategory("Séries", null, true));
+        final var series = categoryGateway.create(Category.newCategory("Séries", null, true));
 
         final var expectedName = "Ação";
         final var expectedIsActive = true;
@@ -189,8 +185,7 @@ public class GenreMySQLGatewayTest {
         // when
         final var actualGenre = genreGateway.update(
                 Genre.with(aGenre)
-                        .update(expectedName, expectedIsActive, expectedCategories)
-        );
+                        .update(expectedName, expectedIsActive, expectedCategories));
 
         // then
         Assertions.assertEquals(1, genreRepository.count());
@@ -212,6 +207,34 @@ public class GenreMySQLGatewayTest {
         Assertions.assertTrue(aGenre.getUpdatedAt().isBefore(persistedGenre.getUpdatedAt()));
         Assertions.assertEquals(aGenre.getDeletedAt(), persistedGenre.getDeletedAt());
         Assertions.assertNull(persistedGenre.getDeletedAt());
+    }
+
+    public void givenAPrepersistedGenre_whenCallsDeleteById_shouldDeleteGenre() {
+        // given
+        final var aGenre = Genre.newGenre("Ação", true);
+
+        Assertions.assertEquals(0, genreRepository.count());
+
+        genreRepository.save(GenreJpaEntity.from(aGenre));
+
+        Assertions.assertEquals(1, genreRepository.count());
+
+        // when
+        genreGateway.deleteById(aGenre.getId());
+
+        // then
+        Assertions.assertEquals(0, genreRepository.count());
+    }
+
+    public void givenAInvalidGenre_whenCallsDeleteById_shouldReturnOk() {
+        // given
+        Assertions.assertEquals(0, genreRepository.count());
+
+        // when
+        genreGateway.deleteById(GenreID.from("1234"));
+
+        // then
+        Assertions.assertEquals(0, genreRepository.count());
     }
 
     private List<CategoryId> sorted(final List<CategoryId> expectedCategories) {
