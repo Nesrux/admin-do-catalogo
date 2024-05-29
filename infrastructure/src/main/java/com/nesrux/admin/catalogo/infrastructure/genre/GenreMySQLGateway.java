@@ -37,8 +37,8 @@ public class GenreMySQLGateway implements GenreGateway {
 
     @Override
     public Optional<Genre> findById(final GenreID anId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return this.repository.findById(anId.getValue())
+                .map(GenreJpaEntity::toAggregate);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class GenreMySQLGateway implements GenreGateway {
     }
 
     @Override
-    public Pagination<Genre> findAll(SearchQuery query) {
+    public Pagination<Genre> findAll(final SearchQuery query) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
