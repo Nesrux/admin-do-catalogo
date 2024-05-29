@@ -20,6 +20,7 @@ import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryJpa
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 import com.nesrux.admin.catalogo.infrastructure.utils.SpecificationUtils;
 
+
 @Component
 public class CategoryMySQLGateway implements CategoryGateway {
     private final CategoryRepository repository;
