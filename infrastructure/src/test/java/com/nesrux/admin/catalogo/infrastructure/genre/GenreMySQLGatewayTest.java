@@ -323,11 +323,11 @@ public class GenreMySQLGatewayTest {
     @CsvSource({
             "aç,0,10,1,1,Ação",
             "dr,0,10,1,1,Drama",
-            "com,0,10,1,1,Comédia Romântica",
+            "com,0,10,1,1,Comédia romântica",
             "cien,0,10,1,1,Ficção científica",
             "terr,0,10,1,1,Terror",
     })
-    public void givenAValidTerm_whenCallsFindAll_shouldReturnFiltred(
+    public void givenAValidTerm_whenCallsFindAll_shouldReturnFiltered(
             final String expectedTerms,
             final int expectedPage,
             final int expectedPerPage,
@@ -357,10 +357,10 @@ public class GenreMySQLGatewayTest {
     @CsvSource({
             "name,asc,0,10,5,5,Ação",
             "name,desc,0,10,5,5,Terror",
-            "createdAt,asc,0,10,5,5,Comédia Romântica",
+            "createdAt,asc,0,10,5,5,Comédia romântica",
             "createdAt,desc,0,10,5,5,Ficção científica",
     })
-    public void givenAValidSortEndDirection_whenCallsFindAll_shouldReturnFiltred(
+    public void givenAValidSortAndDirection_whenCallsFindAll_shouldReturnFiltered(
             final String expectedSort,
             final String expectedDirection,
             final int expectedPage,
@@ -388,12 +388,11 @@ public class GenreMySQLGatewayTest {
 
     @ParameterizedTest
     @CsvSource({
-            "0,2,2,5,Ação;Comédia Romântica",
+            "0,2,2,5,Ação;Comédia romântica",
             "1,2,2,5,Drama;Ficção científica",
-            "2,2,2,5,Comédia Romântica",
-            "0,2,1,5,Terror",
+            "2,2,1,5,Terror",
     })
-    public void givenAValidSortEndDirection_whenCallsFindAll_shouldReturnFiltred(
+    public void givenAValidSortAndDirection_whenCallsFindAll_shouldReturnFiltered(
             final int expectedPage,
             final int expectedPerPage,
             final int expectedItemsCount,
@@ -401,9 +400,9 @@ public class GenreMySQLGatewayTest {
             final String expectedGenres) {
         // given
         mockGenres();
+        final var expectedTerms = "";
         final var expectedSort = "name";
         final var expectedDirection = "asc";
-        final var expectedTerms = "";
 
         final var aQuery = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort,
                 expectedDirection);
@@ -416,12 +415,13 @@ public class GenreMySQLGatewayTest {
         Assertions.assertEquals(expectedPerPage, actualPage.perPage());
         Assertions.assertEquals(expectedTotal, actualPage.total());
         Assertions.assertEquals(expectedItemsCount, actualPage.items().size());
+
         int index = 0;
         for (final var expectedName : expectedGenres.split(";")) {
             final var actualName = actualPage.items().get(index).getName();
             Assertions.assertEquals(expectedName, actualName);
+            index++;
         }
-
     }
 
     private void mockGenres() {
