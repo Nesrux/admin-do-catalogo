@@ -70,7 +70,8 @@ public class CreateGenreUseCaseIT {
         final var expectedIsActive = true;
         final var expectedCategories = List.<CategoryId>of();
 
-        final var aCommand = CreateGenreCommand.with(expectedName, expectedIsActive, asString(expectedCategories));
+        final var aCommand = CreateGenreCommand.with(expectedName,
+                expectedIsActive, asString(expectedCategories));
 
         // when
         final var actualOutput = useCase.execute(aCommand);
@@ -98,7 +99,8 @@ public class CreateGenreUseCaseIT {
         final var expectedIsActive = false;
         final var expectedCategories = List.<CategoryId>of();
 
-        final var aCommand = CreateGenreCommand.with(expectedName, expectedIsActive, asString(expectedCategories));
+        final var aCommand = CreateGenreCommand.with(expectedName,
+                expectedIsActive, asString(expectedCategories));
 
         // when
         final var actualOutput = useCase.execute(aCommand);
@@ -129,7 +131,8 @@ public class CreateGenreUseCaseIT {
         final var expectedErrorMessage = "'name' should not be empty";
         final var expectedErrorCount = 1;
 
-        final var aCommand = CreateGenreCommand.with(expectedName, expectedIsActive, asString(expectedCategories));
+        final var aCommand = CreateGenreCommand.with(expectedName,
+                expectedIsActive, asString(expectedCategories));
 
         // when
         final var actualException = Assertions.assertThrows(NotificationException.class, () -> {
@@ -155,7 +158,8 @@ public class CreateGenreUseCaseIT {
         final var expectedErrorMessage = "'name' should not be null";
         final var expectedErrorCount = 1;
 
-        final var aCommand = CreateGenreCommand.with(expectedName, expectedIsActive, asString(expectedCategories));
+        final var aCommand = CreateGenreCommand.with(expectedName,
+                expectedIsActive, asString(expectedCategories));
 
         // when
         final var actualException = Assertions.assertThrows(NotificationException.class, () -> {
@@ -187,7 +191,8 @@ public class CreateGenreUseCaseIT {
         final var expectedErrorMessageTwo = "'name' should not be empty";
         final var expectedErrorCount = 2;
 
-        final var aCommand = CreateGenreCommand.with(expectName, expectedIsActive, asString(expectedCategories));
+        final var aCommand = CreateGenreCommand.with(expectName,
+                expectedIsActive, asString(expectedCategories));
 
         // when
         final var actualException = Assertions.assertThrows(NotificationException.class, () -> {
