@@ -31,6 +31,7 @@ public class CategoryE2ETest {
         @Autowired
         private CategoryRepository categoryRepository;
 
+        @SuppressWarnings("resource")
         @Container
         private static final MySQLContainer MYSQL_CONTAINER = new MySQLContainer("mysql:latest")
                         .withPassword("123456")

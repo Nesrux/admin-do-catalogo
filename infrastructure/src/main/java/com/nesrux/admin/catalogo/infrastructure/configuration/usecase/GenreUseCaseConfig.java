@@ -9,6 +9,8 @@ import com.nesrux.admin.catalogo.application.genre.create.CreateGenreUseCase;
 import com.nesrux.admin.catalogo.application.genre.create.DefaultCreateGenreUseCase;
 import com.nesrux.admin.catalogo.application.genre.delete.DefaultDeleteGenreUseCase;
 import com.nesrux.admin.catalogo.application.genre.delete.DeleteGenreUseCase;
+import com.nesrux.admin.catalogo.application.genre.retrive.get.DefaultGetGenreByIdUseCase;
+import com.nesrux.admin.catalogo.application.genre.retrive.get.GetGenreByIdUseCase;
 import com.nesrux.admin.catalogo.application.genre.retrive.list.DefaultListGenreUseCase;
 import com.nesrux.admin.catalogo.application.genre.retrive.list.ListGenreUseCase;
 import com.nesrux.admin.catalogo.application.genre.update.DefaultUpdateGenreUseCase;
@@ -44,6 +46,11 @@ public class GenreUseCaseConfig {
     @Bean
     public ListGenreUseCase listGenreUseCase() {
         return new DefaultListGenreUseCase(genreGateway);
+    }
+
+    @Bean
+    public GetGenreByIdUseCase getGenreByIdUseCase() {
+        return new DefaultGetGenreByIdUseCase(genreGateway);
     }
 
 }
