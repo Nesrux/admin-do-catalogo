@@ -140,7 +140,6 @@ public class CategoryMySqlGatewayTest {
         final var expectedPerPage = 1;
         final var expectedTotal = 3;
 
-
         final var filmes = Category.newCategory("Filmes", null, true);
         final var series = Category.newCategory("Séries", null, true);
         final var documentarios = Category.newCategory("Documentarios", null, false);
@@ -150,8 +149,7 @@ public class CategoryMySqlGatewayTest {
         categoryRepository.saveAllAndFlush(List.of(
                 CategoryJpaEntity.from(filmes),
                 CategoryJpaEntity.from(series),
-                CategoryJpaEntity.from(documentarios)
-        ));
+                CategoryJpaEntity.from(documentarios)));
 
         Assertions.assertEquals(3, categoryRepository.count());
 
@@ -166,6 +164,42 @@ public class CategoryMySqlGatewayTest {
     }
 
     @Test
+    public void givenPrePresistedCategories_whenCallsExistisByIds_shouldReturnIds() {
+        // given
+        final var filmes = Category.newCategory("Filmes", null, true);
+        final var series = Category.newCategory("Séries", null, true);
+        final var documentarios = Category.newCategory("Documentarios", null, false);
+
+        Assertions.assertEquals(0, categoryRepository.count());
+
+        categoryRepository.saveAllAndFlush(List.of(
+                CategoryJpaEntity.from(filmes),
+                CategoryJpaEntity.from(series),
+                CategoryJpaEntity.from(documentarios)));
+
+        Assertions.assertEquals(3, categoryRepository.count());
+
+        // when
+        final var ids = List.of(
+                filmes.getId(),
+                series.getId(),
+                documentarios.getId(),
+                CategoryId.from("1234"));
+
+        final var expectedIds = List.of(
+                filmes.getId(),
+                series.getId(),
+                documentarios.getId());
+
+        final var actualResult = categoryGateway.existsByIds(ids);
+
+        // then
+        Assertions.assertTrue(expectedIds.size() == actualResult.size()
+                && actualResult.containsAll(expectedIds));
+
+    }
+
+    @Test
     public void givenEmptyCategoriesTable_whenCallsFindAll_shouldReturnEmptyPage() {
         final var expectedPage = 0;
         final var expectedPerPage = 1;
@@ -173,15 +207,14 @@ public class CategoryMySqlGatewayTest {
 
         Assertions.assertEquals(0, categoryRepository.count());
 
-
         final var query = new SearchQuery(0, 1, "", "name", "asc");
         final var actualResult = categoryGateway.findAll(query);
 
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(expectedTotal, actualResult.total());
-        // Assertions.assertEquals(documentarios.getId(), actualResult.items().get(2).getId());
-
+        // Assertions.assertEquals(documentarios.getId(),
+        // actualResult.items().get(2).getId());
 
     }
 
@@ -200,8 +233,7 @@ public class CategoryMySqlGatewayTest {
         categoryRepository.saveAll(List.of(
                 CategoryJpaEntity.from(filmes),
                 CategoryJpaEntity.from(series),
-                CategoryJpaEntity.from(documentarios)
-        ));
+                CategoryJpaEntity.from(documentarios)));
 
         Assertions.assertEquals(3, categoryRepository.count());
 
@@ -245,7 +277,6 @@ public class CategoryMySqlGatewayTest {
         final var expectedPerPage = 1;
         final var expectedTotal = 1;
 
-
         final var filmes = Category.newCategory("Filmes", null, true);
         final var series = Category.newCategory("Séries", null, true);
         final var documentarios = Category.newCategory("Documentarios", null, false);
@@ -255,8 +286,7 @@ public class CategoryMySqlGatewayTest {
         categoryRepository.saveAllAndFlush(List.of(
                 CategoryJpaEntity.from(filmes),
                 CategoryJpaEntity.from(series),
-                CategoryJpaEntity.from(documentarios)
-        ));
+                CategoryJpaEntity.from(documentarios)));
 
         Assertions.assertEquals(3, categoryRepository.count());
 
@@ -276,7 +306,6 @@ public class CategoryMySqlGatewayTest {
         final var expectedPerPage = 1;
         final var expectedTotal = 1;
 
-
         final var filmes = Category.newCategory("Filmes", "A categoria mais assistida", true);
         final var series = Category.newCategory("Séries", "Uma categoria assistida", true);
         final var documentarios = Category.newCategory("Documentários", "A categoria menos assistida", true);
@@ -286,8 +315,7 @@ public class CategoryMySqlGatewayTest {
         categoryRepository.saveAllAndFlush(List.of(
                 CategoryJpaEntity.from(filmes),
                 CategoryJpaEntity.from(series),
-                CategoryJpaEntity.from(documentarios)
-        ));
+                CategoryJpaEntity.from(documentarios)));
 
         Assertions.assertEquals(3, categoryRepository.count());
 
@@ -301,4 +329,3 @@ public class CategoryMySqlGatewayTest {
         Assertions.assertEquals(filmes.getId(), actualResult.items().get(0).getId());
     }
 }
-

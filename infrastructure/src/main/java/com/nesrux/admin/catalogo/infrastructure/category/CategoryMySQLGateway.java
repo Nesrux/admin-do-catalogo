@@ -2,9 +2,9 @@ package com.nesrux.admin.catalogo.infrastructure.category;
 
 import static com.nesrux.admin.catalogo.infrastructure.utils.SpecificationUtils.like;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,7 +19,6 @@ import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 import com.nesrux.admin.catalogo.infrastructure.utils.SpecificationUtils;
-
 
 @Component
 public class CategoryMySQLGateway implements CategoryGateway {
@@ -83,8 +82,13 @@ public class CategoryMySQLGateway implements CategoryGateway {
     }
 
     @Override
-    public List<CategoryId> existsByIds(final Iterable<CategoryId> ids) {
-        // TODO: implementar quando chegar na camada de infrastruct de Genre
-        return Collections.emptyList();
+    public List<CategoryId> existsByIds(final Iterable<CategoryId> categoryIds) {
+        final var ids = StreamSupport.stream(categoryIds.spliterator(), false)
+                .map(CategoryId::getValue)
+                .toList();
+        return this.repository.existsByIds(ids)
+                .stream()
+                .map(CategoryId::from)
+                .toList();
     }
 }
