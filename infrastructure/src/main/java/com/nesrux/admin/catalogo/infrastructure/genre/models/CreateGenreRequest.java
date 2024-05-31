@@ -10,7 +10,7 @@ public record CreateGenreRequest(
                 @JsonProperty("categories_id") List<String> categories,
                 @JsonProperty("is_active") Boolean active) {
 
-        public Boolean isAcitve() {
+        public Boolean isActive() {
                 return this.active != null ? this.active() : true;
         }
 

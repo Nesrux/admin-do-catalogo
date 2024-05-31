@@ -3,6 +3,7 @@ package com.nesrux.admin.catalogo.infrastructure.api.controllers;
 import java.net.URI;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.nesrux.admin.catalogo.application.genre.create.CreateGenreCommand;
 import com.nesrux.admin.catalogo.application.genre.create.CreateGenreUseCase;
@@ -13,11 +14,13 @@ import com.nesrux.admin.catalogo.infrastructure.genre.models.GenreListResponse;
 import com.nesrux.admin.catalogo.infrastructure.genre.models.GenreResponse;
 import com.nesrux.admin.catalogo.infrastructure.genre.models.UpdateGenreRequest;
 
+@RestController
 public class GenreController implements GenreAPI {
 
     private final CreateGenreUseCase createGenreUseCase;
 
-    public GenreController(CreateGenreUseCase createGenreUseCase) {
+    public GenreController(
+            final CreateGenreUseCase createGenreUseCase) {
         this.createGenreUseCase = createGenreUseCase;
     }
 
@@ -25,7 +28,7 @@ public class GenreController implements GenreAPI {
     public ResponseEntity<?> create(final CreateGenreRequest input) {
         final var aCommand = CreateGenreCommand.with(
                 input.name(),
-                input.isAcitve(),
+                input.isActive(),
                 input.categories());
 
         final var output = this.createGenreUseCase.execute(aCommand);

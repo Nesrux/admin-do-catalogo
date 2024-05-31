@@ -25,7 +25,6 @@ import java.net.URI;
 import java.util.Objects;
 import java.util.function.Function;
 
-
 @RestController
 public class CategoryController implements CategoryAPI {
 
@@ -36,10 +35,10 @@ public class CategoryController implements CategoryAPI {
     private final ListCategoriesUseCase listCategoriesUseCase;
 
     public CategoryController(final CreateCategoryUseCase createUseCase,
-                              final GetCategoryByIdUseCase getCategoryByIdUseCase,
-                              final UpdateCategoryUseCase updateCategoryUseCase,
-                              final DeleteCategoryUseCase deleteCategoryUseCase,
-                              final ListCategoriesUseCase listCategoriesUseCase) {
+            final GetCategoryByIdUseCase getCategoryByIdUseCase,
+            final UpdateCategoryUseCase updateCategoryUseCase,
+            final DeleteCategoryUseCase deleteCategoryUseCase,
+            final ListCategoriesUseCase listCategoriesUseCase) {
 
         this.getCategoryByIdUseCase = Objects.requireNonNull(getCategoryByIdUseCase);
         this.createUseCase = Objects.requireNonNull(createUseCase);
@@ -55,7 +54,8 @@ public class CategoryController implements CategoryAPI {
                 input.description(),
                 input.active() != null ? input.active() : true);
 
-        //Eu poderia devolver tudo isso em uma mesma função, mas ficaria menos legivel :(
+        // Eu poderia devolver tudo isso em uma mesma função, mas ficaria menos legivel
+        // :(
         final Function<Notification, ResponseEntity<?>> onError = ResponseEntity.unprocessableEntity()::body;
 
         final Function<CreateCategoryOutput, ResponseEntity<?>> onSuccess = output -> ResponseEntity
