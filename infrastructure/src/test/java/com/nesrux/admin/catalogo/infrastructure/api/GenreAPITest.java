@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nesrux.admin.catalogo.ControllerTest;
 import com.nesrux.admin.catalogo.application.genre.create.CreateGenreOutput;
 import com.nesrux.admin.catalogo.application.genre.create.CreateGenreUseCase;
+import com.nesrux.admin.catalogo.application.genre.delete.DeleteGenreUseCase;
 import com.nesrux.admin.catalogo.application.genre.retrive.get.GenreOutput;
 import com.nesrux.admin.catalogo.application.genre.retrive.get.GetGenreByIdUseCase;
 import com.nesrux.admin.catalogo.application.genre.update.UpdateGenreOutput;
@@ -24,7 +25,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
-import java.util.Objects;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.eq;
@@ -50,6 +50,9 @@ public class GenreAPITest {
 
     @MockBean
     private UpdateGenreUseCase updateGenreUseCase;
+
+    @MockBean
+    private DeleteGenreUseCase deleteGenreUseCase;
 
     @Test
     public void givenAValidCommand_whenCallsCreateGenre_shouldReturnGenreId() throws Exception {
@@ -230,6 +233,24 @@ public class GenreAPITest {
                 .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.errors", hasSize(1)))
                 .andExpect(jsonPath("$.errors[0].message", equalTo(expectedErrorMessage)));
+    }
+
+    @Test
+    public void givenAvalidId_whenCallsDeleteById_shouldBeOk() throws Exception {
+        //given
+        final var expectedId = "123";
+        doNothing().when(deleteGenreUseCase).
+                execute(any());
+
+        //when
+        final var aRequest = delete("/genres/{id}", expectedId)
+                .accept(MediaType.APPLICATION_JSON);
+
+        final var result = this.mvc.perform(aRequest).andDo(print());
+        //then
+        result.andExpect(status().isNoContent());
+        verify(deleteGenreUseCase).execute(eq(expectedId));
+
     }
 
 }
