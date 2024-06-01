@@ -2,6 +2,7 @@ package com.nesrux.admin.catalogo.infrastructure.api.controllers;
 
 import com.nesrux.admin.catalogo.application.genre.create.CreateGenreCommand;
 import com.nesrux.admin.catalogo.application.genre.create.CreateGenreUseCase;
+import com.nesrux.admin.catalogo.application.genre.delete.DeleteGenreUseCase;
 import com.nesrux.admin.catalogo.application.genre.retrive.get.GetGenreByIdUseCase;
 import com.nesrux.admin.catalogo.application.genre.update.UpdateGenreCommand;
 import com.nesrux.admin.catalogo.application.genre.update.UpdateGenreUseCase;
@@ -23,14 +24,17 @@ public class GenreController implements GenreAPI {
     private final CreateGenreUseCase createGenreUseCase;
     private final GetGenreByIdUseCase getGenreByIdUseCase;
     private final UpdateGenreUseCase updateGenreUseCase;
+    private final DeleteGenreUseCase deleteGenreUseCase;
 
     public GenreController(
             final CreateGenreUseCase createGenreUseCase,
             final GetGenreByIdUseCase getGenreByIdUseCase,
-            final UpdateGenreUseCase updateGenreUseCase) {
+            final UpdateGenreUseCase updateGenreUseCase,
+            final DeleteGenreUseCase deleteGenreUseCase) {
         this.createGenreUseCase = createGenreUseCase;
         this.getGenreByIdUseCase = getGenreByIdUseCase;
         this.updateGenreUseCase = updateGenreUseCase;
+        this.deleteGenreUseCase = deleteGenreUseCase;
     }
 
     @Override
@@ -72,8 +76,7 @@ public class GenreController implements GenreAPI {
 
     @Override
     public void deleteById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        this.deleteGenreUseCase.execute(id);
     }
 
 }
