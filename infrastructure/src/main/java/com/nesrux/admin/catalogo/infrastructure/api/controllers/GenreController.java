@@ -3,6 +3,8 @@ package com.nesrux.admin.catalogo.infrastructure.api.controllers;
 import com.nesrux.admin.catalogo.application.genre.create.CreateGenreCommand;
 import com.nesrux.admin.catalogo.application.genre.create.CreateGenreUseCase;
 import com.nesrux.admin.catalogo.application.genre.retrive.get.GetGenreByIdUseCase;
+import com.nesrux.admin.catalogo.application.genre.update.UpdateGenreCommand;
+import com.nesrux.admin.catalogo.application.genre.update.UpdateGenreUseCase;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.infrastructure.api.GenreAPI;
 import com.nesrux.admin.catalogo.infrastructure.genre.models.CreateGenreRequest;
@@ -20,11 +22,15 @@ public class GenreController implements GenreAPI {
 
     private final CreateGenreUseCase createGenreUseCase;
     private final GetGenreByIdUseCase getGenreByIdUseCase;
+    private final UpdateGenreUseCase updateGenreUseCase;
 
     public GenreController(
-            final CreateGenreUseCase createGenreUseCase, GetGenreByIdUseCase getGenreByIdUseCase) {
+            final CreateGenreUseCase createGenreUseCase,
+            final GetGenreByIdUseCase getGenreByIdUseCase,
+            final UpdateGenreUseCase updateGenreUseCase) {
         this.createGenreUseCase = createGenreUseCase;
         this.getGenreByIdUseCase = getGenreByIdUseCase;
+        this.updateGenreUseCase = updateGenreUseCase;
     }
 
     @Override
@@ -52,8 +58,16 @@ public class GenreController implements GenreAPI {
 
     @Override
     public ResponseEntity<?> updateById(String id, UpdateGenreRequest body) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateById'");
+        final var aCommand = UpdateGenreCommand.with(
+                id,
+                body.name(),
+                body.isActive(),
+                body.categories());
+
+        final var output = this.updateGenreUseCase.execute(aCommand);
+
+        return ResponseEntity.ok(output);
+
     }
 
     @Override
