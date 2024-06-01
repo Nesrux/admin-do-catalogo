@@ -6,7 +6,7 @@ import com.nesrux.admin.catalogo.infrastructure.genre.models.GenreListResponse;
 import com.nesrux.admin.catalogo.infrastructure.genre.models.GenreResponse;
 
 public class GenreApiPresenter {
-    static GenreResponse present(final GenreOutput out) {
+   public static GenreResponse present(final GenreOutput out) {
         return new GenreResponse(
                 out.id(),
                 out.name(),
@@ -17,7 +17,7 @@ public class GenreApiPresenter {
                 out.deletedAt());
     }
 
-    static GenreListResponse present(final GenreListOutput out) {
+  public  static GenreListResponse present(final GenreListOutput out) {
         return new GenreListResponse(
                 out.id(),
                 out.name(),

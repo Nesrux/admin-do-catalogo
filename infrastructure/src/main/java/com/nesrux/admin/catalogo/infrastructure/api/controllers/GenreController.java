@@ -1,27 +1,30 @@
 package com.nesrux.admin.catalogo.infrastructure.api.controllers;
 
-import java.net.URI;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.nesrux.admin.catalogo.application.genre.create.CreateGenreCommand;
 import com.nesrux.admin.catalogo.application.genre.create.CreateGenreUseCase;
+import com.nesrux.admin.catalogo.application.genre.retrive.get.GetGenreByIdUseCase;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.infrastructure.api.GenreAPI;
 import com.nesrux.admin.catalogo.infrastructure.genre.models.CreateGenreRequest;
 import com.nesrux.admin.catalogo.infrastructure.genre.models.GenreListResponse;
 import com.nesrux.admin.catalogo.infrastructure.genre.models.GenreResponse;
 import com.nesrux.admin.catalogo.infrastructure.genre.models.UpdateGenreRequest;
+import com.nesrux.admin.catalogo.infrastructure.genre.presenters.GenreApiPresenter;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URI;
 
 @RestController
 public class GenreController implements GenreAPI {
 
     private final CreateGenreUseCase createGenreUseCase;
+    private final GetGenreByIdUseCase getGenreByIdUseCase;
 
     public GenreController(
-            final CreateGenreUseCase createGenreUseCase) {
+            final CreateGenreUseCase createGenreUseCase, GetGenreByIdUseCase getGenreByIdUseCase) {
         this.createGenreUseCase = createGenreUseCase;
+        this.getGenreByIdUseCase = getGenreByIdUseCase;
     }
 
     @Override
@@ -44,8 +47,7 @@ public class GenreController implements GenreAPI {
 
     @Override
     public GenreResponse getById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+        return GenreApiPresenter.present(this.getGenreByIdUseCase.execute(id));
     }
 
     @Override
