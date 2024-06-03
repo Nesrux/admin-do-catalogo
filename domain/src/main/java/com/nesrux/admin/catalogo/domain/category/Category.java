@@ -2,7 +2,7 @@ package com.nesrux.admin.catalogo.domain.category;
 
 import com.nesrux.admin.catalogo.domain.AggregateRoot;
 import com.nesrux.admin.catalogo.domain.validation.ValidationHandler;
-import com.nesrux.admin.catalogo.utils.InstantUtils;
+import com.nesrux.admin.catalogo.domain.utils.InstantUtils;
 
 import java.time.Instant;
 import java.util.Objects;

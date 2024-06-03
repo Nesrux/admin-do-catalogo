@@ -1,7 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.genre.models;
 
 import com.nesrux.admin.catalogo.JacksonTest;
-import com.nesrux.admin.catalogo.utils.InstantUtils;
+import com.nesrux.admin.catalogo.domain.utils.InstantUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

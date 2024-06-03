@@ -10,7 +10,7 @@ import com.nesrux.admin.catalogo.domain.category.CategoryId;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.validation.ValidationHandler;
 import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
-import com.nesrux.admin.catalogo.utils.InstantUtils;
+import com.nesrux.admin.catalogo.domain.utils.InstantUtils;
 
 public class Genre extends AggregateRoot<GenreID> {
 
