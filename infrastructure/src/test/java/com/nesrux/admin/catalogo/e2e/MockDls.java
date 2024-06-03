@@ -93,7 +93,7 @@ public interface MockDls {
 
     private String given(final String url, final Object body) throws Exception {
         final var aRequest = post(url)
-                .contentType(MediaType.)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(Json.writeValueAsString(body));
 
         final var actualId = this.mvc().perform(aRequest)
