@@ -39,8 +39,8 @@ public class GenreTest {
             Genre.newGenre(expectedName, expectedIsActive);
         });
 
-        Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
-        Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
+        Assertions.assertEquals(expectedErrorCount, actualException.size());
+        Assertions.assertEquals(expectedErrorMessage, actualException.firstErrorMessage());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class GenreTest {
         });
 
         Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
-        Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
+        Assertions.assertEquals(expectedErrorMessage, actualException.firstErrorMessage());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class GenreTest {
         });
 
         Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
-        Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
+        Assertions.assertEquals(expectedErrorMessage, actualException.firstErrorMessage());
     }
 
     @Test
