@@ -124,7 +124,7 @@ public class CastMemberTest {
         Assertions.assertEquals(expectedName, actualMember.getName());
         Assertions.assertEquals(expectedType, actualMember.getType());
         Assertions.assertEquals(actualCreatedAt, actualMember.getCreatedAt());
-        Assertions.assertTrue(actualUpdatedAt.isBefore(actualMember.getCreatedAt()));
+        Assertions.assertTrue(actualUpdatedAt.isBefore(actualMember.getUpdatedAt()));
     }
 
     @Test
@@ -206,7 +206,7 @@ public class CastMemberTest {
         final var expectedErrorMessage = "'type' should not be null";
         final var expectedErrorCount = 1;
 
-        final var actualMember = CastMember.newMember("vin diesel", expectedType);
+        final var actualMember = CastMember.newMember("vin diesel", CastMemberType.ACTOR);
 
         Assertions.assertNotNull(actualMember);
         Assertions.assertNotNull(actualMember.getId());
