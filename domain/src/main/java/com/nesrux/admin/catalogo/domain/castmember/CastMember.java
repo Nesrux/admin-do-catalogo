@@ -35,13 +35,33 @@ public class CastMember extends AggregateRoot<CastMemberID> {
                 castMemberID, aName, aType, now, now);
     }
 
-    public CastMember update(final String aName, final CastMemberType aType){
+    public CastMember update(final String aName, final CastMemberType aType) {
         this.name = aName;
         this.type = aType;
         this.updatedAt = InstantUtils.now();
         selfValidate();
         return this;
     }
+
+    public static CastMember with(
+            final CastMemberID anId,
+            final String aName,
+            final CastMemberType aType,
+            final Instant aCreationDate,
+            final Instant aUpdateDate
+    ) {
+        return new CastMember(anId, aName, aType, aCreationDate, aUpdateDate);
+    }
+
+    public static CastMember with(CastMember aCastMember) {
+        return new CastMember(
+                aCastMember.getId(),
+                aCastMember.getName(),
+                aCastMember.getType(),
+                aCastMember.getCreatedAt(),
+                aCastMember.getUpdatedAt());
+    }
+
 
     private void selfValidate() {
         final var notification = Notification.create();
