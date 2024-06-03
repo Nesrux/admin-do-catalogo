@@ -1,6 +1,10 @@
 package com.nesrux.admin.catalogo.e2e.genre;
 
 import com.nesrux.admin.catalogo.E2ETest;
+import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.genre.GenreID;
+import com.nesrux.admin.catalogo.e2e.MockDls;
+import com.nesrux.admin.catalogo.infrastructure.genre.models.UpdateGenreRequest;
 import com.nesrux.admin.catalogo.infrastructure.genre.persistence.GenreRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,9 +24,10 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @Testcontainers
 @E2ETest
-public class GenreE2ETest {
+public class GenreE2ETest implements MockDls {
 
     @Autowired
     private MockMvc mvc;
@@ -53,7 +58,7 @@ public class GenreE2ETest {
 
         final var expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryID>of();
+        final var expectedCategories = List.<CategoryId>of();
 
         final var actualId = givenAGenre(expectedName, expectedIsActive, expectedCategories);
 
@@ -193,7 +198,7 @@ public class GenreE2ETest {
         Assertions.assertEquals(expectedName, actualGenre.name());
         Assertions.assertTrue(
                 expectedCategories.size() == actualGenre.categories().size()
-                        && mapTo(expectedCategories, CategoryID::getValue).containsAll(actualGenre.categories())
+                        && mapTo(expectedCategories, CategoryId::getValue).containsAll(actualGenre.categories())
         );
         Assertions.assertEquals(expectedIsActive, actualGenre.active());
         Assertions.assertNotNull(actualGenre.createdAt());
@@ -230,7 +235,7 @@ public class GenreE2ETest {
 
         final var aRequestBody = new UpdateGenreRequest(
                 expectedName,
-                mapTo(expectedCategories, CategoryID::getValue),
+                mapTo(expectedCategories, CategoryId::getValue),
                 expectedIsActive
         );
 
@@ -265,7 +270,7 @@ public class GenreE2ETest {
 
         final var aRequestBody = new UpdateGenreRequest(
                 expectedName,
-                mapTo(expectedCategories, CategoryID::getValue),
+                mapTo(expectedCategories, CategoryId::getValue),
                 expectedIsActive
         );
 
@@ -292,13 +297,13 @@ public class GenreE2ETest {
 
         final var expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryID>of();
+        final var expectedCategories = List.<CategoryId>of();
 
         final var actualId = givenAGenre(expectedName, false, expectedCategories);
 
         final var aRequestBody = new UpdateGenreRequest(
                 expectedName,
-                mapTo(expectedCategories, CategoryID::getValue),
+                mapTo(expectedCategories, CategoryId::getValue),
                 expectedIsActive
         );
 
