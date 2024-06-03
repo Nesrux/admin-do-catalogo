@@ -15,9 +15,22 @@ public class CastMemberTest {
         Assertions.assertNotNull(actualMember.getId());
         Assertions.assertEquals(expectedName, actualMember.getName());
         Assertions.assertEquals(expectedType, actualMember.getType());
-        Assertions.assertNotNull(actualMember.getCreatedAt);
-        Assertions.assertNotNull(actualMember.getDeletedAt);
+        Assertions.assertNotNull(actualMember.getCreatedAt());
+        Assertions.assertNotNull(actualMember.getUpdatedAt());
+    }
 
+    @Test
+    public void givenAvalidParamsWithTypeDirector_whenCallsNewNumber_ThenInstantiateACastMember() {
+        final var expectedName = "Vin Diesel";
+        final var expectedType = CastMemberType.DIRECTOR;
 
+        final var actualMember = CastMember.newMember(expectedName, expectedType);
+
+        Assertions.assertNotNull(actualMember);
+        Assertions.assertNotNull(actualMember.getId());
+        Assertions.assertEquals(expectedName, actualMember.getName());
+        Assertions.assertEquals(expectedType, actualMember.getType());
+        Assertions.assertNotNull(actualMember.getCreatedAt());
+        Assertions.assertNotNull(actualMember.getUpdatedAt());
     }
 }
