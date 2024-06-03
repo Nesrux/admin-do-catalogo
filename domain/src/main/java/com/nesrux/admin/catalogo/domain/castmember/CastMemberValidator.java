@@ -6,6 +6,10 @@ import com.nesrux.admin.catalogo.domain.validation.Validator;
 
 public class CastMemberValidator extends Validator {
 
+
+    private static final int NAME_MAX_LENGTH = 255;
+    private static final int NAME_MIN_LENGTH = 3;
+
     private final CastMember castMember;
 
     public CastMemberValidator(final ValidationHandler aHandler, final CastMember castMember) {
@@ -13,13 +17,11 @@ public class CastMemberValidator extends Validator {
         this.castMember = castMember;
     }
 
-    public static final int NAME_MAX_LENGTH = 255;
-    public static final int NAME_MIN_LENGTH = 3;
-
 
     @Override
     public void validate() {
         checkNameConstraint();
+        checkNameType();
     }
 
     private void checkNameConstraint() {
@@ -35,6 +37,14 @@ public class CastMemberValidator extends Validator {
         final int length = name.trim().length();
         if (length > NAME_MAX_LENGTH || length < NAME_MIN_LENGTH) {
             this.validationHandler().append(new Error("'name' must between 3 and 255 characters"));
+        }
+    }
+
+    private void checkNameType() {
+        final var type = this.castMember.getType();
+
+        if (type == null) {
+            this.validationHandler().append(new Error("'type' should not be null"));
         }
     }
 }

@@ -74,7 +74,7 @@ public class CastMemberTest {
                 tristique sollicitudin nibh sit amet commodo nulla. Leo
                 """;
 
-        final var expectedErrorMessage = "'name' must between 1 and 255 character";
+        final var expectedErrorMessage = "'name' must between 3 and 255 character";
         final var expectedErrorCount = 1;
         final var expectedType = CastMemberType.DIRECTOR;
 
