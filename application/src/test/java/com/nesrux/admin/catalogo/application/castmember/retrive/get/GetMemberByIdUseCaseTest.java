@@ -24,7 +24,7 @@ public class GetMemberByIdUseCaseTest extends UseCaseTest {
     private CastMemberGateway castMemberGateway;
 
     @InjectMocks
-    private DefaultGetCastMemberByIdUseCaSe usecase;
+    private DefaultGetCastMemberByIdUseCase usecase;
 
     @Override
     protected List<Object> getMocks() {
@@ -47,7 +47,7 @@ public class GetMemberByIdUseCaseTest extends UseCaseTest {
 
         //then
         Assertions.assertNotNull(actualOutput);
-        Assertions.assertEquals(expectedId, actualOutput.id());
+        Assertions.assertEquals(expectedId.getValue(), actualOutput.id());
         Assertions.assertEquals(expectedName, actualOutput.name());
         Assertions.assertEquals(expectedType, actualOutput.type());
         Assertions.assertEquals(aMember.getCreatedAt(), actualOutput.createdAt());
@@ -66,7 +66,7 @@ public class GetMemberByIdUseCaseTest extends UseCaseTest {
                 .thenReturn(Optional.empty());
         //when
         final var expectedException = Assertions.assertThrows(NotFoundException.class,
-                () -> usecase.execute(expectedId.getValue());
+                () -> usecase.execute(expectedId.getValue()));
 
         //then
         Assertions.assertNotNull(expectedException);
