@@ -1,15 +1,15 @@
 package com.nesrux.admin.catalogo;
 
-import java.util.Collection;
-import java.util.List;
-
+import com.nesrux.admin.catalogo.infrastructure.castmember.persistence.CastMemberRepository;
+import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
+import com.nesrux.admin.catalogo.infrastructure.genre.persistence.GenreRepository;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
-import com.nesrux.admin.catalogo.infrastructure.genre.persistence.GenreRepository;
+import java.util.Collection;
+import java.util.List;
 
 @SuppressWarnings("rawtypes")
 public class MySQLCleanUpExtension implements BeforeEachCallback {
@@ -19,6 +19,7 @@ public class MySQLCleanUpExtension implements BeforeEachCallback {
         final var appContext = SpringExtension.getApplicationContext(context);
 
         cleanUp(List.of(
+                appContext.getBean(CastMemberRepository.class),
                 appContext.getBean(GenreRepository.class),
                 appContext.getBean(CategoryRepository.class)));
     }
