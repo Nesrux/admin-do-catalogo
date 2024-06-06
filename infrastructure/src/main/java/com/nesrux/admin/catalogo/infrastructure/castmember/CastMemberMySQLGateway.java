@@ -5,6 +5,7 @@ import com.nesrux.admin.catalogo.domain.castmember.CastMemberGateway;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
+import com.nesrux.admin.catalogo.infrastructure.castmember.persistence.CastMemberJpaEntity;
 import com.nesrux.admin.catalogo.infrastructure.castmember.persistence.CastMemberRepository;
 import org.springframework.stereotype.Component;
 
@@ -19,10 +20,9 @@ public class CastMemberMySQLGateway implements CastMemberGateway {
         this.repository = Objects.requireNonNull(repository);
     }
 
-
     @Override
     public CastMember create(final CastMember aCastMember) {
-        return null;
+        return save(aCastMember);
     }
 
     @Override
@@ -43,5 +43,9 @@ public class CastMemberMySQLGateway implements CastMemberGateway {
     @Override
     public Pagination<CastMember> findAll(final SearchQuery aQuery) {
         return null;
+    }
+
+    private CastMember save(final CastMember aCastMember) {
+        return this.repository.save(CastMemberJpaEntity.from(aCastMember)).toAggregate();
     }
 }

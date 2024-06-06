@@ -26,6 +26,7 @@ public class CastMemberJpaEntity {
     @Column(name = "updated_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant updatedAt;
 
+    public CastMemberJpaEntity(){}
     public CastMemberJpaEntity(
             final String id,
             final String name,
@@ -39,7 +40,7 @@ public class CastMemberJpaEntity {
         this.updatedAt = updatedAt;
     }
 
-    public CastMemberJpaEntity from(final CastMember aMember) {
+    public static CastMemberJpaEntity from(final CastMember aMember) {
         return new CastMemberJpaEntity(
                 aMember.getId().getValue(),
                 aMember.getName(),
