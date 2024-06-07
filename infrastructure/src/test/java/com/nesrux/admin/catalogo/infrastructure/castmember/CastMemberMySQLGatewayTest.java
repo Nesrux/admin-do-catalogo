@@ -137,4 +137,50 @@ public class CastMemberMySQLGatewayTest {
         Assertions.assertEquals(1, castMemberRepository.count());
 
     }
+
+    @Test
+    void givenAvalidCastMember_whenCallsGetByID_shouldReturnIT() {
+        //given
+        final var expectedName = name();
+        final var expectedType = type();
+        final var aMember = CastMember.newMember(expectedName, expectedType);
+        final var expectedId = aMember.getId();
+        Assertions.assertEquals(0, castMemberRepository.count());
+
+        castMemberRepository.saveAndFlush(CastMemberJpaEntity.from(aMember));
+
+        Assertions.assertEquals(1, castMemberRepository.count());
+
+        //when
+        final var actualMember = castMemberGateway.findById(expectedId).get();
+
+        //then
+        Assertions.assertEquals(1, castMemberRepository.count());
+        Assertions.assertEquals(expectedId, actualMember.getId());
+        Assertions.assertEquals(expectedName, actualMember.getName());
+        Assertions.assertEquals(expectedType, actualMember.getType());
+        Assertions.assertEquals(aMember.getCreatedAt(), actualMember.getCreatedAt());
+        Assertions.assertEquals(aMember.getUpdatedAt(), actualMember.getUpdatedAt());
+
+    }
+
+    @Test
+    void givenAnInvalidID_whenCallsGetByID_shouldReturnEmpty() {
+        //given
+        final var aMember = CastMember.newMember(name(), type());
+
+        Assertions.assertEquals(0, castMemberRepository.count());
+
+        castMemberRepository.saveAndFlush(CastMemberJpaEntity.from(aMember));
+
+        Assertions.assertEquals(1, castMemberRepository.count());
+
+        //when
+        final var actualMember =
+                castMemberGateway.findById(CastMemberID.from("1234"));
+
+        //then
+        Assertions.assertEquals(1, castMemberRepository.count());
+        Assertions.assertTrue(actualMember.isEmpty());
+    }
 }
