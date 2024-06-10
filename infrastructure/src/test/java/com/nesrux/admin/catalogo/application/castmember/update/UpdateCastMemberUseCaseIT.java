@@ -20,7 +20,7 @@ public class UpdateCastMemberUseCaseIT {
     private CastMemberGateway gateway;
 
     @Autowired
-    private DefaultUpdateCastMemberUsecase useCase;
+    private UpdateCastMemberUseCase useCase;
 
     @Autowired
     private CastMemberRepository castMemberRepository;

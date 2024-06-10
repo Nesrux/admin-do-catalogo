@@ -18,7 +18,7 @@ public class GetMemberByIdUseCaseIT {
     private CastMemberGateway castMemberGateway;
 
     @Autowired
-    private DefaultGetCastMemberByIdUseCase usecase;
+    private GetCastMemberUseCase usecase;
 
     @Autowired
     private CastMemberRepository castMemberRepository;
