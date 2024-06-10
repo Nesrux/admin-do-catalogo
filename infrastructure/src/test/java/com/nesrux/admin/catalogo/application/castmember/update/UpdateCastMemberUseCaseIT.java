@@ -21,6 +21,7 @@ public class UpdateCastMemberUseCaseIT {
 
     @Autowired
     private DefaultUpdateCastMemberUsecase useCase;
+
     @Autowired
     private CastMemberRepository castMemberRepository;
 
