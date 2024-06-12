@@ -1,6 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.api;
 
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
+import com.nesrux.admin.catalogo.infrastructure.castmember.models.CastMemberResponse;
 import com.nesrux.admin.catalogo.infrastructure.castmember.models.CreateCastMemberRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -47,7 +48,7 @@ public interface CastMemberAPI {
             @ApiResponse(responseCode = "404", description = "Cast member was not found"),
             @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
     })
-    Object getById(@PathVariable String id);
+    CastMemberResponse getById(@PathVariable String id);
 
     @PutMapping(
             value = "{id}",

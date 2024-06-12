@@ -2,9 +2,12 @@ package com.nesrux.admin.catalogo.infrastructure.api.controllers;
 
 import com.nesrux.admin.catalogo.application.castmember.create.CreateCastMemberCommand;
 import com.nesrux.admin.catalogo.application.castmember.create.CreateCastMemberUseCase;
+import com.nesrux.admin.catalogo.application.castmember.retrive.get.GetCastMemberUseCase;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.infrastructure.api.CastMemberAPI;
+import com.nesrux.admin.catalogo.infrastructure.castmember.models.CastMemberResponse;
 import com.nesrux.admin.catalogo.infrastructure.castmember.models.CreateCastMemberRequest;
+import com.nesrux.admin.catalogo.infrastructure.castmember.presenter.CastMemberPresenter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,10 +18,14 @@ import java.util.Objects;
 public class CastMemberController implements CastMemberAPI {
 
     private final CreateCastMemberUseCase createCastMemberUseCase;
+    private final GetCastMemberUseCase getCastMemberUseCase;
 
     public CastMemberController(
-            final CreateCastMemberUseCase createCastMemberUseCase) {
+            final CreateCastMemberUseCase createCastMemberUseCase,
+            final GetCastMemberUseCase getCastMemberUseCase) {
+
         this.createCastMemberUseCase = Objects.requireNonNull(createCastMemberUseCase);
+        this.getCastMemberUseCase = Objects.requireNonNull(getCastMemberUseCase);
     }
 
     @Override
@@ -33,23 +40,28 @@ public class CastMemberController implements CastMemberAPI {
 
 
     @Override
-    public Pagination<Object> list(String search, int page, int perPage, String sort, String direction) {
+    public Pagination<Object> list(
+            final String search,
+            final int page,
+            final int perPage,
+            final String sort,
+            final String direction) {
         return null;
     }
 
 
     @Override
-    public Object getById(String id) {
+    public CastMemberResponse getById(final String id) {
+        return CastMemberPresenter.present(this.getCastMemberUseCase.execute(id));
+    }
+
+    @Override
+    public ResponseEntity<?> updateById(final String id, final Object input) {
         return null;
     }
 
     @Override
-    public ResponseEntity<?> updateById(String id, Object input) {
-        return null;
-    }
-
-    @Override
-    public void deleteById(String id) {
+    public void deleteById(final String id) {
 
     }
 }
