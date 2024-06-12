@@ -6,13 +6,9 @@ import com.nesrux.admin.catalogo.Fixture;
 import com.nesrux.admin.catalogo.application.castmember.create.CreateCastMemberOutput;
 import com.nesrux.admin.catalogo.application.castmember.create.DefaultCreateCastMemberUseCase;
 import com.nesrux.admin.catalogo.application.castmember.delete.DefaultDeleteCastMemberUseCase;
-import com.nesrux.admin.catalogo.application.castmember.delete.DeleteCastMemberUseCase;
 import com.nesrux.admin.catalogo.application.castmember.retrive.get.DefaultGetCastMemberByIdUseCase;
-import com.nesrux.admin.catalogo.application.castmember.retrive.get.GetCastMemberUseCase;
 import com.nesrux.admin.catalogo.application.castmember.retrive.list.DefaultListCastMembersUseCase;
-import com.nesrux.admin.catalogo.application.castmember.retrive.list.ListCastMembersUseCase;
 import com.nesrux.admin.catalogo.application.castmember.update.DefaultUpdateCastMemberUsecase;
-import com.nesrux.admin.catalogo.application.castmember.update.UpdateCastMemberUseCase;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.validation.Error;
@@ -69,16 +65,15 @@ public class CastMemberAPITest {
                 .thenReturn(CreateCastMemberOutput.from(expectedId));
         //when
         final var aRequest = post("/cast_members")
-                .content(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(aCommad));
 
         final var response = this.mvc.perform(aRequest)
                 .andDo(print());
-        //then
-
+        // then
         response.andExpect(status().isCreated())
-                .andExpect(header().string("Location", "/cast_members/" + expectedId))
-                .andExpect(header().string("Content-type", MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(header().string("Location", "/cast_members/" + expectedId.getValue()))
+                .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.id", equalTo(expectedId.getValue())));
 
         verify(createCastMemberUseCase).execute(argThat(actualCmd ->
@@ -100,16 +95,16 @@ public class CastMemberAPITest {
                 .thenThrow(NotificationException.with(new Error(expectedErrorMessage)));
         //when
         final var aRequest = post("/cast_members")
-                .content(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(aCommad));
 
         final var response = this.mvc.perform(aRequest)
                 .andDo(print());
-        //then
 
+        // then
         response.andExpect(status().isUnprocessableEntity())
                 .andExpect(header().string("Location", nullValue()))
-                .andExpect(header().string("Content-type", MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.errors", hasSize(1)))
                 .andExpect(jsonPath("$.errors[0].message", equalTo(expectedErrorMessage)));
 
@@ -117,7 +112,5 @@ public class CastMemberAPITest {
                 Objects.equals(expectedName, actualCmd.name())
                         && Objects.equals(expectedType, actualCmd.type())
         ));
-
-
     }
 }

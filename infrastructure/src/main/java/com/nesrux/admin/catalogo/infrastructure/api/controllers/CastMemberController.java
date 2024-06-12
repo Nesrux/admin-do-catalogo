@@ -23,16 +23,20 @@ public class CastMemberController implements CastMemberAPI {
 
     @Override
     public ResponseEntity<?> create(final CreateCastMemberRequest input) {
-        final var aCommand = CreateCastMemberCommand.with(input.name(), input.type());
+        final var aCommand =
+                CreateCastMemberCommand.with(input.name(), input.type());
+
         final var output = this.createCastMemberUseCase.execute(aCommand);
 
-        return ResponseEntity.created(URI.create("/cast_members" + output.id())).body(output);
+        return ResponseEntity.created(URI.create("/cast_members/" + output.id())).body(output);
     }
 
+
     @Override
-    public Pagination<Object> listCastMembers(String search, int page, int perPage, String sort, String dir) {
+    public Pagination<Object> list(String search, int page, int perPage, String sort, String direction) {
         return null;
     }
+
 
     @Override
     public Object getById(String id) {
