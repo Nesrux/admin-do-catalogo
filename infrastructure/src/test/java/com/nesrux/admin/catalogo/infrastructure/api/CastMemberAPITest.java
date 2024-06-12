@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nesrux.admin.catalogo.ControllerTest;
 import com.nesrux.admin.catalogo.Fixture;
 import com.nesrux.admin.catalogo.application.castmember.create.CreateCastMemberOutput;
-import com.nesrux.admin.catalogo.application.castmember.create.CreateCastMemberUseCase;
+import com.nesrux.admin.catalogo.application.castmember.create.DefaultCreateCastMemberUseCase;
 import com.nesrux.admin.catalogo.application.castmember.delete.DeleteCastMemberUseCase;
 import com.nesrux.admin.catalogo.application.castmember.retrive.get.GetCastMemberUseCase;
 import com.nesrux.admin.catalogo.application.castmember.retrive.list.ListCastMembersUseCase;
@@ -12,18 +12,18 @@ import com.nesrux.admin.catalogo.application.castmember.update.UpdateCastMemberU
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.validation.Error;
-import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
+import com.nesrux.admin.catalogo.infrastructure.castmember.models.CreateCastMemberRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-
 import java.util.Objects;
 import java.util.UUID;
 
 import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -38,7 +38,7 @@ public class CastMemberAPITest {
     private MockMvc mvc;
 
     @MockBean
-    private CreateCastMemberUseCase createCastMemberUseCase;
+    private DefaultCreateCastMemberUseCase createCastMemberUseCase;
 
     @MockBean
     private UpdateCastMemberUseCase updateCastMemberUseCase;

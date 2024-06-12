@@ -1,6 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.api;
 
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
+import com.nesrux.admin.catalogo.infrastructure.castmember.models.CreateCastMemberRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -10,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
 @RequestMapping(value = "/cast_members")
 @Tag(name = "Cast Member")
 public interface CastMemberAPI {
@@ -24,8 +24,7 @@ public interface CastMemberAPI {
             @ApiResponse(responseCode = "422", description = "A validation error was thrown"),
             @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
     })
-    ResponseEntity<?> create(@RequestBody Object input);
-
+    ResponseEntity<?> create(@RequestBody CreateCastMemberRequest input);
 
 
     @GetMapping
