@@ -7,7 +7,7 @@ import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
 
 import java.util.Objects;
 
-public final class DefaultCreateCastMemberUseCase extends CreateCastMemberUseCase {
+public non-sealed class DefaultCreateCastMemberUseCase extends CreateCastMemberUseCase {
 
     private final CastMemberGateway gateway;
 

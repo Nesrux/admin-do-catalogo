@@ -11,7 +11,7 @@ import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public final class DefaultUpdateCastMemberUsecase extends UpdateCastMemberUseCase {
+public non-sealed class DefaultUpdateCastMemberUsecase extends UpdateCastMemberUseCase {
     private final CastMemberGateway castMemberGateway;
 
     public DefaultUpdateCastMemberUsecase(final CastMemberGateway castMemberGateway) {

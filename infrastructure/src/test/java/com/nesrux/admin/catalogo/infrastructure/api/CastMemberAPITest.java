@@ -5,9 +5,13 @@ import com.nesrux.admin.catalogo.ControllerTest;
 import com.nesrux.admin.catalogo.Fixture;
 import com.nesrux.admin.catalogo.application.castmember.create.CreateCastMemberOutput;
 import com.nesrux.admin.catalogo.application.castmember.create.DefaultCreateCastMemberUseCase;
+import com.nesrux.admin.catalogo.application.castmember.delete.DefaultDeleteCastMemberUseCase;
 import com.nesrux.admin.catalogo.application.castmember.delete.DeleteCastMemberUseCase;
+import com.nesrux.admin.catalogo.application.castmember.retrive.get.DefaultGetCastMemberByIdUseCase;
 import com.nesrux.admin.catalogo.application.castmember.retrive.get.GetCastMemberUseCase;
+import com.nesrux.admin.catalogo.application.castmember.retrive.list.DefaultListCastMembersUseCase;
 import com.nesrux.admin.catalogo.application.castmember.retrive.list.ListCastMembersUseCase;
+import com.nesrux.admin.catalogo.application.castmember.update.DefaultUpdateCastMemberUsecase;
 import com.nesrux.admin.catalogo.application.castmember.update.UpdateCastMemberUseCase;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
@@ -41,16 +45,16 @@ public class CastMemberAPITest {
     private DefaultCreateCastMemberUseCase createCastMemberUseCase;
 
     @MockBean
-    private UpdateCastMemberUseCase updateCastMemberUseCase;
+    private DefaultUpdateCastMemberUsecase updateCastMemberUseCase;
 
     @MockBean
-    private DeleteCastMemberUseCase deleteCastMemberUseCase;
+    private DefaultDeleteCastMemberUseCase deleteCastMemberUseCase;
 
     @MockBean
-    private GetCastMemberUseCase getCastMemberUseCase;
+    private DefaultGetCastMemberByIdUseCase getCastMemberUseCase;
 
     @MockBean
-    private ListCastMembersUseCase listCastMembersUseCase;
+    private DefaultListCastMembersUseCase listCastMembersUseCase;
 
     @Test
     public void givenAValidCommand_whenCallsCreateCastMember_ShouldReturnUtsIdentifier() throws Exception {

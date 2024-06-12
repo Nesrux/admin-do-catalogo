@@ -7,7 +7,7 @@ import com.nesrux.admin.catalogo.domain.exceptions.NotFoundException;
 
 import java.util.Objects;
 
-public final class DefaultGetCastMemberByIdUseCase extends GetCastMemberUseCase {
+public non-sealed class DefaultGetCastMemberByIdUseCase extends GetCastMemberUseCase {
     private final CastMemberGateway gateway;
 
     public DefaultGetCastMemberByIdUseCase(final CastMemberGateway gateway) {
