@@ -2,6 +2,7 @@ package com.nesrux.admin.catalogo.domain.category;
 
 import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
 import com.nesrux.admin.catalogo.domain.validation.handler.ThrowsValidationHandler;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
