@@ -12,7 +12,6 @@ import org.mockito.Mock;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 public class GetCategoryByIdUseCaseTest extends UseCaseTest {
@@ -55,10 +54,6 @@ public class GetCategoryByIdUseCaseTest extends UseCaseTest {
         Assertions.assertNull(actualCategory.deletedAt());
 
         Assertions.assertEquals(CategoryOutput.from(aCategory), actualCategory);
-    }
-
-    @Test
-    public void Teste() {
     }
 
     @Test

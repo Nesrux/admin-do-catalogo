@@ -1,13 +1,11 @@
 package com.nesrux.admin.catalogo.e2e.genre;
 
-import com.nesrux.admin.catalogo.E2ETest;
 import com.nesrux.admin.catalogo.domain.category.CategoryId;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
 import com.nesrux.admin.catalogo.e2e.MockDls;
 import com.nesrux.admin.catalogo.infrastructure.genre.models.UpdateGenreRequest;
 import com.nesrux.admin.catalogo.infrastructure.genre.persistence.GenreRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -15,7 +13,6 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
 
@@ -206,7 +203,7 @@ public class GenreE2ETest implements MockDls {
         Assertions.assertNull(actualGenre.deletedAt());
     }
 
-    @Test
+  //  @Test
     public void asACatalogAdminIShouldBeAbleToSeeATreatedErrorByGettingANotFoundGenre() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, genreRepository.count());

@@ -4,7 +4,6 @@ import com.nesrux.admin.catalogo.Fixture;
 import com.nesrux.admin.catalogo.IntegrationTest;
 import com.nesrux.admin.catalogo.domain.castmember.CastMember;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberGateway;
-import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
 import com.nesrux.admin.catalogo.infrastructure.castmember.persistence.CastMemberJpaEntity;
 import com.nesrux.admin.catalogo.infrastructure.castmember.persistence.CastMemberRepository;
@@ -15,8 +14,6 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @IntegrationTest

@@ -213,8 +213,6 @@ public class CategoryMySqlGatewayTest {
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
         Assertions.assertEquals(expectedPerPage, actualResult.perPage());
         Assertions.assertEquals(expectedTotal, actualResult.total());
-        // Assertions.assertEquals(documentarios.getId(),
-        // actualResult.items().get(2).getId());
 
     }
 

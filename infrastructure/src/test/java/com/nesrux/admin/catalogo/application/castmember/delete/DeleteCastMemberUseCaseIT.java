@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.mockito.Mockito.*;
-
 @IntegrationTest
 public class DeleteCastMemberUseCaseIT {
     @Autowired

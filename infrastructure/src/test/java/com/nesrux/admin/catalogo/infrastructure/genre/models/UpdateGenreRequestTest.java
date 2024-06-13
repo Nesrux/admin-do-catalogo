@@ -1,7 +1,6 @@
 package com.nesrux.admin.catalogo.infrastructure.genre.models;
 
 import com.nesrux.admin.catalogo.JacksonTest;
-import com.nesrux.admin.catalogo.infrastructure.category.models.UpdateCategoryRequest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

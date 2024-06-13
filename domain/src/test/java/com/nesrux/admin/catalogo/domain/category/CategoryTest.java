@@ -2,14 +2,12 @@ package com.nesrux.admin.catalogo.domain.category;
 
 import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
 import com.nesrux.admin.catalogo.domain.validation.handler.ThrowsValidationHandler;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CategoryTest {
     @Test
-    @DisplayName("instancia nova categoria")
     public void givenAvalidParams_whenCallNewCategory_theninstatiateACategory() {
         final var expectedName = "Filmes";
         final var expectedDescription = "A categoria mais assistida";
@@ -28,7 +26,6 @@ public class CategoryTest {
     }
 
     @Test
-    @DisplayName("Lança exception ao criar entidade Categoria com nome nulo")
     public void givenAnIvalidNullName_whenCallNewCategoryAndValidate_ThenShouldReciveError() {
         final String expectedName = null;
         final var expectedErrorCount = 1;
@@ -46,7 +43,6 @@ public class CategoryTest {
     }
 
     @Test
-    @DisplayName("Lança exception ao criar entidade Categoria com nome vazio")
     public void givenAnIvalidEmptyName_whenCallNewCategoryAndValidate_ThenShouldReciveError() {
         final String expectedName = "  ";
         final var expectedErrorCount = 1;
@@ -64,7 +60,6 @@ public class CategoryTest {
     }
 
     @Test
-    @DisplayName("Lança exception ao criar entidade Categoria com nome com menos de 3 caracteres")
     public void givenAnIvalidNameLenghtLessThan3_whenCallNewCategoryAndValidate_ThenShouldReciveError() {
         final String expectedName = "fi ";
         final var expectedErrorCount = 1;
@@ -82,7 +77,6 @@ public class CategoryTest {
     }
 
     @Test
-    @DisplayName("Lança exception ao criar entidade Categoria com um nome maior que 255 caracteres")
     public void givenAnIvalidNameLenghtMoreThan255Caracteres_whenCallNewCategoryAndValidate_ThenShouldReciveError() {
         final String expectedName = """
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et +
@@ -105,7 +99,6 @@ public class CategoryTest {
     }
 
     @Test
-    @DisplayName("Instacia uma categoria com uma descrição valida")
     public void givenAValidEmptyDescription_whenCallNewCategory_theninstatiateACategory() {
         final var expectedName = "Filmes";
         final var expectedDescription = "  ";
@@ -125,7 +118,6 @@ public class CategoryTest {
     }
 
     @Test
-    @DisplayName("Instacia uma categoria com uma descrição valida")
     public void givenAValidValidFalseIsActive_whenCallNewCategory_theninstatiateACategory() {
         final var expectedName = "Filmes";
         final var expectedDescription = "A Categoria mais assitida";
@@ -146,7 +138,6 @@ public class CategoryTest {
     }
 
     @Test
-    @DisplayName("desativa categoria que estava ativa")
     public void givenAValidActiveCategory_whenCallDeactivate_thenReturnCategoryInactivated() {
         final var expectedName = "Filmes";
         final var expectedDescription = "A categoria mais assistida";
@@ -177,7 +168,6 @@ public class CategoryTest {
     }
 
     @Test
-    @DisplayName("Ativa uma categoria que estava desativada")
     public void givenAValidinctiveCategory_whenCallActivate_thenReturnCategoryActivated() {
         final var expectedName = "Filmes";
         final var expectedDescription = "A categoria mais assistida";
@@ -207,7 +197,6 @@ public class CategoryTest {
     }
 
     @Test
-    @DisplayName("quando atualiza uma categoria valída")
     public void givenAValidCategory_whenCallUpdate_thenReturnCategoryUpdated() {
         final var expectedName = "Filmes";
         final var expectedDescription = "A categoria mais assistida";
@@ -234,7 +223,6 @@ public class CategoryTest {
     }
 
     @Test
-    @DisplayName("Dado uma categoria valida chama atualiza para uma categoria inativada retorna a categoria atualizada")
     public void givenAValidCategory_whenCallUpdateToInactiveCategory_thenReturnCategoryUpdated() {
         final var expectedName = "Filmes";
         final var expectedDescription = "A categoria mais assistida";
@@ -263,7 +251,6 @@ public class CategoryTest {
     }
 
     @Test
-    @DisplayName("dado uma categoria valida, chama o update com parametros inavlidos retorna a categoria atualizada")
     public void givenAValidCategory_whenCallUpdateWithInvalidParms_thenReturnCategoryUpdated() {
         final String expectedName = null;
         final var expectedDescription = "A categoria mais assistida";
