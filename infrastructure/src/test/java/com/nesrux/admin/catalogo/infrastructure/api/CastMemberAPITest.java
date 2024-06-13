@@ -233,7 +233,7 @@ public class CastMemberAPITest {
                 .andExpect(jsonPath("$.errors[0].message", equalTo(expectedErrorMessage)));
 
         verify(updateCastMemberUseCase).execute(argThat(actualCmd ->
-                Objects.equals(expectedId, actualCmd.id())
+                Objects.equals(expectedId.getValue(), actualCmd.id())
                         && Objects.equals(expectedName, actualCmd.name())
                         && Objects.equals(expectedType, actualCmd.type())
         ));
@@ -245,7 +245,7 @@ public class CastMemberAPITest {
         final var expectedId = CastMemberID.from("123");
         final var expectedName = Fixture.name();
         final var expectedType = Fixture.CastMember.type();
-        final var expectedErrorMessage = "Could not update Aggrefate CastMember 123";
+        final var expectedErrorMessage = "CastMember with ID 123 was not found";
 
         final var aCommad = new UpdateCastMemberRequest(expectedName, expectedType);
 
@@ -266,7 +266,7 @@ public class CastMemberAPITest {
                 .andExpect(jsonPath("$.message", equalTo(expectedErrorMessage)));
 
         verify(updateCastMemberUseCase).execute(argThat(actualCmd ->
-                Objects.equals(expectedId, actualCmd.id())
+                Objects.equals(expectedId.getValue(), actualCmd.id())
                         && Objects.equals(expectedName, actualCmd.name())
                         && Objects.equals(expectedType, actualCmd.type())
         ));

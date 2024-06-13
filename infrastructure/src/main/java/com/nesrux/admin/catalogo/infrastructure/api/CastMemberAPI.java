@@ -3,6 +3,7 @@ package com.nesrux.admin.catalogo.infrastructure.api;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.infrastructure.castmember.models.CastMemberResponse;
 import com.nesrux.admin.catalogo.infrastructure.castmember.models.CreateCastMemberRequest;
+import com.nesrux.admin.catalogo.infrastructure.castmember.models.UpdateCastMemberRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -62,7 +63,7 @@ public interface CastMemberAPI {
             @ApiResponse(responseCode = "422", description = "A validation error was thrown"),
             @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
     })
-    ResponseEntity<?> updateById(@PathVariable String id, @RequestBody Object aBody);
+    ResponseEntity<?> updateById(@PathVariable String id, @RequestBody UpdateCastMemberRequest aBody);
 
     @DeleteMapping(value = "{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
