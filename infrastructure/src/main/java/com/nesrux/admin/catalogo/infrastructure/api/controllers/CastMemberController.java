@@ -4,6 +4,7 @@ import com.nesrux.admin.catalogo.application.castmember.create.CreateCastMemberC
 import com.nesrux.admin.catalogo.application.castmember.create.CreateCastMemberUseCase;
 import com.nesrux.admin.catalogo.application.castmember.delete.DeleteCastMemberUseCase;
 import com.nesrux.admin.catalogo.application.castmember.retrive.get.GetCastMemberUseCase;
+import com.nesrux.admin.catalogo.application.castmember.retrive.list.ListCastMembersUseCase;
 import com.nesrux.admin.catalogo.application.castmember.update.UpdateCastMemberCommand;
 import com.nesrux.admin.catalogo.application.castmember.update.UpdateCastMemberUseCase;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
@@ -27,17 +28,19 @@ public class CastMemberController implements CastMemberAPI {
     private final GetCastMemberUseCase getCastMemberUseCase;
     private final UpdateCastMemberUseCase updateCastMemberUseCase;
     private final DeleteCastMemberUseCase deleteCastMemberUseCase;
+    private final ListCastMembersUseCase listCastMembersUseCase;
 
     public CastMemberController(
             final CreateCastMemberUseCase createCastMemberUseCase,
             final GetCastMemberUseCase getCastMemberUseCase,
             final UpdateCastMemberUseCase updateCastMemberUseCase,
-            final DeleteCastMemberUseCase deleteCastMemberUseCase) {
+            final DeleteCastMemberUseCase deleteCastMemberUseCase, ListCastMembersUseCase listCastMembersUseCase) {
 
         this.createCastMemberUseCase = Objects.requireNonNull(createCastMemberUseCase);
         this.getCastMemberUseCase = Objects.requireNonNull(getCastMemberUseCase);
         this.updateCastMemberUseCase = Objects.requireNonNull(updateCastMemberUseCase);
         this.deleteCastMemberUseCase = Objects.requireNonNull(deleteCastMemberUseCase);
+        this.listCastMembersUseCase = Objects.requireNonNull(listCastMembersUseCase);
     }
 
     @Override
