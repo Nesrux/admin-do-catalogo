@@ -38,7 +38,7 @@ public non-sealed class DefaultUpdateCastMemberUsecase extends UpdateCastMemberU
     }
 
     private void notify(final Identifier id, final Notification notification) {
-        throw new NotificationException("Could not update Aggrefate CastMember %s".formatted(id.getValue()), notification);
+        throw new NotificationException("Could not update Aggregate CastMember %s".formatted(id.getValue()), notification);
     }
 
     private Supplier<NotFoundException> notFound(final CastMemberID anId) {
