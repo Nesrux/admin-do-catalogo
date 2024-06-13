@@ -8,6 +8,7 @@ import com.nesrux.admin.catalogo.application.castmember.retrive.list.ListCastMem
 import com.nesrux.admin.catalogo.application.castmember.update.UpdateCastMemberCommand;
 import com.nesrux.admin.catalogo.application.castmember.update.UpdateCastMemberUseCase;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
+import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
 import com.nesrux.admin.catalogo.infrastructure.api.CastMemberAPI;
 import com.nesrux.admin.catalogo.infrastructure.castmember.models.CastMemberResponse;
 import com.nesrux.admin.catalogo.infrastructure.castmember.models.CreateCastMemberRequest;
@@ -61,7 +62,8 @@ public class CastMemberController implements CastMemberAPI {
             final int perPage,
             final String sort,
             final String direction) {
-        return null;
+        return this.listCastMembersUseCase.execute(new SearchQuery(page, perPage, search, sort, direction))
+                .map(CastMemberPresenter::present);
     }
 
 
