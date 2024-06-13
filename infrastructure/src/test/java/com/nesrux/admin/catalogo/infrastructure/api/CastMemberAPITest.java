@@ -272,4 +272,25 @@ public class CastMemberAPITest {
         ));
     }
 
+    @Test
+    public void givenAValidId_whenCallsDeleteByID_ShouldDeletedId() throws Exception {
+        //given
+        final var expectedId = CastMemberID.unique();
+        doNothing()
+                .when(deleteCastMemberUseCase).execute(any());
+
+        //when
+        final var aRequest = delete("/cast_members/{id}",
+                expectedId.getValue())
+                .accept(MediaType.APPLICATION_JSON);
+
+        final var response = this.mvc.perform(aRequest)
+                .andDo(print());
+
+        //then
+        response.andExpect(status().isNoContent());
+        verify(deleteCastMemberUseCase).execute(eq(expectedId.getValue()));
+
+    }
+
 }
