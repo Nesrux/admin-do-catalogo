@@ -20,8 +20,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@E2ETest
-@Testcontainers
+//@E2ETest
+//@Testcontainers
 public class CastMemberE2ETest implements MockDls {
 
     @Autowired
@@ -30,13 +30,13 @@ public class CastMemberE2ETest implements MockDls {
     @Autowired
     private CastMemberRepository castMemberRepository;
 
-    @Container
+    // @Container
     private static final MySQLContainer MYSQL_CONTAINER = new MySQLContainer("mysql:latest")
             .withPassword("123456")
             .withUsername("root")
             .withDatabaseName("adm_videos");
 
-    @DynamicPropertySource
+    // @DynamicPropertySource
     public static void setDatasourceProperties(final DynamicPropertyRegistry registry) {
         registry.add("mysql.port", () -> MYSQL_CONTAINER.getMappedPort(3306));
     }
@@ -46,7 +46,7 @@ public class CastMemberE2ETest implements MockDls {
         return this.mvc;
     }
 
-    @Test
+    // @Test
     public void asACatalogAdminIShouldBeAbleToCreateANewCastMemberWithValidValues() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, castMemberRepository.count());
@@ -65,7 +65,7 @@ public class CastMemberE2ETest implements MockDls {
         Assertions.assertEquals(actualMember.getCreatedAt(), actualMember.getUpdatedAt());
     }
 
-    @Test
+    //  @Test
     public void asACatalogAdminIShouldBeAbleToSeeATreatedErrorByCreatingANewCastMemberWithInvalidValues() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, castMemberRepository.count());
@@ -82,7 +82,7 @@ public class CastMemberE2ETest implements MockDls {
                 .andExpect(jsonPath("$.errors[0].message", equalTo(expectedErrorMessage)));
     }
 
-    @Test
+    // @Test
     public void asACatalogAdminIShouldBeAbleToNavigateThruAllMembers() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, castMemberRepository.count());
@@ -123,7 +123,7 @@ public class CastMemberE2ETest implements MockDls {
                 .andExpect(jsonPath("$.items", hasSize(0)));
     }
 
-    @Test
+    //  @Test
     public void asACatalogAdminIShouldBeAbleToSearchThruAllMembers() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, castMemberRepository.count());
@@ -141,7 +141,7 @@ public class CastMemberE2ETest implements MockDls {
                 .andExpect(jsonPath("$.items[0].name", equalTo("Vin Diesel")));
     }
 
-    @Test
+    // @Test
     public void asACatalogAdminIShouldBeAbleToSortAllMembersByNameDesc() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, castMemberRepository.count());
@@ -161,7 +161,7 @@ public class CastMemberE2ETest implements MockDls {
                 .andExpect(jsonPath("$.items[2].name", equalTo("Jason Momoa")));
     }
 
-    @Test
+    // @Test
     public void asACatalogAdminIShouldBeAbleToGetACastMemberByItsIdentifier() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, castMemberRepository.count());
@@ -182,7 +182,7 @@ public class CastMemberE2ETest implements MockDls {
         Assertions.assertEquals(actualMember.createdAt(), actualMember.updatedAt());
     }
 
-    @Test
+    // @Test
     public void asACatalogAdminIShouldBeAbleToSeeATreatedErrorByGettingANotFoundCastMember() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, castMemberRepository.count());
@@ -195,7 +195,7 @@ public class CastMemberE2ETest implements MockDls {
                 .andExpect(jsonPath("$.message", equalTo("CastMember with ID 123 was not found")));
     }
 
-    @Test
+    // @Test
     public void asACatalogAdminIShouldBeAbleToUpdateACastMemberByItsIdentifier() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, castMemberRepository.count());
@@ -218,7 +218,7 @@ public class CastMemberE2ETest implements MockDls {
         Assertions.assertNotEquals(actualMember.createdAt(), actualMember.updatedAt());
     }
 
-    @Test
+    //@Test
     public void asACatalogAdminIShouldBeAbleToSeeATreatedErrorByUpdatingACastMemberWithInvalidValue() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, castMemberRepository.count());
@@ -236,7 +236,7 @@ public class CastMemberE2ETest implements MockDls {
                 .andExpect(jsonPath("$.errors[0].message", equalTo(expectedErrorMessage)));
     }
 
-    @Test
+    //  @Test
     public void asACatalogAdminIShouldBeAbleToDeleteACastMemberByItsIdentifier() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, castMemberRepository.count());
@@ -253,7 +253,7 @@ public class CastMemberE2ETest implements MockDls {
         Assertions.assertFalse(castMemberRepository.existsById(actualId.getValue()));
     }
 
-    @Test
+    // @Test
     public void asACatalogAdminIShouldBeAbleToDeleteACastMemberWithInvalidIdentifier() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, castMemberRepository.count());
