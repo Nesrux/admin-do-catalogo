@@ -1,15 +1,9 @@
 package com.nesrux.admin.catalogo.e2e.castmember;
 
-package com.fullcycle.admin.catalogo.e2e.castmember;
-
-import com.fullcycle.admin.catalogo.E2ETest;
-import com.fullcycle.admin.catalogo.Fixture;
-import com.fullcycle.admin.catalogo.domain.castmember.CastMemberID;
-import com.fullcycle.admin.catalogo.domain.castmember.CastMemberType;
-import com.fullcycle.admin.catalogo.e2e.MockDsl;
-import com.fullcycle.admin.catalogo.infrastructure.castmember.persistence.CastMemberRepository;
 import com.nesrux.admin.catalogo.E2ETest;
 import com.nesrux.admin.catalogo.Fixture;
+import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
+import com.nesrux.admin.catalogo.domain.castmember.CastMemberType;
 import com.nesrux.admin.catalogo.e2e.MockDls;
 import com.nesrux.admin.catalogo.infrastructure.castmember.persistence.CastMemberRepository;
 import org.junit.jupiter.api.Assertions;

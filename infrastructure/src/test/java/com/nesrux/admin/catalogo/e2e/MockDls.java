@@ -37,10 +37,10 @@ public interface MockDls {
         return this.delete("/cast_members/", anId);
     }
 
-    default CategoryId givenACastMember(final String aName, final CastMemberType aType) throws Exception {
+    default CastMemberID givenACastMember(final String aName, final CastMemberType aType) throws Exception {
         final var aRequestBody = new CreateCastMemberRequest(aName, aType);
         final var actualId = this.given("/cast_members", aRequestBody);
-        return CategoryId.from(actualId);
+        return CastMemberID.from(actualId);
     }
 
     default ResultActions givenACastMemberResult(final String aName, final CastMemberType aType) throws Exception {
@@ -60,15 +60,15 @@ public interface MockDls {
         return this.list("/cast_members", page, perPage, search, sort, direction);
     }
 
-    default CastMemberResponse retrieveACastMember(final CategoryId anId) throws Exception {
+    default CastMemberResponse retrieveACastMember(final CastMemberID anId) throws Exception {
         return this.retrieve("/cast_members/", anId, CastMemberResponse.class);
     }
 
-    default ResultActions retrieveACastMemberResult(final CategoryId anId) throws Exception {
+    default ResultActions retrieveACastMemberResult(final CastMemberID anId) throws Exception {
         return this.retrieveResult("/cast_members/", anId);
     }
 
-    default ResultActions updateACastMember(final CategoryId anId, final String aName, final CastMemberType aType) throws Exception {
+    default ResultActions updateACastMember(final CastMemberID anId, final String aName, final CastMemberType aType) throws Exception {
         return this.update("/cast_members/", anId, new UpdateCastMemberRequest(aName, aType));
     }
 
