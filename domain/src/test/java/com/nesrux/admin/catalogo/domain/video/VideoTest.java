@@ -3,6 +3,7 @@ package com.nesrux.admin.catalogo.domain.video;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import com.nesrux.admin.catalogo.domain.category.CategoryId;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
+import com.nesrux.admin.catalogo.domain.validation.handler.ThrowsValidationHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -56,5 +57,13 @@ public class VideoTest {
         Assertions.assertEquals(expectedCategories, actualVideo.getCategories());
         Assertions.assertEquals(expectedGenres, actualVideo.getGenres());
         Assertions.assertEquals(expectedCastMembers, actualVideo.getCastMembers());
+
+        Assertions.assertTrue(actualVideo.getVideo.isEmpty());
+        Assertions.assertTrue(actualVideo.getTrailer.isEmpty());
+        Assertions.assertTrue(actualVideo.getBanner.isEmpty());
+        Assertions.assertTrue(actualVideo.getTumbnail.isEmpty());
+        Assertions.assertTrue(actualVideo.getThumbnailHalf.isEmpty());
+
+        Assertions.assertThrows(() -> actualVideo.validate(new ThrowsValidationHandler()));
     }
 }
