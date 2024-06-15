@@ -18,7 +18,7 @@ public class VideoTest {
         final var expectedTitle = "GOKU Morre!";
         final var expectedDescription = """
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et +
-                dolore magna aliqua. Ac turpis egestas maecenas pharetra convallis posuere morbi. Adipiscing elit duis
+                s egestas maecenas pharetra convallisAdipiscing elit duis
                 """;
 
         final var expectedLaunchedAt = Year.of(2023);
@@ -36,9 +36,9 @@ public class VideoTest {
                 expectedDescription,
                 expectedLaunchedAt,
                 expectedDurarion,
+                expectedRating,
                 expectedOpened,
                 expectedPublished,
-                expectedRating,
                 expectedCategories,
                 expectedGenres,
                 expectedCastMembers
@@ -50,7 +50,7 @@ public class VideoTest {
         Assertions.assertEquals(expectedTitle, actualVideo.getTitle());
         Assertions.assertEquals(expectedDescription, actualVideo.getDescription());
         Assertions.assertEquals(expectedLaunchedAt, actualVideo.getLaunchedAt());
-        Assertions.assertEquals(expectedDurarion, actualVideo.getDurarion());
+        Assertions.assertEquals(expectedDurarion, actualVideo.getDuration());
         Assertions.assertEquals(expectedOpened, actualVideo.getOpened());
         Assertions.assertEquals(expectedPublished, actualVideo.getPublished());
         Assertions.assertEquals(expectedRating, actualVideo.getRating());
@@ -58,12 +58,12 @@ public class VideoTest {
         Assertions.assertEquals(expectedGenres, actualVideo.getGenres());
         Assertions.assertEquals(expectedCastMembers, actualVideo.getCastMembers());
 
-        Assertions.assertTrue(actualVideo.getVideo.isEmpty());
-        Assertions.assertTrue(actualVideo.getTrailer.isEmpty());
-        Assertions.assertTrue(actualVideo.getBanner.isEmpty());
-        Assertions.assertTrue(actualVideo.getTumbnail.isEmpty());
-        Assertions.assertTrue(actualVideo.getThumbnailHalf.isEmpty());
+        Assertions.assertTrue(actualVideo.getVideo().isEmpty());
+        Assertions.assertTrue(actualVideo.getTrailer().isEmpty()); // getTrailer
+        Assertions.assertTrue(actualVideo.getBanner().isEmpty());
+        Assertions.assertTrue(actualVideo.getThumbnail().isEmpty());
+        Assertions.assertTrue(actualVideo.getThumbnailHalf().isEmpty());
 
-        Assertions.assertThrows(() -> actualVideo.validate(new ThrowsValidationHandler()));
+        Assertions.assertDoesNotThrow(() -> actualVideo.validate(new ThrowsValidationHandler()));
     }
 }
