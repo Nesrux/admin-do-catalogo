@@ -13,7 +13,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import com.nesrux.admin.catalogo.IntegrationTest;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
@@ -58,7 +58,7 @@ public class GetCategoryByIdUseCaseIT {
         @Test
         public void givenAInvalidId_whenCallsGetCategory_shouldReturnNotFound() {
                 final var expectedErrorMessage = "Category with ID 123 was not found";
-                final var expectedId = CategoryId.from("123");
+                final var expectedId = CategoryID.from("123");
 
                 final var actualException = Assertions.assertThrows(
                                 DomainException.class,
@@ -70,7 +70,7 @@ public class GetCategoryByIdUseCaseIT {
         @Test
         public void givenAValidId_whenGatewayThrowsException_shouldReturnException() {
                 final var expectedErrorMessage = "Gateway error";
-                final var expectedId = CategoryId.from("123");
+                final var expectedId = CategoryID.from("123");
 
                 doThrow(new IllegalStateException(expectedErrorMessage))
                                 .when(categoryGateway).findById(eq(expectedId));

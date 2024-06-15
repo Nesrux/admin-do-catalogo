@@ -11,11 +11,11 @@ public interface CategoryGateway {
 
     Category update(Category aCategory);
 
-    void deleteById(CategoryId anId);
+    void deleteById(CategoryID anId);
 
-    Optional<Category> findById(CategoryId anId);
+    Optional<Category> findById(CategoryID anId);
 
     Pagination<Category> findAll(SearchQuery aQuery);
 
-    List<CategoryId> existsByIds(Iterable<CategoryId> ids);
+    List<CategoryID> existsByIds(Iterable<CategoryID> ids);
 }

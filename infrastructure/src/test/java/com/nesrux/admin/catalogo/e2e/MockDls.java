@@ -3,7 +3,7 @@ package com.nesrux.admin.catalogo.e2e;
 import com.nesrux.admin.catalogo.domain.Identifier;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberType;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
 import com.nesrux.admin.catalogo.infrastructure.castmember.models.CastMemberResponse;
 import com.nesrux.admin.catalogo.infrastructure.castmember.models.CreateCastMemberRequest;
@@ -76,14 +76,14 @@ public interface MockDls {
      * Category
      */
 
-    default ResultActions deleteACategory(final CategoryId anId) throws Exception {
+    default ResultActions deleteACategory(final CategoryID anId) throws Exception {
         return this.delete("/categories/", anId);
     }
 
-    default CategoryId givenACategory(final String aName, final String aDescription, final boolean isActive) throws Exception {
+    default CategoryID givenACategory(final String aName, final String aDescription, final boolean isActive) throws Exception {
         final var aRequestBody = new CreateCategoryRequest(aName, aDescription, isActive);
         final var actualId = this.given("/categories", aRequestBody);
-        return CategoryId.from(actualId);
+        return CategoryID.from(actualId);
     }
 
     default ResultActions listCategories(final int page, final int perPage) throws Exception {
@@ -98,11 +98,11 @@ public interface MockDls {
         return this.list("/categories", page, perPage, search, sort, direction);
     }
 
-    default CategoryResponse retrieveACategory(final CategoryId anId) throws Exception {
+    default CategoryResponse retrieveACategory(final CategoryID anId) throws Exception {
         return this.retrieve("/categories/", anId, CategoryResponse.class);
     }
 
-    default ResultActions updateACategory(final CategoryId anId, final UpdateCategoryRequest aRequest) throws Exception {
+    default ResultActions updateACategory(final CategoryID anId, final UpdateCategoryRequest aRequest) throws Exception {
         return this.update("/categories/", anId, aRequest);
     }
 
@@ -114,8 +114,8 @@ public interface MockDls {
         return this.delete("/genres/", anId);
     }
 
-    default GenreID givenAGenre(final String aName, final boolean isActive, final List<CategoryId> categories) throws Exception {
-        final var aRequestBody = new CreateGenreRequest(aName, mapTo(categories, CategoryId::getValue), isActive);
+    default GenreID givenAGenre(final String aName, final boolean isActive, final List<CategoryID> categories) throws Exception {
+        final var aRequestBody = new CreateGenreRequest(aName, mapTo(categories, CategoryID::getValue), isActive);
         final var actualId = this.given("/genres", aRequestBody);
         return GenreID.from(actualId);
     }

@@ -3,7 +3,7 @@ package com.nesrux.admin.catalogo.application.category.delete;
 import com.nesrux.admin.catalogo.application.UseCaseTest;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -44,7 +44,7 @@ public class DeleteCategoryUsecaseTest extends UseCaseTest {
 
     @Test
     public void givenAInvalidId_whenCallsDeleteCategory_shouldBeOk() {
-        final var expectedId = CategoryId.from("123");
+        final var expectedId = CategoryID.from("123");
 
         doNothing()
                 .when(categoryGateway).deleteById(eq(expectedId));

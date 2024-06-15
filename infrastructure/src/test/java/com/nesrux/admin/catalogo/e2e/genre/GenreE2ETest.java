@@ -1,6 +1,6 @@
 package com.nesrux.admin.catalogo.e2e.genre;
 
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
 import com.nesrux.admin.catalogo.e2e.MockDls;
 import com.nesrux.admin.catalogo.infrastructure.genre.models.UpdateGenreRequest;
@@ -55,7 +55,7 @@ public class GenreE2ETest implements MockDls {
 
         final var expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryId>of();
+        final var expectedCategories = List.<CategoryID>of();
 
         final var actualId = givenAGenre(expectedName, expectedIsActive, expectedCategories);
 
@@ -195,7 +195,7 @@ public class GenreE2ETest implements MockDls {
         Assertions.assertEquals(expectedName, actualGenre.name());
         Assertions.assertTrue(
                 expectedCategories.size() == actualGenre.categories().size()
-                        && mapTo(expectedCategories, CategoryId::getValue).containsAll(actualGenre.categories())
+                        && mapTo(expectedCategories, CategoryID::getValue).containsAll(actualGenre.categories())
         );
         Assertions.assertEquals(expectedIsActive, actualGenre.active());
         Assertions.assertNotNull(actualGenre.createdAt());
@@ -232,7 +232,7 @@ public class GenreE2ETest implements MockDls {
 
         final var aRequestBody = new UpdateGenreRequest(
                 expectedName,
-                mapTo(expectedCategories, CategoryId::getValue),
+                mapTo(expectedCategories, CategoryID::getValue),
                 expectedIsActive
         );
 
@@ -267,7 +267,7 @@ public class GenreE2ETest implements MockDls {
 
         final var aRequestBody = new UpdateGenreRequest(
                 expectedName,
-                mapTo(expectedCategories, CategoryId::getValue),
+                mapTo(expectedCategories, CategoryID::getValue),
                 expectedIsActive
         );
 
@@ -294,13 +294,13 @@ public class GenreE2ETest implements MockDls {
 
         final var expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryId>of();
+        final var expectedCategories = List.<CategoryID>of();
 
         final var actualId = givenAGenre(expectedName, false, expectedCategories);
 
         final var aRequestBody = new UpdateGenreRequest(
                 expectedName,
-                mapTo(expectedCategories, CategoryId::getValue),
+                mapTo(expectedCategories, CategoryID::getValue),
                 expectedIsActive
         );
 

@@ -14,7 +14,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import com.nesrux.admin.catalogo.IntegrationTest;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 import com.nesrux.admin.catalogo.infrastructure.genre.persistence.GenreRepository;
@@ -40,7 +40,7 @@ public class CreateGenreUseCaseIT {
         final var filmes = categoryGateway.create(Category.newCategory("Filmes", null, true));
         final var expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryId>of(filmes.getId());
+        final var expectedCategories = List.<CategoryID>of(filmes.getId());
 
         final var aCommand = CreateGenreCommand.with(expectedName, expectedIsActive,
                 asString(expectedCategories));
@@ -68,7 +68,7 @@ public class CreateGenreUseCaseIT {
         // given
         final var expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryId>of();
+        final var expectedCategories = List.<CategoryID>of();
 
         final var aCommand = CreateGenreCommand.with(expectedName,
                 expectedIsActive, asString(expectedCategories));
@@ -97,7 +97,7 @@ public class CreateGenreUseCaseIT {
         // given
         final var expectedName = "Ação";
         final var expectedIsActive = false;
-        final var expectedCategories = List.<CategoryId>of();
+        final var expectedCategories = List.<CategoryID>of();
 
         final var aCommand = CreateGenreCommand.with(expectedName,
                 expectedIsActive, asString(expectedCategories));
@@ -126,7 +126,7 @@ public class CreateGenreUseCaseIT {
         // given
         final var expectedName = " ";
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryId>of();
+        final var expectedCategories = List.<CategoryID>of();
 
         final var expectedErrorMessage = "'name' should not be empty";
         final var expectedErrorCount = 1;
@@ -153,7 +153,7 @@ public class CreateGenreUseCaseIT {
         // given
         final String expectedName = null;
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryId>of();
+        final var expectedCategories = List.<CategoryID>of();
 
         final var expectedErrorMessage = "'name' should not be null";
         final var expectedErrorCount = 1;
@@ -180,8 +180,8 @@ public class CreateGenreUseCaseIT {
         // given
         final var series = categoryGateway.create(Category.newCategory("Séries", null, true));
 
-        final var filmes = CategoryId.from("456");
-        final var documentarios = CategoryId.from("789");
+        final var filmes = CategoryID.from("456");
+        final var documentarios = CategoryID.from("789");
 
         final var expectName = " ";
         final var expectedIsActive = true;
@@ -209,9 +209,9 @@ public class CreateGenreUseCaseIT {
         Mockito.verify(genreGateway, times(0)).create(any());
     }
 
-    private List<String> asString(final List<CategoryId> categories) {
+    private List<String> asString(final List<CategoryID> categories) {
         return categories.stream()
-                .map(CategoryId::getValue)
+                .map(CategoryID::getValue)
                 .toList();
     }
 

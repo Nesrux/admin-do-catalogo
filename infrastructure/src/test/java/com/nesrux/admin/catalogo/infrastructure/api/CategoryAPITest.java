@@ -12,7 +12,7 @@ import com.nesrux.admin.catalogo.application.category.retrive.list.ListCategorie
 import com.nesrux.admin.catalogo.application.category.update.UpdateCategoryOutput;
 import com.nesrux.admin.catalogo.application.category.update.UpdateCategoryUseCase;
 import com.nesrux.admin.catalogo.domain.category.Category;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
 import com.nesrux.admin.catalogo.domain.exceptions.NotFoundException;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
@@ -207,7 +207,7 @@ public class CategoryAPITest {
     public void givenAInvalidId_whenCallsGetCategory_shouldReturnNotFund() throws Exception {
         // given
         final var expectedErrorMessage = "Category with ID 123 was not found";
-        final var expectedId = CategoryId.from("123");
+        final var expectedId = CategoryID.from("123");
 
         when(getCategoryByIdUseCase.execute(any()))
                 .thenThrow(NotFoundException.with(Category.class, expectedId));
@@ -270,7 +270,7 @@ public class CategoryAPITest {
         final var expectedErrorMessage = "Category with ID not-found was not found";
 
         when(updateCategoryUseCase.execute(any()))
-                .thenThrow(NotFoundException.with(Category.class, CategoryId.from(expectedId)));
+                .thenThrow(NotFoundException.with(Category.class, CategoryID.from(expectedId)));
 
         final var aCommand =
                 new UpdateCategoryRequest(expectedName, expectedDescription, expectedIsActive);

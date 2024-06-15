@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
 
@@ -87,11 +87,11 @@ public class GenreJpaEntity {
                 getDeletedAt());
     }
 
-    private void addCategory(final CategoryId anId) {
+    private void addCategory(final CategoryID anId) {
         this.categories.add(GenreCategoryJpaEntity.from(this, anId));
     }
 
-    public void removeCategory(final CategoryId anId) {
+    public void removeCategory(final CategoryID anId) {
         this.categories.remove(GenreCategoryJpaEntity.from(this, anId));
     }
 
@@ -122,9 +122,9 @@ public class GenreJpaEntity {
         return this;
     }
 
-    public List<CategoryId> getCategoryIDs() {
+    public List<CategoryID> getCategoryIDs() {
         return getCategories().stream()
-                .map(it -> CategoryId.from(it.getId().getCategoryId()))
+                .map(it -> CategoryID.from(it.getId().getCategoryId()))
                 .toList();
     }
 

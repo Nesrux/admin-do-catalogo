@@ -2,7 +2,7 @@ package com.nesrux.admin.catalogo.application.category.update;
 
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
 import com.nesrux.admin.catalogo.domain.validation.Error;
 import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
@@ -21,7 +21,7 @@ public class DefaultUpdateCategoryUseCase extends UpdateCategoryUseCase {
 
     @Override
     public Either<Notification, UpdateCategoryOutput> execute(final UpdateCategoryCommand aCommand) {
-        final var anId = CategoryId.from(aCommand.id());
+        final var anId = CategoryID.from(aCommand.id());
         final var aName = aCommand.name();
         final var aDescription = aCommand.description();
         final var isActive = aCommand.isActive();

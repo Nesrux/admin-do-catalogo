@@ -1,7 +1,7 @@
 package com.nesrux.admin.catalogo.application.category.delete;
 
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 
 import java.util.Objects;
 
@@ -14,6 +14,6 @@ public class DefaultDeleteCategoryUseCase extends DeleteCategoryUseCase {
 
     @Override
     public void execute(final String anId) {
-        this.categoryGateway.deleteById(CategoryId.from(anId));
+        this.categoryGateway.deleteById(CategoryID.from(anId));
     }
 }

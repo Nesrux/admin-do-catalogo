@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
@@ -41,7 +41,7 @@ public class DefaultCreateGenreUseCase extends CreateGenreUseCase {
         return CreateGenreOutput.from(this.genreGateway.create(aGenre));
     }
 
-    private ValidationHandler validateCategories(final List<CategoryId> ids) {
+    private ValidationHandler validateCategories(final List<CategoryID> ids) {
         final var notification = Notification.create();
         if (ids.isEmpty() || ids == null) {
             return notification;
@@ -53,7 +53,7 @@ public class DefaultCreateGenreUseCase extends CreateGenreUseCase {
             commandsIds.removeAll(retrivedIds);
 
             final var missingIdsMessage = commandsIds.stream()
-                    .map(CategoryId::getValue)
+                    .map(CategoryID::getValue)
                     .collect(Collectors.joining(", "));
 
             notification.append(
@@ -63,9 +63,9 @@ public class DefaultCreateGenreUseCase extends CreateGenreUseCase {
         return notification;
     }
 
-    private List<CategoryId> toCategoryId(final List<String> categories) {
+    private List<CategoryID> toCategoryId(final List<String> categories) {
         return categories.stream()
-                .map(CategoryId::from)
+                .map(CategoryID::from)
                 .toList();
     }
 

@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 
 @Entity
 @Table(name = "genres_categories")
@@ -24,13 +24,13 @@ public class GenreCategoryJpaEntity {
     public GenreCategoryJpaEntity() {
     }
 
-    private GenreCategoryJpaEntity(final GenreJpaEntity aGenre, final CategoryId aCategoryId) {
-        this.id = GenreCategoryID.from(aGenre.getId(), aCategoryId.getValue());
+    private GenreCategoryJpaEntity(final GenreJpaEntity aGenre, final CategoryID aCategoryID) {
+        this.id = GenreCategoryID.from(aGenre.getId(), aCategoryID.getValue());
         this.genre = aGenre;
     }
 
-    public static GenreCategoryJpaEntity from(final GenreJpaEntity aGenre, final CategoryId aCategoryId) {
-        return new GenreCategoryJpaEntity(aGenre, aCategoryId);
+    public static GenreCategoryJpaEntity from(final GenreJpaEntity aGenre, final CategoryID aCategoryID) {
+        return new GenreCategoryJpaEntity(aGenre, aCategoryID);
     }
 
     @Override

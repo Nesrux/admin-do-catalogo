@@ -19,7 +19,7 @@ import org.mockito.Mock;
 
 import com.nesrux.admin.catalogo.application.UseCaseTest;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
@@ -47,7 +47,7 @@ public class UpdateGenreUseCaseTest extends UseCaseTest {
                 final var expectedId = aGenre.getId();
                 final var expectedName = "Ação";
                 final var expectedIsActive = true;
-                final var expectedCategories = List.<CategoryId>of();
+                final var expectedCategories = List.<CategoryID>of();
 
                 final var aCommand = UpdateGenreCommand.with(
                                 expectedId.getValue(),
@@ -89,9 +89,9 @@ public class UpdateGenreUseCaseTest extends UseCaseTest {
                 final var expectedName = "Ação";
                 final var expectedIsActive = true;
                 final var expectedCategories = List.of(
-                                CategoryId.from("123"),
-                                CategoryId.from("456"),
-                                CategoryId.from("789"));
+                                CategoryID.from("123"),
+                                CategoryID.from("456"),
+                                CategoryID.from("789"));
 
                 final var aCommand = UpdateGenreCommand.with(
                                 expectedId.getValue(),
@@ -139,7 +139,7 @@ public class UpdateGenreUseCaseTest extends UseCaseTest {
                 final var expectedId = aGenre.getId();
                 final var expectedName = "Ação";
                 final var expectedIsActive = false;
-                final var expectedCategories = List.<CategoryId>of();
+                final var expectedCategories = List.<CategoryID>of();
 
                 final var aCommand = UpdateGenreCommand.with(
                                 expectedId.getValue(),
@@ -183,7 +183,7 @@ public class UpdateGenreUseCaseTest extends UseCaseTest {
                 final var expectedId = aGenre.getId();
                 final String expectedName = null;
                 final var expectedIsActive = true;
-                final var expectedCategories = List.<CategoryId>of();
+                final var expectedCategories = List.<CategoryID>of();
 
                 final var expectedErrorMessage = "'name' should not be null";
                 final var expectedErrorCount = 1;
@@ -216,9 +216,9 @@ public class UpdateGenreUseCaseTest extends UseCaseTest {
         @Test
         public void givenAInvalidName_whenCallsUpdateGenreAndSomeCategoriesIsDoesNotExistis_ShouldReturnNotificationException() {
                 // given
-                final var filmes = CategoryId.from("123");
-                final var series = CategoryId.from("456");
-                final var documentarios = CategoryId.from("789");
+                final var filmes = CategoryID.from("123");
+                final var series = CategoryID.from("456");
+                final var documentarios = CategoryID.from("789");
 
                 final var aGenre = Genre.newGenre("Lorem ipsum", true);
 
@@ -261,9 +261,9 @@ public class UpdateGenreUseCaseTest extends UseCaseTest {
                 verify(categoryGateway, times(1)).existsByIds(eq(expectedCategories));
         }
 
-        private List<String> asString(final List<CategoryId> ids) {
+        private List<String> asString(final List<CategoryID> ids) {
                 return ids.stream()
-                                .map(CategoryId::getValue)
+                                .map(CategoryID::getValue)
                                 .toList();
         }
 

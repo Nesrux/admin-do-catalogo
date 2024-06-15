@@ -3,7 +3,7 @@ package com.nesrux.admin.catalogo.application.category.retrive.get;
 import com.nesrux.admin.catalogo.application.UseCaseTest;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -58,7 +58,7 @@ public class GetCategoryByIdUseCaseTest extends UseCaseTest {
 
     @Test
     public void GivenAInvalidId_whenCallsGetCategory_shouldReturnNotFound() {
-        final var expectedId = CategoryId.from("123");
+        final var expectedId = CategoryID.from("123");
         final var expectedErrorMessage = "Category with ID 123 was not found";
 
         when(gateway.findById(eq(expectedId)))
@@ -73,7 +73,7 @@ public class GetCategoryByIdUseCaseTest extends UseCaseTest {
 
     @Test
     public void GivenAValidId_whenGatewayThrowsException_shouldReturnException() {
-        final var expectedId = CategoryId.from("123");
+        final var expectedId = CategoryID.from("123");
         final var expectedErrorMessage = "Gateway Error";
 
         when(gateway.findById(eq(expectedId)))

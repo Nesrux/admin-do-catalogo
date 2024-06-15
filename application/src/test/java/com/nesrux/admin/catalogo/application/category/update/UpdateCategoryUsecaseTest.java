@@ -3,7 +3,7 @@ package com.nesrux.admin.catalogo.application.category.update;
 import com.nesrux.admin.catalogo.application.UseCaseTest;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -206,7 +206,7 @@ public class UpdateCategoryUsecaseTest extends UseCaseTest {
                                 expectedIsActive);
 
                 when(categoryGateway
-                                .findById(eq(CategoryId.from(expectedId))))
+                                .findById(eq(CategoryID.from(expectedId))))
                                 .thenReturn(Optional.empty());
 
                 final var actualException = Assertions.assertThrows(DomainException.class,
@@ -216,7 +216,7 @@ public class UpdateCategoryUsecaseTest extends UseCaseTest {
                 Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
 
                 verify(categoryGateway, times(1))
-                                .findById(CategoryId.from(expectedId));
+                                .findById(CategoryID.from(expectedId));
 
                 verify(categoryGateway, times(0)).update(any());
         }

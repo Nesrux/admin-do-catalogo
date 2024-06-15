@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.nesrux.admin.catalogo.domain.Identifier;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
 import com.nesrux.admin.catalogo.domain.exceptions.NotFoundException;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
@@ -56,12 +56,12 @@ public class DefaultUpdateGenreUseCase extends UpdateGenreUseCase {
         return () -> NotFoundException.with(Genre.class, anId);
     }
 
-    private List<CategoryId> toCategoryId(final List<String> categories) {
+    private List<CategoryID> toCategoryId(final List<String> categories) {
         return categories.stream()
-                .map(CategoryId::from).toList();
+                .map(CategoryID::from).toList();
     }
 
-    private ValidationHandler validateCategories(final List<CategoryId> ids) {
+    private ValidationHandler validateCategories(final List<CategoryID> ids) {
         final var notification = Notification.create();
         if (ids.isEmpty() || ids == null) {
             return notification;
@@ -73,7 +73,7 @@ public class DefaultUpdateGenreUseCase extends UpdateGenreUseCase {
             commandsIds.removeAll(retrivedIds);
 
             final var missingIdsMessage = commandsIds.stream()
-                    .map(CategoryId::getValue)
+                    .map(CategoryID::getValue)
                     .collect(Collectors.joining(", "));
 
             notification.append(

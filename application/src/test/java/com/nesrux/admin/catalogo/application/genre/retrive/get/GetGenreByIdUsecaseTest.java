@@ -14,7 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import com.nesrux.admin.catalogo.application.UseCaseTest;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotFoundException;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
@@ -37,8 +37,8 @@ public class GetGenreByIdUsecaseTest extends UseCaseTest {
         final var expectedName = "Ação";
         final var expectedIsActive = true;
         final var expectedCategories = List.of(
-                CategoryId.from("123"),
-                CategoryId.from("456"));
+                CategoryID.from("123"),
+                CategoryID.from("456"));
         final var aGenre = Genre.newGenre(expectedName, expectedIsActive)
                 .addCategories(expectedCategories);
         final var expectedId = aGenre.getId();
@@ -77,9 +77,9 @@ public class GetGenreByIdUsecaseTest extends UseCaseTest {
 
     }
 
-    private List<String> asString(final List<CategoryId> ids) {
+    private List<String> asString(final List<CategoryID> ids) {
         return ids.stream()
-                .map(CategoryId::getValue)
+                .map(CategoryID::getValue)
                 .toList();
     }
 

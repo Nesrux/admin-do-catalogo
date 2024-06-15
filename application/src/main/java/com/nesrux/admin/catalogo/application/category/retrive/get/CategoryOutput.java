@@ -1,11 +1,11 @@
 package com.nesrux.admin.catalogo.application.category.retrive.get;
 
 import com.nesrux.admin.catalogo.domain.category.Category;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 
 import java.time.Instant;
 
-public record CategoryOutput(CategoryId id,
+public record CategoryOutput(CategoryID id,
                              String name,
                              String description,
                              boolean isActive,

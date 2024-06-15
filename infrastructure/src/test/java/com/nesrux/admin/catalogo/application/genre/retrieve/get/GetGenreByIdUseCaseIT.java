@@ -10,7 +10,7 @@ import com.nesrux.admin.catalogo.IntegrationTest;
 import com.nesrux.admin.catalogo.application.genre.retrive.get.GetGenreByIdUseCase;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotFoundException;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
@@ -69,9 +69,9 @@ public class GetGenreByIdUseCaseIT {
 
     }
 
-    private List<String> asString(final List<CategoryId> ids) {
+    private List<String> asString(final List<CategoryID> ids) {
         return ids.stream()
-                .map(CategoryId::getValue)
+                .map(CategoryID::getValue)
                 .toList();
     }
 

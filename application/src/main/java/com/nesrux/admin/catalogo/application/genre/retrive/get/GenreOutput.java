@@ -3,7 +3,7 @@ package com.nesrux.admin.catalogo.application.genre.retrive.get;
 import java.time.Instant;
 import java.util.List;
 
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 
 public record GenreOutput(
@@ -19,7 +19,7 @@ public record GenreOutput(
         return new GenreOutput(aGenre.getId().getValue(),
                 aGenre.getName(),
                 aGenre.isActive(),
-                aGenre.getCategories().stream().map(CategoryId::getValue).toList(),
+                aGenre.getCategories().stream().map(CategoryID::getValue).toList(),
                 aGenre.getCreatedAt(),
                 aGenre.getUpdatedAt(),
                 aGenre.getDeletedAt());

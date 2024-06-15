@@ -1,6 +1,6 @@
 package com.nesrux.admin.catalogo.e2e.category;
 
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.e2e.MockDls;
 import com.nesrux.admin.catalogo.infrastructure.category.models.UpdateCategoryRequest;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
@@ -276,7 +276,7 @@ public class CategoryE2ETest implements MockDls {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, categoryRepository.count());
 
-        deleteACategory(CategoryId.from("12313"))
+        deleteACategory(CategoryID.from("12313"))
                 .andExpect(status().isNoContent());
 
         Assertions.assertEquals(0, categoryRepository.count());

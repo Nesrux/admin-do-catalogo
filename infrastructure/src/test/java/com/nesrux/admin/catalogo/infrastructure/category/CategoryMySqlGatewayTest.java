@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nesrux.admin.catalogo.MySQLGatewayTest;
 import com.nesrux.admin.catalogo.domain.category.Category;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
@@ -121,7 +121,7 @@ public class CategoryMySqlGatewayTest {
     public void givenInvalidCategoryId_whenTryDeleteIt_shouldDeleteCategory() {
         Assertions.assertEquals(0, categoryRepository.count());
 
-        categoryGateway.deleteById(CategoryId.from("123456"));
+        categoryGateway.deleteById(CategoryID.from("123456"));
 
         Assertions.assertEquals(0, categoryRepository.count());
     }
@@ -129,7 +129,7 @@ public class CategoryMySqlGatewayTest {
     @Test
     public void givenValidCategoryIdNotStorage_whenCallsFindbyId_shouldReturnEmpty() {
         Assertions.assertEquals(0, categoryRepository.count());
-        final var actualCategory = categoryGateway.findById(CategoryId.from("vazio"));
+        final var actualCategory = categoryGateway.findById(CategoryID.from("vazio"));
 
         Assertions.assertTrue(actualCategory.isEmpty());
     }
@@ -184,7 +184,7 @@ public class CategoryMySqlGatewayTest {
                 filmes.getId(),
                 series.getId(),
                 documentarios.getId(),
-                CategoryId.from("1234"));
+                CategoryID.from("1234"));
 
         final var expectedIds = List.of(
                 filmes.getId(),

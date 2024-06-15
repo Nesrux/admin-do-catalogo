@@ -15,7 +15,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import com.nesrux.admin.catalogo.IntegrationTest;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
@@ -43,7 +43,7 @@ public class UpdateGenreUseCaseIT {
         final var expectedId = aGenre.getId();
         final var expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryId>of();
+        final var expectedCategories = List.<CategoryID>of();
 
         final var aCommand = UpdateGenreCommand.with(
                 expectedId.getValue(),
@@ -117,7 +117,7 @@ public class UpdateGenreUseCaseIT {
         final var expectedId = aGenre.getId();
         final var expectedName = "Ação";
         final var expectedIsActive = false;
-        final var expectedCategories = List.<CategoryId>of();
+        final var expectedCategories = List.<CategoryID>of();
 
         final var aCommand = UpdateGenreCommand.with(
                 expectedId.getValue(),
@@ -155,7 +155,7 @@ public class UpdateGenreUseCaseIT {
         final var expectedId = aGenre.getId();
         final String expectedName = null;
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryId>of();
+        final var expectedCategories = List.<CategoryID>of();
 
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'name' should not be null";
@@ -186,8 +186,8 @@ public class UpdateGenreUseCaseIT {
     public void givenAnInvalidName_whenCallsUpdateGenreAndSomeCategoriesDoesNotExists_shouldReturnNotificationException() {
         // given
         final var filmes = categoryGateway.create(Category.newCategory("Filems", null, true));
-        final var series = CategoryId.from("456");
-        final var documentarios = CategoryId.from("789");
+        final var series = CategoryID.from("456");
+        final var documentarios = CategoryID.from("789");
 
         final var aGenre = genreGateway.create(Genre.newGenre("acao", true));
 
@@ -223,9 +223,9 @@ public class UpdateGenreUseCaseIT {
         Mockito.verify(genreGateway, times(0)).update(any());
     }
 
-    private List<String> asString(final List<CategoryId> ids) {
+    private List<String> asString(final List<CategoryID> ids) {
         return ids.stream()
-                .map(CategoryId::getValue)
+                .map(CategoryID::getValue)
                 .toList();
     }
 }

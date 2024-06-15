@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
@@ -39,7 +39,7 @@ public class CategoryMySQLGateway implements CategoryGateway {
     }
 
     @Override
-    public void deleteById(final CategoryId anId) {
+    public void deleteById(final CategoryID anId) {
         final var idValue = anId.getValue();
 
         if (repository.existsById(idValue)) {
@@ -48,7 +48,7 @@ public class CategoryMySQLGateway implements CategoryGateway {
     }
 
     @Override
-    public Optional<Category> findById(final CategoryId anId) {
+    public Optional<Category> findById(final CategoryID anId) {
         return this.repository.findById(anId.getValue())
                 .map(CategoryJpaEntity::toAggregate);
     }
@@ -82,13 +82,13 @@ public class CategoryMySQLGateway implements CategoryGateway {
     }
 
     @Override
-    public List<CategoryId> existsByIds(final Iterable<CategoryId> categoryIds) {
+    public List<CategoryID> existsByIds(final Iterable<CategoryID> categoryIds) {
         final var ids = StreamSupport.stream(categoryIds.spliterator(), false)
-                .map(CategoryId::getValue)
+                .map(CategoryID::getValue)
                 .toList();
         return this.repository.existsByIds(ids)
                 .stream()
-                .map(CategoryId::from)
+                .map(CategoryID::from)
                 .toList();
     }
 }

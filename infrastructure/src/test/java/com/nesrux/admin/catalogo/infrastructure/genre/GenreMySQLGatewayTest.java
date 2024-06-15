@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nesrux.admin.catalogo.MySQLGatewayTest;
 import com.nesrux.admin.catalogo.domain.category.Category;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
@@ -43,7 +43,7 @@ public class GenreMySQLGatewayTest {
 
         final var expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectCategories = List.<CategoryId>of(filmes.getId());
+        final var expectCategories = List.<CategoryID>of(filmes.getId());
 
         final var aGenre = Genre.newGenre(expectedName, expectedIsActive)
                 .addCategories(expectCategories);
@@ -81,7 +81,7 @@ public class GenreMySQLGatewayTest {
 
         final var expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectCategories = List.<CategoryId>of();
+        final var expectCategories = List.<CategoryID>of();
 
         final var aGenre = Genre.newGenre(expectedName, expectedIsActive);
 
@@ -171,7 +171,7 @@ public class GenreMySQLGatewayTest {
 
         final var expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryId>of();
+        final var expectedCategories = List.<CategoryID>of();
 
         final var aGenre = Genre.newGenre("ac", expectedIsActive);
         aGenre.addCategories(List.of(filmes.getId(), series.getId()));
@@ -433,9 +433,9 @@ public class GenreMySQLGatewayTest {
                 GenreJpaEntity.from(Genre.newGenre("Ficção científica", true))));
     }
 
-    private List<CategoryId> sorted(final List<CategoryId> expectedCategories) {
+    private List<CategoryID> sorted(final List<CategoryID> expectedCategories) {
         return expectedCategories.stream()
-                .sorted(Comparator.comparing(CategoryId::getValue))
+                .sorted(Comparator.comparing(CategoryID::getValue))
                 .toList();
     }
 }

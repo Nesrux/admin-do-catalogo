@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.nesrux.admin.catalogo.domain.AggregateRoot;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.validation.ValidationHandler;
 import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
@@ -16,7 +16,7 @@ public class Genre extends AggregateRoot<GenreID> {
 
     private String name;
     private boolean active;
-    private List<CategoryId> categories;
+    private List<CategoryID> categories;
     private Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
@@ -25,7 +25,7 @@ public class Genre extends AggregateRoot<GenreID> {
             final GenreID anId,
             final String aName,
             final boolean isActive,
-            final List<CategoryId> categories,
+            final List<CategoryID> categories,
             final Instant aCreatedAt,
             final Instant aUpdatedAt,
             final Instant aDeletedAt) {
@@ -51,7 +51,7 @@ public class Genre extends AggregateRoot<GenreID> {
             final GenreID anId,
             final String aName,
             final boolean isActive,
-            final List<CategoryId> categories,
+            final List<CategoryID> categories,
             final Instant aCreatedAt,
             final Instant aUpdatedAt,
             final Instant aDeletedAt) {
@@ -74,7 +74,7 @@ public class Genre extends AggregateRoot<GenreID> {
         new GenreValidator(this, handler).validate();
     }
 
-    public Genre update(final String aName, final boolean isActive, final List<CategoryId> categories) {
+    public Genre update(final String aName, final boolean isActive, final List<CategoryID> categories) {
         if (isActive) {
             activate();
         } else {
@@ -88,16 +88,16 @@ public class Genre extends AggregateRoot<GenreID> {
         return this;
     }
 
-    public Genre addCategory(final CategoryId aCategoryId) {
-        if (aCategoryId == null)
+    public Genre addCategory(final CategoryID aCategoryID) {
+        if (aCategoryID == null)
             return this;
 
-        this.categories.add(aCategoryId);
+        this.categories.add(aCategoryID);
         this.updatedAt = InstantUtils.now();
         return this;
     }
 
-    public Genre addCategories(final List<CategoryId> ids) {
+    public Genre addCategories(final List<CategoryID> ids) {
         if (ids == null || ids.isEmpty()) {
             return this;
         }
@@ -106,12 +106,12 @@ public class Genre extends AggregateRoot<GenreID> {
         return this;
     }
 
-    public Genre removeCategory(final CategoryId aCategoryId) {
-        if (aCategoryId == null) {
+    public Genre removeCategory(final CategoryID aCategoryID) {
+        if (aCategoryID == null) {
             return this;
         }
 
-        this.categories.remove(aCategoryId);
+        this.categories.remove(aCategoryID);
         this.updatedAt = InstantUtils.now();
         return this;
     }
@@ -140,7 +140,7 @@ public class Genre extends AggregateRoot<GenreID> {
         return active;
     }
 
-    public List<CategoryId> getCategories() {
+    public List<CategoryID> getCategories() {
         return Collections.unmodifiableList(categories);
     }
 

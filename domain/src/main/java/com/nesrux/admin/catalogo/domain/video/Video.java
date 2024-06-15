@@ -2,7 +2,7 @@ package com.nesrux.admin.catalogo.domain.video;
 
 import com.nesrux.admin.catalogo.domain.AggregateRoot;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
 import com.nesrux.admin.catalogo.domain.utils.InstantUtils;
 import com.nesrux.admin.catalogo.domain.validation.ValidationHandler;
@@ -34,7 +34,7 @@ public class Video extends AggregateRoot<VideoID> {
     private AudioVideoMedia trailer;
     private AudioVideoMedia video;
 
-    private Set<CategoryId> categories;
+    private Set<CategoryID> categories;
     private Set<GenreID> genres;
     private Set<CastMemberID> castMembers;
 
@@ -55,7 +55,7 @@ public class Video extends AggregateRoot<VideoID> {
             final ImageMedia aThumbHalf,
             final AudioVideoMedia aTrailer,
             final AudioVideoMedia aVideo,
-            final Set<CategoryId> categories,
+            final Set<CategoryID> categories,
             final Set<GenreID> genres,
             final Set<CastMemberID> castMembers) {
         super(anId);
@@ -86,7 +86,7 @@ public class Video extends AggregateRoot<VideoID> {
             final Rating aRating,
             final boolean wasOpened,
             final boolean wasPublished,
-            final Set<CategoryId> categories,
+            final Set<CategoryID> categories,
             final Set<GenreID> genres,
             final Set<CastMemberID> castMembers
     ) {
@@ -250,11 +250,11 @@ public class Video extends AggregateRoot<VideoID> {
         this.video = video;
     }
 
-    public Set<CategoryId> getCategories() {
+    public Set<CategoryID> getCategories() {
         return this.categories != null ? Collections.unmodifiableSet(this.categories) : Collections.emptySortedSet();
     }
 
-    public void setCategories(final Set<CategoryId> categories) {
+    public void setCategories(final Set<CategoryID> categories) {
         this.categories = categories != null ? new HashSet<>(categories) : Collections.emptySet();
     }
 

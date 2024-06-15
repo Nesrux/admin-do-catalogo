@@ -7,7 +7,7 @@ import com.nesrux.admin.catalogo.domain.utils.InstantUtils;
 import java.time.Instant;
 import java.util.Objects;
 
-public class Category extends AggregateRoot<CategoryId> implements Cloneable {
+public class Category extends AggregateRoot<CategoryID> implements Cloneable {
 
     private String name;
     private String description;
@@ -17,7 +17,7 @@ public class Category extends AggregateRoot<CategoryId> implements Cloneable {
     private Instant deletedAt;
 
     private Category(
-            final CategoryId anId,
+            final CategoryID anId,
             final String aName,
             final String aDescription,
             final boolean isActive,
@@ -35,14 +35,14 @@ public class Category extends AggregateRoot<CategoryId> implements Cloneable {
     }
 
     public static Category newCategory(final String aName, final String aDescription, final boolean isActive) {
-        final var id = CategoryId.unique();
+        final var id = CategoryID.unique();
         final var now = InstantUtils.now();
         final var deletedAt = isActive ? null : now;
         return new Category(id, aName, aDescription, isActive, now, now, deletedAt);
     }
 
     public static Category with(
-            final CategoryId anId,
+            final CategoryID anId,
             final String name,
             final String description,
             final boolean active,
@@ -111,7 +111,7 @@ public class Category extends AggregateRoot<CategoryId> implements Cloneable {
         return this;
     }
 
-    public CategoryId getId() {
+    public CategoryID getId() {
         return id;
     }
 

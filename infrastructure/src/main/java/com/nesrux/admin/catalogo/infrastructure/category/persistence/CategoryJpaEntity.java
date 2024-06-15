@@ -1,7 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.category.persistence;
 
 import com.nesrux.admin.catalogo.domain.category.Category;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,7 +66,7 @@ public class CategoryJpaEntity {
 
     public Category toAggregate(){
         return Category.with(
-                CategoryId.from(getId()),
+                CategoryID.from(getId()),
                 getName(),
                 getDescription(),
                 isActive(),

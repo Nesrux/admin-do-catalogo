@@ -11,7 +11,7 @@ import com.nesrux.admin.catalogo.application.genre.retrive.list.GenreListOutput;
 import com.nesrux.admin.catalogo.application.genre.retrive.list.ListGenreUseCase;
 import com.nesrux.admin.catalogo.application.genre.update.UpdateGenreOutput;
 import com.nesrux.admin.catalogo.application.genre.update.UpdateGenreUseCase;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotFoundException;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
@@ -125,7 +125,7 @@ public class GenreAPITest {
         final var expectedName = "Ação";
         final var expectedCategories = List.of("1234", "3345");
         final var expectedIsActive = false;
-        final var aGenre = Genre.newGenre(expectedName, expectedIsActive).addCategories(expectedCategories.stream().map(CategoryId::from).toList());
+        final var aGenre = Genre.newGenre(expectedName, expectedIsActive).addCategories(expectedCategories.stream().map(CategoryID::from).toList());
         final var expectedId = aGenre.getId().getValue();
 
         when(getGenreByIdUseCase.execute(any()))

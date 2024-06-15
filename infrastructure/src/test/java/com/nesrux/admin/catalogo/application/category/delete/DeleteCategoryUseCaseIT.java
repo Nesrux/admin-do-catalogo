@@ -3,7 +3,7 @@ package com.nesrux.admin.catalogo.application.category.delete;
 import com.nesrux.admin.catalogo.IntegrationTest;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.Assertions;
@@ -43,7 +43,7 @@ public class DeleteCategoryUseCaseIT {
 
     @Test
     public void givenAInvalidId_whenCallsDeleteCategory_shouldBeOK() {
-        final var expectedId = CategoryId.from("123");
+        final var expectedId = CategoryID.from("123");
 
         Assertions.assertEquals(0, categoryRepository.count());
 

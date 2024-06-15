@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.nesrux.admin.catalogo.domain.category.CategoryId;
+import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 
 public class GenreTest {
@@ -111,7 +111,7 @@ public class GenreTest {
     public void givenAValidInactiveGenre_WhenCallUpdateWithInactivate_ShouldReceiveUpdated() {
         final var expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectedCategories = List.of(CategoryId.from("1234"));
+        final var expectedCategories = List.of(CategoryID.from("1234"));
 
         final var actualGenre = Genre.newGenre("assão", false);
 
@@ -137,7 +137,7 @@ public class GenreTest {
     public void givenAValidInactiveGenre_WhenCallUpdate_ShouldReceiveUpdated() {
         final var expectedName = "Ação";
         final var expectedIsActive = false;
-        final var expectedCategories = List.of(CategoryId.from("1234"));
+        final var expectedCategories = List.of(CategoryID.from("1234"));
 
         final var actualGenre = Genre.newGenre("assão", true);
 
@@ -163,7 +163,7 @@ public class GenreTest {
     public void givenAValidInactiveGenre_WhenCallUpdatewithEmptyName_ShouldReceiveNotificationException() {
         final var expectedName = "   ";
         final var expectedIsActive = true;
-        final var expectedCategories = List.of(CategoryId.from("1234"));
+        final var expectedCategories = List.of(CategoryID.from("1234"));
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'name' should not be empty";
 
@@ -181,7 +181,7 @@ public class GenreTest {
     public void givenAValidInactiveGenre_WhenCallUpdatewithNullName_ShouldReceiveNotificationException() {
         final String expectedName = null;
         final var expectedIsActive = true;
-        final var expectedCategories = List.of(CategoryId.from("1234"));
+        final var expectedCategories = List.of(CategoryID.from("1234"));
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'name' should not be null";
 
@@ -199,7 +199,7 @@ public class GenreTest {
     public void givenAValidGenre_WhenCallUpdateWithNullCategories_ShouldReceiveOk() {
         final String expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectedCategories = new ArrayList<CategoryId>();
+        final var expectedCategories = new ArrayList<CategoryID>();
 
         final var actualGenre = Genre.newGenre("assão", expectedIsActive);
         final var actualCreatedAt = actualGenre.getCreatedAt();
@@ -220,8 +220,8 @@ public class GenreTest {
     public void givenAValidEmptyCategoriesGenre_WhenCallAddCategory_ShouldReceiveOk() {
         final String expectedName = "Ação";
         final var expectedIsActive = true;
-        final var seriesId = CategoryId.from("123");
-        final var filmesId = CategoryId.from("456");
+        final var seriesId = CategoryID.from("123");
+        final var filmesId = CategoryID.from("456");
         final var expectedCategories = List.of(seriesId, filmesId);
 
         final var actualGenre = Genre.newGenre(expectedName, expectedIsActive);
@@ -246,8 +246,8 @@ public class GenreTest {
     public void givenAValidEmptyCategoriesGenre_WhenCallAddCategories_ShouldReceiveOk() {
         final String expectedName = "Ação";
         final var expectedIsActive = true;
-        final var seriesId = CategoryId.from("123");
-        final var filmesId = CategoryId.from("456");
+        final var seriesId = CategoryID.from("123");
+        final var filmesId = CategoryID.from("456");
         final var expectedCategories = List.of(seriesId, filmesId);
 
         final var actualGenre = Genre.newGenre(expectedName, expectedIsActive);
@@ -271,7 +271,7 @@ public class GenreTest {
     public void givenAValidEmptyCategoriesGenre_WhenCallAddCategoriesWithEmptyList_ShouldReceiveOk() {
         final String expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryId>of();
+        final var expectedCategories = List.<CategoryID>of();
 
         final var actualGenre = Genre.newGenre(expectedName, expectedIsActive);
         Assertions.assertEquals(0, actualGenre.getCategories().size());
@@ -294,7 +294,7 @@ public class GenreTest {
     public void givenAValidEmptyCategoriesGenre_WhenCallAddCategoriesWithNullList_ShouldReceiveOk() {
         final String expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryId>of();
+        final var expectedCategories = List.<CategoryID>of();
 
         final var actualGenre = Genre.newGenre(expectedName, expectedIsActive);
         Assertions.assertEquals(0, actualGenre.getCategories().size());
@@ -317,8 +317,8 @@ public class GenreTest {
     public void givenAValidGenreWithTwoCategories_WhenCallremove_ShouldReceiveOk() {
         final String expectedName = "Ação";
         final var expectedIsActive = true;
-        final var seriesId = CategoryId.from("123");
-        final var filmesId = CategoryId.from("456");
+        final var seriesId = CategoryID.from("123");
+        final var filmesId = CategoryID.from("456");
         final var expectedCategories = List.of(filmesId);
 
         final var actualGenre = Genre.newGenre("assão", expectedIsActive);
@@ -346,8 +346,8 @@ public class GenreTest {
     public void givenAValidGenreWithTwoCategories_WhenCallremoveCategoryWithNullID_ShouldReceiveOk() {
         final String expectedName = "Ação";
         final var expectedIsActive = true;
-        final var seriesId = CategoryId.from("123");
-        final var filmesId = CategoryId.from("456");
+        final var seriesId = CategoryID.from("123");
+        final var filmesId = CategoryID.from("456");
         final var expectedCategories = List.of(seriesId, filmesId);
 
         final var actualGenre = Genre.newGenre("assão", expectedIsActive);
