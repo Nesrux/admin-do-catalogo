@@ -8,12 +8,4 @@ public class NotificationException extends DomainException {
         super(aMessage, notification.getErrors());
     }
 
-    public String firstErrorMessage() {
-        return this.errors.get(0).message();
-    }
-
-    public int size() {
-        return this.errors.size();
-    }
-
 }

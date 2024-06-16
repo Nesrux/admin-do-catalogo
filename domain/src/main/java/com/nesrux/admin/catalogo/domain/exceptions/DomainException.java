@@ -23,4 +23,13 @@ public class DomainException extends NoStacktraceException {
     public List<Error> getErrors() {
         return errors;
     }
+
+    public String firstErrorMessage() {
+        return this.errors.get(0).message();
+    }
+
+    public int size() {
+        return this.errors.size();
+    }
+
 }
