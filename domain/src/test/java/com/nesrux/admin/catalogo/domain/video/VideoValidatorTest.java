@@ -15,7 +15,7 @@ public class VideoValidatorTest {
 
     @Test
     public void givenNullTitle_whenCallsValidate_shouldReceiveError() {
-        final var expectedErrorMessage = "'name' should not be null";
+        final var expectedErrorMessage = "'title' should not be null";
         final var expectedErrorCount = 1;
 
         final String expectedTitle = null;
@@ -46,7 +46,7 @@ public class VideoValidatorTest {
                 expectedCastMembers
         );
 
-        final var validator = new VideoValidator(this, new ThrowsValidationHandler());
+        final var validator = new VideoValidator(actualVideo, new ThrowsValidationHandler());
         //when
         final var actualError = Assertions.assertThrows(DomainException.class, () -> validator.validate());
 
@@ -57,7 +57,7 @@ public class VideoValidatorTest {
 
     @Test
     public void givenEmptyTitle_whenCallsValidate_shouldReceiveError() {
-        final var expectedErrorMessage = "'name' should not be empty";
+        final var expectedErrorMessage = "'title' should not be empty";
         final var expectedErrorCount = 1;
 
         final var expectedTitle = "  ";
@@ -88,7 +88,7 @@ public class VideoValidatorTest {
                 expectedCastMembers
         );
 
-        final var validator = new VideoValidator(this, new ThrowsValidationHandler());
+        final var validator = new VideoValidator(actualVideo, new ThrowsValidationHandler());
         //when
         final var actualError = Assertions.assertThrows(DomainException.class, () -> validator.validate());
 
@@ -102,7 +102,7 @@ public class VideoValidatorTest {
     public void givenTitleWithLengthGreaterThan255_whenCallsValidate_shouldReceiveError() {
 
         final var expectedErrorCount = 1;
-        final var expectedErrorMessage = "'description' must be between 1 and 4000 characters";
+        final var expectedErrorMessage = "'title' should not be empty";
 
         final var expectedTitle = "  ";
 
@@ -148,7 +148,7 @@ public class VideoValidatorTest {
                 expectedCastMembers
         );
 
-        final var validator = new VideoValidator(this, new ThrowsValidationHandler());
+        final var validator = new VideoValidator(actualVideo, new ThrowsValidationHandler());
         //when
         final var actualError = Assertions.assertThrows(DomainException.class, () -> validator.validate());
 
@@ -187,7 +187,7 @@ public class VideoValidatorTest {
                 expectedCastMembers
         );
 
-        final var validator = new VideoValidator(this, new ThrowsValidationHandler());
+        final var validator = new VideoValidator(actualVideo, new ThrowsValidationHandler());
         //when
         final var actualError = Assertions.assertThrows(DomainException.class, () -> validator.validate());
 
