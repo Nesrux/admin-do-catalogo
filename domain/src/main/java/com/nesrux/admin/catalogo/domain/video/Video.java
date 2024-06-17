@@ -39,15 +39,16 @@ public class Video extends AggregateRoot<VideoID> {
     private Set<CastMemberID> castMembers;
 
 
+
     protected Video(
             final VideoID anId,
             final String aTitle,
             final String aDescription,
             final Year aLaunchYear,
             final double aDuration,
-            final Rating aRating,
             final boolean wasOpened,
             final boolean wasPublished,
+            final Rating aRating,
             final Instant aCreationDate,
             final Instant aUpdateDate,
             final ImageMedia aBanner,
@@ -57,15 +58,16 @@ public class Video extends AggregateRoot<VideoID> {
             final AudioVideoMedia aVideo,
             final Set<CategoryID> categories,
             final Set<GenreID> genres,
-            final Set<CastMemberID> castMembers) {
+            final Set<CastMemberID> members
+    ) {
         super(anId);
         this.title = aTitle;
         this.description = aDescription;
         this.launchedAt = aLaunchYear;
         this.duration = aDuration;
-        this.rating = aRating;
         this.opened = wasOpened;
         this.published = wasPublished;
+        this.rating = aRating;
         this.createdAt = aCreationDate;
         this.updatedAt = aUpdateDate;
         this.banner = aBanner;
@@ -75,33 +77,33 @@ public class Video extends AggregateRoot<VideoID> {
         this.video = aVideo;
         this.categories = categories;
         this.genres = genres;
-        this.castMembers = castMembers;
+        this.castMembers = members;
     }
+
 
     public static Video newVideo(
             final String aTitle,
             final String aDescription,
             final Year aLaunchYear,
             final double aDuration,
-            final Rating aRating,
             final boolean wasOpened,
             final boolean wasPublished,
+            final Rating aRating,
             final Set<CategoryID> categories,
             final Set<GenreID> genres,
-            final Set<CastMemberID> castMembers
+            final Set<CastMemberID> members
     ) {
         final var now = InstantUtils.now();
-        final var id = VideoID.unique();
-
+        final var anId = VideoID.unique();
         return new Video(
-                id,
+                anId,
                 aTitle,
                 aDescription,
                 aLaunchYear,
                 aDuration,
-                aRating,
                 wasOpened,
                 wasPublished,
+                aRating,
                 now,
                 now,
                 null,
@@ -111,7 +113,8 @@ public class Video extends AggregateRoot<VideoID> {
                 null,
                 categories,
                 genres,
-                castMembers);
+                members
+        );
     }
 
     public static Video with(final Video aVideo) {
@@ -121,9 +124,9 @@ public class Video extends AggregateRoot<VideoID> {
                 aVideo.getDescription(),
                 aVideo.getLaunchedAt(),
                 aVideo.getDuration(),
-                aVideo.getRating(),
                 aVideo.getOpened(),
                 aVideo.getPublished(),
+                aVideo.getRating(),
                 aVideo.getCreatedAt(),
                 aVideo.getUpdatedAt(),
                 aVideo.getBanner().orElse(null),
