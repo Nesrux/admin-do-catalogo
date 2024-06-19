@@ -7,9 +7,13 @@ import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.video.Rating;
 import com.nesrux.admin.catalogo.domain.video.Video;
+import io.vavr.API;
 
 import java.time.Year;
+import java.util.List;
 import java.util.Set;
+
+import static io.vavr.API.*;
 
 public final class Fixture {
 
@@ -111,6 +115,17 @@ public final class Fixture {
 
         public static Video systemDesign() {
             return Video.with(SYSTEM_DESIGN);
+        }
+
+        public static Resource resource(final Resource.Type type) {
+            final String contentType = Match(type).of(
+                    Case($(List(Resource.Type.VIDEO, Resource.Type.TRAILER)::contains), "video/mp4"),
+                    Case($(), "image/jpg")
+            );
+
+            final byte[] content = "Conteudo".getBytes();
+
+            return Resource.with(content, contentType, type.name().toLowerCase(), type);
         }
 
         public static Integer year() {
