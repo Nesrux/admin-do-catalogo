@@ -19,8 +19,8 @@ public class AudioVideoMedia extends ValueObject {
             final MediaStatus status) {
         this.checksum = Objects.requireNonNull(checksum);
         this.name = Objects.requireNonNull(name);
-        this.rawLocation = Objects.requireNonNull(name);
-        this.encodedLocation = Objects.requireNonNull(name);
+        this.rawLocation = Objects.requireNonNull(rawLocation);
+        this.encodedLocation = Objects.requireNonNull(encodedLocation);
         this.status = Objects.requireNonNull(status);
     }
 
