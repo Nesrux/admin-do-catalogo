@@ -6,10 +6,12 @@ import com.nesrux.admin.catalogo.domain.castmember.CastMemberType;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.video.Rating;
+import com.nesrux.admin.catalogo.domain.video.Resource;
 import com.nesrux.admin.catalogo.domain.video.Video;
 import io.vavr.API;
 
 import java.time.Year;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -138,8 +140,12 @@ public final class Fixture {
             );
         }
 
-        public static Rating rating() {
-            return FAKER.options().option(Rating.values());
+        public static String rating() {
+            final var values = Arrays.stream(Rating.values())
+                    .map(Rating::getName)
+                    .toList()
+                    .toArray(new String[0]);
+            return FAKER.options().option(values);
         }
 
         public static String title() {
