@@ -17,5 +17,5 @@ public interface CastMemberGateway {
 
     Pagination<CastMember> findAll(SearchQuery aQuery);
 
-    List<CastMemberID> existsByIds(List<CastMemberID> ids);
+    List<CastMemberID> existsByIds(Iterable<CastMemberID> ids);
 }
