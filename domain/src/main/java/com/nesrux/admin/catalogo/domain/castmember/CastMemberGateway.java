@@ -3,6 +3,7 @@ package com.nesrux.admin.catalogo.domain.castmember;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CastMemberGateway {
@@ -15,4 +16,6 @@ public interface CastMemberGateway {
     CastMember update(CastMember aCastMember);
 
     Pagination<CastMember> findAll(SearchQuery aQuery);
+
+    List<CastMemberID> existsByIds(List<CastMemberID> ids);
 }
