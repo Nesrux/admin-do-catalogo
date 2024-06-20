@@ -8,18 +8,14 @@ import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
 import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
-import com.nesrux.admin.catalogo.domain.video.Resource;
+import com.nesrux.admin.catalogo.domain.video.*;
 import com.nesrux.admin.catalogo.domain.video.Resource.Type;
-import com.nesrux.admin.catalogo.domain.video.VideoGateway;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.time.Year;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.Mockito.*;
@@ -38,9 +34,17 @@ public class CreateVideoUSeCaseTest extends UseCaseTest {
     @Mock
     private GenreGateway genreGateway;
 
+    @Mock
+    private MediaResourceGateway mediaResourceGateway;
+
     @Override
     protected List<Object> getMocks() {
-        return List.of();
+        return List.of(
+                videoGateway,
+                categoryGateway,
+                castMemberGateway,
+                genreGateway,
+                mediaResourceGateway);
     }
 
     @Test
@@ -86,6 +90,9 @@ public class CreateVideoUSeCaseTest extends UseCaseTest {
                 expectedThumbHalf
         );
 
+        mockImageMedia();
+        mockAudioVideoMedia();
+
         when(categoryGateway.existsByIds(any()))
                 .thenReturn(new ArrayList<>(expectedCategories));
         when(genreGateway.existsByIds(any()))
@@ -109,11 +116,34 @@ public class CreateVideoUSeCaseTest extends UseCaseTest {
                         && Objects.equals(expectedCategories, actualVideo.getCategories())
                         && Objects.equals(expectedGenres, actualVideo.getGenres())
                         && Objects.equals(expectedCastMember, actualVideo.getCastMembers())
-//                        && Objects.equals(expectedVideo.name(), actualVideo.getVideo().get().name())
-//                        && Objects.equals(expectedTrailer.name(), actualVideo.getTrailer().get().name())
-//                        && Objects.equals(expectedBanner.name(), actualVideo.getBanner().get().name())
-//                        && Objects.equals(expectedThumb.name(), actualVideo.getThumbnail().get().name())
-//                        && Objects.equals(expectedThumbHalf.name(), actualVideo.getThumbnailHalf().get().name())
+                        && Objects.equals(expectedVideo.name(), actualVideo.getVideo().get().name())
+                        && Objects.equals(expectedTrailer.name(), actualVideo.getTrailer().get().name())
+                        && Objects.equals(expectedBanner.name(), actualVideo.getBanner().get().name())
+                        && Objects.equals(expectedThumb.name(), actualVideo.getThumbnail().get().name())
+                        && Objects.equals(expectedThumbHalf.name(), actualVideo.getThumbnailHalf().get().name())
         ));
     }
+
+    private void mockImageMedia() {
+        when(mediaResourceGateway.storeImage(any(), any()))
+                .thenAnswer(t -> {
+                    final var resouce = t.getArgument(1, Resource.class);
+                    return ImageMedia.with(UUID.randomUUID().toString(), resouce.name(), "/img");
+                });
+    }
+
+    private void mockAudioVideoMedia() {
+        when(mediaResourceGateway.storeAudioVideo(any(), any()))
+                .thenAnswer(t -> {
+                    final var resouce = t.getArgument(1, Resource.class);
+                    return AudioVideoMedia.with(
+                            UUID.randomUUID().toString(),
+                            resouce.name(),
+                            "/img",
+                            "",
+                            MediaStatus.PENDING);
+                });
+    }
+
+
 }
