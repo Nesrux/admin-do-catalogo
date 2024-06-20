@@ -6,12 +6,14 @@ import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
 import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.DomainException;
+import com.nesrux.admin.catalogo.domain.exceptions.InternalErrorException;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
 import com.nesrux.admin.catalogo.domain.validation.Error;
 import com.nesrux.admin.catalogo.domain.validation.ValidationHandler;
 import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
+import com.nesrux.admin.catalogo.domain.video.MediaResourceGateway;
 import com.nesrux.admin.catalogo.domain.video.Rating;
 import com.nesrux.admin.catalogo.domain.video.Video;
 import com.nesrux.admin.catalogo.domain.video.VideoGateway;
@@ -30,16 +32,19 @@ public class DefaultCreateVideoUseCase extends CreateVideoUseCase {
     private final GenreGateway genreGateway;
     private final CastMemberGateway castMemberGateway;
     private final VideoGateway videoGateway;
+    private final MediaResourceGateway mediaResourceGateway;
 
     public DefaultCreateVideoUseCase(
             final CategoryGateway categoryGateway,
             final GenreGateway genreGateway,
             final CastMemberGateway castMemberGateway,
-            final VideoGateway videoGateway) {
+            final VideoGateway videoGateway,
+            final MediaResourceGateway mediaResourceGateway) {
         this.categoryGateway = Objects.requireNonNull(categoryGateway);
         this.genreGateway = Objects.requireNonNull(genreGateway);
         this.castMemberGateway = Objects.requireNonNull(castMemberGateway);
         this.videoGateway = Objects.requireNonNull(videoGateway);
+        this.mediaResourceGateway = Objects.requireNonNull(mediaResourceGateway);
     }
 
     @Override
@@ -76,7 +81,40 @@ public class DefaultCreateVideoUseCase extends CreateVideoUseCase {
     }
 
     private Video create(final CreateVideoCommand aCommand, final Video aVideo) {
-        return this.videoGateway.create(aVideo);
+        final var anId = aVideo.getId();
+
+        try {
+            final var aVideoMedia = aCommand.getVideo()
+                    .map(it -> this.mediaResourceGateway.storeAudioVideo(anId, it))
+                    .orElse(null);
+
+            final var aTrailerMedia = aCommand.getTrailer()
+                    .map(it -> this.mediaResourceGateway.storeAudioVideo(anId, it))
+                    .orElse(null);
+
+            final var aBannerMedia = aCommand.getBanner()
+                    .map(it -> this.mediaResourceGateway.storeImage(anId, it))
+                    .orElse(null);
+
+            final var aThumbnail = aCommand.getThumbnail()
+                    .map(it -> this.mediaResourceGateway.storeImage(anId, it))
+                    .orElse(null);
+
+            final var athumbHalf = aCommand.getThumbnailHalf()
+                    .map(it -> this.mediaResourceGateway.storeImage(anId, it))
+                    .orElse(null);
+
+
+            return this.videoGateway.create(aVideo)
+                    .setVideo(aVideoMedia)
+                    .setTrailer(aTrailerMedia)
+                    .setBanner(aBannerMedia)
+                    .setThumbnail(aThumbnail)
+                    .setThumbnailHalf(athumbHalf);
+        } catch (final Throwable t) {
+            this.mediaResourceGateway.clearResources(anId);
+            throw InternalErrorException.with("An error on create video was observed [videoId: %s]".formatted(anId.getValue()), t);
+        }
     }
 
     private ValidationHandler validateCategories(final Set<CategoryID> ids) {
