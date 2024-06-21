@@ -4,7 +4,7 @@ import com.nesrux.admin.catalogo.application.Fixture;
 import com.nesrux.admin.catalogo.application.UseCaseTest;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import com.nesrux.admin.catalogo.domain.category.CategoryID;
-import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
+import com.nesrux.admin.catalogo.domain.exceptions.NotFoundException;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
 import com.nesrux.admin.catalogo.domain.video.*;
 import com.nesrux.admin.catalogo.domain.video.Resource.Type;
@@ -12,12 +12,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 
 import java.time.Year;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 public class GetVideoByIdUseCaseTest extends UseCaseTest {
     @InjectMocks
@@ -77,31 +80,34 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
 
         Assertions.assertEquals(expectedTitle, actualVideo.title());
         Assertions.assertEquals(expectedDescription, actualVideo.description());
-        Assertions.assertEquals(expectedLaunchYear, actualVideo.launchedAt());
+        Assertions.assertEquals(expectedLaunchYear.getValue(), actualVideo.launchedAt());
         Assertions.assertEquals(expectedDuration, actualVideo.duration());
         Assertions.assertEquals(expectedOpened, actualVideo.opened());
         Assertions.assertEquals(expectedPublished, actualVideo.published());
         Assertions.assertEquals(expectedRating, actualVideo.rating());
-        Assertions.assertEquals(expectedCategories, actualVideo.categories());
-        Assertions.assertEquals(expectedGenres, actualVideo.genres());
-        Assertions.assertEquals(expectedCastMember, actualVideo.castMembers());
+        Assertions.assertEquals(asString(expectedCategories), actualVideo.categories());
+        Assertions.assertEquals(asString(expectedGenres), actualVideo.genres());
+        Assertions.assertEquals(asString(expectedCastMember), actualVideo.castMembers());
         Assertions.assertEquals(expectedVideo, actualVideo.video());
-        Assertions.assertEquals(expectedTrailer, actualVideo.trailer());
+        Assertions.assertEquals(expectedTrailer, actualVideo.treiler());
         Assertions.assertEquals(expectedBanner, actualVideo.banner());
         Assertions.assertEquals(expectedThumb, actualVideo.thumbnail());
-        Assertions.assertEquals(expectedThumbHalf, actualVideo.gthumbnailHalf());
+        Assertions.assertEquals(expectedThumbHalf, actualVideo.thumbnailHalf());
+        Assertions.assertEquals(aVideo.getCreatedAt(), actualVideo.createdAt());
+        Assertions.assertEquals(aVideo.getUpdatedAt(), actualVideo.updatedAt());
 
     }
 
+    @Test
     public void givenAnInvalidId_whenCallsgetVideo_shouldReturnNotFound() {
         //given
-        final var expectedErrorMessage = "Video with ID 123 not found";
+        final var expectedErrorMessage = "Video with ID 123 was not found";
         final var expectedId = VideoID.from("123");
 
         when(videoGateway.findById(any()))
                 .thenReturn(Optional.empty());
         //when
-        final var expectedError = Assertions.assertThrows(NotificationException.class,
+        final var expectedError = Assertions.assertThrows(NotFoundException.class,
                 () -> this.useCase.execute(expectedId.getValue()));
 
         //then

@@ -10,6 +10,7 @@ import com.nesrux.admin.catalogo.domain.video.ImageMedia;
 import com.nesrux.admin.catalogo.domain.video.Rating;
 import com.nesrux.admin.catalogo.domain.video.Video;
 
+import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -24,12 +25,14 @@ public record VideoOutput(
         Rating rating,
         Set<String> categories,
         Set<String> genres,
-        Set<String> members,
+        Set<String> castMembers,
         ImageMedia banner,
         ImageMedia thumbnail,
         ImageMedia thumbnailHalf,
         AudioVideoMedia video,
-        AudioVideoMedia treiler
+        AudioVideoMedia treiler,
+        Instant createdAt,
+        Instant updatedAt
 ) {
     public static VideoOutput from(final Video aVideo) {
         return new VideoOutput(
@@ -48,7 +51,9 @@ public record VideoOutput(
                 aVideo.getThumbnail().orElse(null),
                 aVideo.getThumbnailHalf().orElse(null),
                 aVideo.getVideo().orElse(null),
-                aVideo.getTrailer().orElse(null)
+                aVideo.getTrailer().orElse(null),
+                aVideo.getCreatedAt(),
+                aVideo.getUpdatedAt()
         );
 
     }
