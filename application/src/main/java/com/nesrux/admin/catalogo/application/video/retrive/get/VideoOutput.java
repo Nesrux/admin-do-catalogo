@@ -1,6 +1,5 @@
 package com.nesrux.admin.catalogo.application.video.retrive.get;
 
-import com.nesrux.admin.catalogo.domain.Identifier;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
@@ -12,7 +11,6 @@ import com.nesrux.admin.catalogo.domain.video.Video;
 
 import java.time.Instant;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public record VideoOutput(
         String id,
