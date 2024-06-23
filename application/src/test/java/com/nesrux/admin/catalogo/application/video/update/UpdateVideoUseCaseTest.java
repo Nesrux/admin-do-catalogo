@@ -2,7 +2,6 @@ package com.nesrux.admin.catalogo.application.video.update;
 
 import com.nesrux.admin.catalogo.application.Fixture;
 import com.nesrux.admin.catalogo.application.UseCaseTest;
-import com.nesrux.admin.catalogo.application.video.create.CreateVideoCommand;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberGateway;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
@@ -23,7 +22,7 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class UpdateVideoUseCaseTeste extends UseCaseTest {
+public class UpdateVideoUseCaseTest extends UseCaseTest {
     @InjectMocks
     private DefaultUpdateVideoUseCase useCase;
 
@@ -84,6 +83,7 @@ public class UpdateVideoUseCaseTeste extends UseCaseTest {
         final Resource expectedThumbHalf = Fixture.Videos.resource(Resource.Type.THUMBNAIL_HALF);
 
         final var aCommand = UpdateVideoCommand.with(
+                aVideo.getId().getValue(),
                 expectedTitle,
                 expectedDescription,
                 expectedLaunchYear.getValue(),
