@@ -8,11 +8,8 @@ import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.video.Rating;
 import com.nesrux.admin.catalogo.domain.video.Resource;
 import com.nesrux.admin.catalogo.domain.video.Video;
-import io.vavr.API;
 
 import java.time.Year;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 import static io.vavr.API.*;
@@ -47,7 +44,7 @@ public final class Fixture {
             return FAKER.options().option(CastMemberType.ACTOR, CastMemberType.DIRECTOR);
         }
 
-        public static CastMember castMembers() {
+        public static CastMember randomMember() {
             return FAKER.options().option(
                     CastMember.with(JOAO),
                     CastMember.with(MARIA),
@@ -66,7 +63,7 @@ public final class Fixture {
                 Genre.newGenre("Technology", true);
 
 
-        public static Genre castMembers() {
+        public static Genre randomGenre() {
             return FAKER.options().option(
                     Genre.with(ACAO),
                     Genre.with(TERROR),
@@ -89,7 +86,7 @@ public final class Fixture {
             return Category.with(AULAS);
         }
 
-        public static Category categories() {
+        public static Category randomCategory() {
             return FAKER.options().option(
                     Category.with(DOCUMENTARIO),
                     Category.with(SERIES),
@@ -106,10 +103,10 @@ public final class Fixture {
                 "System Design no Mercado Livre na prática",
                 description(),
                 Year.of(2022),
-                Fixture.Videos.duration(),
+                Fixture.Videos.randomDuration(),
                 Fixture.bool(),
                 Fixture.bool(),
-                rating(),
+                randomRating(),
                 Set.of(Categories.aulas().getId()),
                 Set.of(Genres.tech().getId()),
                 Set.of(CastMembers.joao().getId(), CastMembers.catarina().getId())
@@ -117,6 +114,21 @@ public final class Fixture {
 
         public static Video systemDesign() {
             return Video.with(SYSTEM_DESIGN);
+        }
+
+        public static  Video randomVideo(){
+            return Video.newVideo(
+                    title(),
+                    description(),
+                    Year.of(2022),
+                    Fixture.Videos.randomDuration(),
+                    Fixture.bool(),
+                    Fixture.bool(),
+                    randomRating(),
+                    Set.of(Categories.randomCategory().getId()),
+                    Set.of(Genres.randomGenre().getId()),
+                    Set.of(CastMembers.randomMember().getId(), CastMembers.randomMember().getId())
+            );
         }
 
         public static Resource resource(final Resource.Type type) {
@@ -134,13 +146,13 @@ public final class Fixture {
             return FAKER.random().nextInt(2015, 2025);
         }
 
-        public static Double duration() {
+        public static Double randomDuration() {
             return FAKER.options().option(
                     60.0, 120.0, 190.30, 210.50, 30.0
             );
         }
 
-        public static Rating rating() {
+        public static Rating randomRating() {
             return FAKER.options().option(Rating.values());
         }
 

@@ -64,18 +64,18 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.Videos.description();
         final var expectedLaunchYear = Year.of(Fixture.Videos.year());
-        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedDuration = Fixture.Videos.randomDuration();
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
-        final var expectedRating = Fixture.Videos.rating();
+        final var expectedRating = Fixture.Videos.randomRating();
         final var expectedCategories = Set.<CategoryID>of(
-                Fixture.Categories.categories().getId()
+                Fixture.Categories.randomCategory().getId()
         );
         final var expectedGenres = Set.<GenreID>of(
-                Fixture.Genres.castMembers().getId()
+                Fixture.Genres.randomGenre().getId()
         );
         final var expectedCastMember = Set.<CastMemberID>of(
-                Fixture.CastMembers.castMembers().getId()
+                Fixture.CastMembers.randomMember().getId()
         );
 
 
@@ -150,10 +150,10 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.Videos.description();
         final var expectedLaunchYear = Year.of(Fixture.Videos.year());
-        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedDuration = Fixture.Videos.randomDuration();
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
-        final var expectedRating = Fixture.Videos.rating();
+        final var expectedRating = Fixture.Videos.randomRating();
         final var expectedCategories = Set.<CategoryID>of();
         final var expectedGenres = Set.of(Fixture.Genres.tech().getId());
         final var expectedMembers = Set.of(
@@ -238,10 +238,10 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.Videos.description();
         final var expectedLaunchYear = Year.of(Fixture.Videos.year());
-        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedDuration = Fixture.Videos.randomDuration();
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
-        final var expectedRating = Fixture.Videos.rating();
+        final var expectedRating = Fixture.Videos.randomRating();
         final var expectedCategories = Set.of(Fixture.Categories.aulas().getId());
         final var expectedGenres = Set.<GenreID>of();
         final var expectedMembers = Set.of(
@@ -326,10 +326,10 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.Videos.description();
         final var expectedLaunchYear = Year.of(Fixture.Videos.year());
-        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedDuration = Fixture.Videos.randomDuration();
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
-        final var expectedRating = Fixture.Videos.rating();
+        final var expectedRating = Fixture.Videos.randomRating();
         final var expectedCategories = Set.of(Fixture.Categories.aulas().getId());
         final var expectedGenres = Set.of(Fixture.Genres.tech().getId());
         final var expectedMembers = Set.<CastMemberID>of();
@@ -411,10 +411,10 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.Videos.description();
         final var expectedLaunchYear = Year.of(Fixture.Videos.year());
-        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedDuration = Fixture.Videos.randomDuration();
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
-        final var expectedRating = Fixture.Videos.rating();
+        final var expectedRating = Fixture.Videos.randomRating();
         final var expectedCategories = Set.of(Fixture.Categories.aulas().getId());
         final var expectedGenres = Set.of(Fixture.Genres.tech().getId());
         final var expectedMembers = Set.of(
@@ -502,10 +502,10 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final String expectedTitle = null;
         final var expectedDescription = Fixture.Videos.description();
         final var expectedLaunchYear = Year.of(Fixture.Videos.year());
-        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedDuration = Fixture.Videos.randomDuration();
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
-        final var expectedRating = Fixture.Videos.rating();
+        final var expectedRating = Fixture.Videos.randomRating();
         final var expectedCategories = Set.<CategoryID>of();
         final var expectedGenres = Set.<GenreID>of();
         final var expectedMembers = Set.<CastMemberID>of();
@@ -567,10 +567,10 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final String expectedTitle = " ";
         final var expectedDescription = Fixture.Videos.description();
         final var expectedLaunchYear = Year.of(Fixture.Videos.year());
-        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedDuration = Fixture.Videos.randomDuration();
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
-        final var expectedRating = Fixture.Videos.rating();
+        final var expectedRating = Fixture.Videos.randomRating();
         final var expectedCategories = Set.<CategoryID>of();
         final var expectedGenres = Set.<GenreID>of();
         final var expectedMembers = Set.<CastMemberID>of();
@@ -632,7 +632,7 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.Videos.description();
         final var expectedLaunchYear = Year.of(Fixture.Videos.year());
-        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedDuration = Fixture.Videos.randomDuration();
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
         final String expectedRating = null;
@@ -697,7 +697,7 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.Videos.description();
         final var expectedLaunchYear = Year.of(Fixture.Videos.year());
-        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedDuration = Fixture.Videos.randomDuration();
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
         final String expectedRating = "ADASDA";
@@ -762,10 +762,10 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.Videos.description();
         final Integer expectedLaunchYear = null;
-        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedDuration = Fixture.Videos.randomDuration();
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
-        final var expectedRating = Fixture.Videos.rating();
+        final var expectedRating = Fixture.Videos.randomRating();
         final var expectedCategories = Set.<CategoryID>of();
         final var expectedGenres = Set.<GenreID>of();
         final var expectedMembers = Set.<CastMemberID>of();
@@ -828,10 +828,10 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.Videos.description();
         final var expectedLaunchYear = Fixture.Videos.year();
-        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedDuration = Fixture.Videos.randomDuration();
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
-        final var expectedRating = Fixture.Videos.rating();
+        final var expectedRating = Fixture.Videos.randomRating();
         final var expectedCategories = Set.of(aulasId);
         final var expectedGenres = Set.of(Fixture.Genres.tech().getId());
         final var expectedMembers = Set.of(Fixture.CastMembers.joao().getId());
@@ -901,10 +901,10 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.Videos.description();
         final var expectedLaunchYear = Fixture.Videos.year();
-        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedDuration = Fixture.Videos.randomDuration();
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
-        final var expectedRating = Fixture.Videos.rating();
+        final var expectedRating = Fixture.Videos.randomRating();
         final var expectedCategories = Set.of(Fixture.Categories.aulas().getId());
         final var expectedGenres = Set.of(techId);
         final var expectedMembers = Set.of(Fixture.CastMembers.joao().getId());
@@ -974,10 +974,10 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.Videos.description();
         final var expectedLaunchYear = Fixture.Videos.year();
-        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedDuration = Fixture.Videos.randomDuration();
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
-        final var expectedRating = Fixture.Videos.rating();
+        final var expectedRating = Fixture.Videos.randomRating();
         final var expectedCategories = Set.of(Fixture.Categories.aulas().getId());
         final var expectedGenres = Set.of(Fixture.Genres.tech().getId());
         final var expectedMembers = Set.of(wesleyId);
@@ -1044,10 +1044,10 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.Videos.description();
         final var expectedLaunchYear = Year.of(Fixture.Videos.year());
-        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedDuration = Fixture.Videos.randomDuration();
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
-        final var expectedRating = Fixture.Videos.rating();
+        final var expectedRating = Fixture.Videos.randomRating();
         final var expectedCategories = Set.of(Fixture.Categories.aulas().getId());
         final var expectedGenres = Set.of(Fixture.Genres.tech().getId());
         final var expectedMembers = Set.of(
