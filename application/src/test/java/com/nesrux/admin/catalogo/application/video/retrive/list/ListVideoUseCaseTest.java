@@ -2,10 +2,7 @@ package com.nesrux.admin.catalogo.application.video.retrive.list;
 
 import com.nesrux.admin.catalogo.application.Fixture;
 import com.nesrux.admin.catalogo.application.UseCaseTest;
-import com.nesrux.admin.catalogo.application.genre.retrive.list.GenreListOutput;
-import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
-import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
 import com.nesrux.admin.catalogo.domain.video.Video;
 import com.nesrux.admin.catalogo.domain.video.VideoGateway;
 import com.nesrux.admin.catalogo.domain.video.VideoSearchQuery;
@@ -24,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 public class ListVideoUseCaseTest extends UseCaseTest {
     @InjectMocks
-    private DefaultListVideoUseCase useCase;
+    private DefaultListVideoUseCase usecase;
     @Mock
     private VideoGateway videoGateway;
 
@@ -33,7 +30,14 @@ public class ListVideoUseCaseTest extends UseCaseTest {
         return List.of(videoGateway);
     }
 
-    public void givenAValidQuery_whenCallsListVideos_ShouldReturnVideos() {
+    @Test
+    public void givenAValidQuery_whenCallsListVideos_shouldReturnVideos() {
+        // given
+        final var videos = List.of(
+                Fixture.Videos.randomVideo(),
+                Fixture.Videos.randomVideo()
+        );
+
         final var expectedPage = 0;
         final var expectedPerPage = 10;
         final var expectedTerms = "A";
@@ -41,10 +45,9 @@ public class ListVideoUseCaseTest extends UseCaseTest {
         final var expectedDirection = "asc";
         final var expectedTotal = 2;
 
-        final var videos = List.of(
-                Fixture.Videos.randomVideo(),
-                Fixture.Videos.randomVideo()
-        );
+        final var expectedItems = videos.stream()
+                .map(VideoListOutput::from)
+                .toList();
 
         final var expectedPagination = new Pagination<>(
                 expectedPage,
@@ -53,26 +56,24 @@ public class ListVideoUseCaseTest extends UseCaseTest {
                 videos
         );
 
-        final var expectedItems = videos.stream()
-                .map(VideoListOutput::from)
-                .toList();
+        when(videoGateway.findAll(any()))
+                .thenReturn(expectedPagination);
 
-        final var aQuery = new VideoSearchQuery(
-                expectedPage,
-                expectedPerPage,
-                expectedTerms,
-                expectedSort,
-                expectedDirection
-        );
-        //when
+        final var aQuery =
+                new VideoSearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+
+        // when
         final var actualOutput = usecase.execute(aQuery);
 
-        //then
+        // then
         Assertions.assertEquals(expectedPage, actualOutput.currentPage());
-        Assertions.assertEquals(expectedPage, actualOutput.perpage());
+        Assertions.assertEquals(expectedPerPage, actualOutput.perPage());
         Assertions.assertEquals(expectedTotal, actualOutput.total());
         Assertions.assertEquals(expectedItems, actualOutput.items());
+
+        Mockito.verify(videoGateway, times(1)).findAll(eq(aQuery));
     }
+
 
     @Test
     public void givenAValidQuery_whenCallsListGenreAndResultIsEmpty_shouldReturnGenres() {
@@ -102,7 +103,7 @@ public class ListVideoUseCaseTest extends UseCaseTest {
                 new VideoSearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         // when
-        final var actualOutput = useCase.execute(aQuery);
+        final var actualOutput = usecase.execute(aQuery);
 
         // then
         Assertions.assertEquals(expectedPage, actualOutput.currentPage());
@@ -133,12 +134,12 @@ public class ListVideoUseCaseTest extends UseCaseTest {
         // when
         final var actualOutput = Assertions.assertThrows(
                 IllegalStateException.class,
-                () -> useCase.execute(aQuery)
+                () -> usecase.execute(aQuery)
         );
 
         // then
         Assertions.assertEquals(expectedErrorMessage, actualOutput.getMessage());
 
-        Mockito.verify(genreGateway, times(1)).findAll(eq(aQuery));
+        Mockito.verify(videoGateway, times(1)).findAll(eq(aQuery));
     }
 }

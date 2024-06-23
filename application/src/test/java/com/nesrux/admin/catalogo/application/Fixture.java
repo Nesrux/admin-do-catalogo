@@ -127,7 +127,7 @@ public final class Fixture {
                     randomRating(),
                     Set.of(Categories.randomCategory().getId()),
                     Set.of(Genres.randomGenre().getId()),
-                    Set.of(CastMembers.randomMember().getId(), CastMembers.randomMember().getId())
+                    Set.of(CastMembers.randomMember().getId())
             );
         }
 
