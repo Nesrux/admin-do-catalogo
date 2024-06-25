@@ -2,28 +2,31 @@ package com.nesrux.admin.catalogo.infrastructure.video.persistence;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
 @Embeddable
-public class VideoCastMemberID {
+public class VideoCastMemberID implements Serializable {
     @Column(name = "video_id")
     private UUID videoId;
 
     @Column(name = "cast_member_id")
-    private UUID memberId;
+    private UUID castMemberId;
 
     public VideoCastMemberID() {
     }
 
-    private VideoCastMemberID(UUID videoId, UUID castMember_id) {
+    private VideoCastMemberID(UUID videoId, UUID castMemberId) {
         this.videoId = videoId;
-        this.memberId = castMember_id;
+        this.castMemberId = castMemberId;
     }
 
-    public static VideoCastMemberID from(final UUID videoId, final UUID memberId) {
-        return new VideoCastMemberID(videoId, memberId);
+    public static VideoCastMemberID from(final UUID videoId, final UUID castMemberId) {
+        return new VideoCastMemberID(videoId, castMemberId);
     }
+
+
 
     public UUID getVideoId() {
         return videoId;
@@ -35,11 +38,11 @@ public class VideoCastMemberID {
     }
 
     public UUID getCastMemberId() {
-        return memberId;
+        return castMemberId;
     }
 
-    public VideoCastMemberID setCastMemberId(UUID memberID) {
-        this.memberId = memberID;
+    public VideoCastMemberID setCastMemberId(UUID castMemberId) {
+        this.castMemberId = castMemberId;
         return this;
     }
 

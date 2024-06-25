@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
-@Entity
-@Table
+@Entity(name = "VideoCastMember")
+@Table(name = "videos_cast_members")
 public class VideoCastMemberJpaEntity {
     @EmbeddedId
     private VideoCastMemberID id;
@@ -16,7 +16,7 @@ public class VideoCastMemberJpaEntity {
     @MapsId("videoId")
     private VideoJpaEntity video;
 
-    private VideoCastMemberJpaEntity(VideoCastMemberID id, VideoJpaEntity video) {
+    private VideoCastMemberJpaEntity(final VideoCastMemberID id, final VideoJpaEntity video) {
         this.id = id;
         this.video = video;
     }
