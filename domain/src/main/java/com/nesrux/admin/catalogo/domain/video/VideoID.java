@@ -1,7 +1,7 @@
 package com.nesrux.admin.catalogo.domain.video;
 
 import com.nesrux.admin.catalogo.domain.Identifier;
-import com.nesrux.admin.catalogo.domain.genre.GenreID;
+import com.nesrux.admin.catalogo.domain.utils.IdUtils;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -19,16 +19,13 @@ public class VideoID extends Identifier {
     }
 
     public static VideoID unique() {
-        return VideoID.from(UUID.randomUUID());
+        return VideoID.from(IdUtils.uuid());
     }
 
     public static VideoID from(final String AnId) {
         return new VideoID(AnId);
     }
 
-    public static VideoID from(final UUID anId) {
-        return new VideoID(anId.toString().toLowerCase());
-    }
 
     @Override
     public int hashCode() {
