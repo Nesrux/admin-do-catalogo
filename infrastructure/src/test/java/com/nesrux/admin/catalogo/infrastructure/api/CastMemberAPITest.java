@@ -67,7 +67,7 @@ public class CastMemberAPITest {
         final var expectedName = Fixture.name();
         final var expectedType = Fixture.CastMember.type();
 
-        final var expectedId = CastMemberID.from(UUID.randomUUID());
+        final var expectedId = CastMemberID.unique();
         final var aCommad = new CreateCastMemberRequest(expectedName, expectedType);
 
         when(createCastMemberUseCase.execute(any()))
