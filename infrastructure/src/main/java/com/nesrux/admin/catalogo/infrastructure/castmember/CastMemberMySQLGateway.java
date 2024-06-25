@@ -71,7 +71,7 @@ public class CastMemberMySQLGateway implements CastMemberGateway {
     }
 
     @Override
-    public List<CastMemberID> existsByIds(List<CastMemberID> ids) {
+    public List<CastMemberID> existsByIds(Iterable<CastMemberID> ids) {
         throw new UnsupportedOperationException();
     }
 

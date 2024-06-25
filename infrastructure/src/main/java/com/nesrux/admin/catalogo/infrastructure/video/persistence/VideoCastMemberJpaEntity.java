@@ -27,7 +27,7 @@ public class VideoCastMemberJpaEntity {
 
     public static VideoCastMemberJpaEntity from(final VideoJpaEntity video, final CastMemberID member) {
         return new VideoCastMemberJpaEntity(
-                VideoCastMemberID.from(video.getId(), UUID.fromString(member.getValue())),
+                VideoCastMemberID.from(video.getId(), member.getValue()),
                 video
         );
     }

@@ -76,7 +76,7 @@ public class GenreMySQLGateway implements GenreGateway {
     }
 
     @Override
-    public List<GenreID> existsByIds(List<GenreID> ids) {
+    public List<GenreID> existsByIds(Iterable<GenreID> ids) {
         throw new UnsupportedOperationException();
     }
 

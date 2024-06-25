@@ -1,6 +1,7 @@
 package com.nesrux.admin.catalogo.domain.category;
 
 import com.nesrux.admin.catalogo.domain.Identifier;
+import com.nesrux.admin.catalogo.domain.utils.IdUtils;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -9,7 +10,7 @@ public class CategoryID extends Identifier {
     private final String value;
 
     private CategoryID(String value) {
-        this.value = value;
+        this.value = Objects.requireNonNull(value);
     }
 
     @Override
@@ -18,16 +19,13 @@ public class CategoryID extends Identifier {
     }
 
     public static CategoryID unique() {
-        return CategoryID.from(UUID.randomUUID());
+        return CategoryID.from(IdUtils.uuid());
     }
 
     public static CategoryID from(final String AnId) {
         return new CategoryID(AnId);
     }
 
-    public static CategoryID from(final UUID anId) {
-        return new CategoryID(anId.toString().toLowerCase());
-    }
 
     @Override
     public boolean equals(Object o) {

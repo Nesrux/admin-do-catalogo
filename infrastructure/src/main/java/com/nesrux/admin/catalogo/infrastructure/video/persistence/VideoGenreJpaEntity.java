@@ -4,7 +4,6 @@ import com.nesrux.admin.catalogo.domain.genre.GenreID;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity(name = "VideoGenre")
 @Table(name = "videos_genres")
@@ -13,6 +12,7 @@ public class VideoGenreJpaEntity {
     private VideoGenreID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("videoId")
     private VideoJpaEntity video;
 
     private VideoGenreJpaEntity(final VideoGenreID id, final VideoJpaEntity video) {
@@ -22,7 +22,7 @@ public class VideoGenreJpaEntity {
 
     public static VideoGenreJpaEntity from(final VideoJpaEntity video, final GenreID genre) {
         return new VideoGenreJpaEntity(
-                VideoGenreID.from(video.getId(), UUID.fromString(genre.getValue())),
+                VideoGenreID.from(video.getId(), genre.getValue()),
                 video
         );
     }
