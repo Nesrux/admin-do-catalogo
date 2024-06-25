@@ -29,7 +29,7 @@ public class VideoJpaEntity {
     private String description;
 
     @Column(name = "year_launched")
-    private int yerarLaunched;
+    private int yearLaunched;
 
     @Column(name = "opened", nullable = false)
     private boolean opened;
@@ -86,7 +86,7 @@ public class VideoJpaEntity {
             final String id,
             final String title,
             final String description,
-            final int yerarLaunched,
+            final int yearLaunched,
             final boolean opened,
             final boolean published,
             final Rating rating,
@@ -102,7 +102,7 @@ public class VideoJpaEntity {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.yerarLaunched = yerarLaunched;
+        this.yearLaunched = yearLaunched;
         this.opened = opened;
         this.published = published;
         this.rating = rating;
@@ -216,11 +216,11 @@ public class VideoJpaEntity {
     }
 
     public int getYerarLaunched() {
-        return yerarLaunched;
+        return yearLaunched;
     }
 
     public VideoJpaEntity setYerarLaunched(int yerarLaunched) {
-        this.yerarLaunched = yerarLaunched;
+        this.yearLaunched = yerarLaunched;
         return this;
     }
 

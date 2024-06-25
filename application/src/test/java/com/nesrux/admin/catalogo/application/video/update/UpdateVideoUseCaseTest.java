@@ -11,6 +11,7 @@ import com.nesrux.admin.catalogo.domain.exceptions.InternalErrorException;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
+import com.nesrux.admin.catalogo.domain.utils.IdUtils;
 import com.nesrux.admin.catalogo.domain.video.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -1112,7 +1113,7 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         when(mediaResourceGateway.storeImage(any(), any()))
                 .thenAnswer(t -> {
                     final var resouce = t.getArgument(1, Resource.class);
-                    return ImageMedia.with(UUID.randomUUID().toString(), resouce.name(), "/img");
+                    return ImageMedia.with(IdUtils.uuid(), resouce.name(), "/img");
                 });
     }
 
@@ -1121,7 +1122,7 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
                 .thenAnswer(t -> {
                     final var resouce = t.getArgument(1, Resource.class);
                     return AudioVideoMedia.with(
-                            UUID.randomUUID().toString(),
+                            IdUtils.uuid(),
                             resouce.name(),
                             "/img",
                             "",

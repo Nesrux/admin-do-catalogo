@@ -6,6 +6,7 @@ import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotFoundException;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
+import com.nesrux.admin.catalogo.domain.utils.IdUtils;
 import com.nesrux.admin.catalogo.domain.video.*;
 import com.nesrux.admin.catalogo.domain.video.Resource.Type;
 import org.junit.jupiter.api.Assertions;
@@ -17,7 +18,6 @@ import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
@@ -115,7 +115,7 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
     }
 
     private AudioVideoMedia audioVideo(final Type type) {
-        final var checkSum = UUID.randomUUID().toString();
+        final var checkSum = IdUtils.uuid();
         return AudioVideoMedia.with(
                 checkSum,
                 type.name().toLowerCase(),
@@ -125,7 +125,7 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
     }
 
     private ImageMedia imageMedia(final Type type) {
-        final var checkSum = UUID.randomUUID().toString();
+        final var checkSum = IdUtils.uuid();
         return ImageMedia.with(
                 checkSum,
                 type.name().toLowerCase(),

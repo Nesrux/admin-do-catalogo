@@ -1,9 +1,11 @@
 package com.nesrux.admin.catalogo.domain.genre;
 
+import com.nesrux.admin.catalogo.domain.Identifier;
+import com.nesrux.admin.catalogo.domain.utils.IdUtils;
+
 import java.util.Objects;
 import java.util.UUID;
 
-import com.nesrux.admin.catalogo.domain.Identifier;
 public class GenreID extends Identifier {
     private final String value;
 
@@ -17,15 +19,11 @@ public class GenreID extends Identifier {
     }
 
     public static GenreID unique() {
-        return GenreID.from(UUID.randomUUID());
+        return GenreID.from(IdUtils.uuid());
     }
 
     public static GenreID from(final String AnId) {
         return new GenreID(AnId);
-    }
-
-    public static GenreID from(final UUID anId) {
-        return new GenreID(anId.toString().toLowerCase());
     }
 
     @Override
