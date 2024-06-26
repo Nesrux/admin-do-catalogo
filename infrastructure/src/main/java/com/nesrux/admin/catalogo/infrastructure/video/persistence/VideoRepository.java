@@ -13,22 +13,22 @@ public interface VideoRepository extends JpaRepository<VideoJpaEntity, String> {
 
 
     @Query("""
-            select new com.nesrux.admin.catalogo.domain.video.VideoPreview(  
+            select distinct new com.nesrux.admin.catalogo.domain.video.VideoPreview(
                 v.id as id,
                 v.title as title,
-                v.description as description
-                v.createdAt as createdAt
-                v.updateAt as updatedAt   
+                v.description as description,
+                v.createdAt as createdAt,
+                v.updatedAt as updatedAt
             )
             from Video v
-                join v.castMembers members
-                join v.categories categories
-                join v.genres genres
+                left join v.castMembers members
+                left join v.categories categories
+                left join v.genres genres
             where
-                ( :terms is null or UPPER(v.titl) like :terms )
+                ( :terms is null or UPPER(v.title) like :terms )
             and
                 ( :castMembers is null or members.id.castMemberId in :castMembers )
-            and    
+            and
                 ( :categories is null or categories.id.categoryId in :categories )
             and
                 ( :genres is null or genres.id.genreId in :genres )

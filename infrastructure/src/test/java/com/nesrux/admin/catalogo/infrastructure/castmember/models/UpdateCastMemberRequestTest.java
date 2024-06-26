@@ -1,6 +1,5 @@
 package com.nesrux.admin.catalogo.infrastructure.castmember.models;
 
-import com.nesrux.admin.catalogo.Fixture;
 import com.nesrux.admin.catalogo.JacksonTest;
 import com.nesrux.admin.catalogo.domain.Fixture;
 import org.assertj.core.api.Assertions;
