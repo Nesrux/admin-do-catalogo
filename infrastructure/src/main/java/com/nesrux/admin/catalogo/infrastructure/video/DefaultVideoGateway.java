@@ -2,6 +2,7 @@ package com.nesrux.admin.catalogo.infrastructure.video;
 
 import com.nesrux.admin.catalogo.domain.Identifier;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
+import com.nesrux.admin.catalogo.domain.utils.CollectionsUtil;
 import com.nesrux.admin.catalogo.domain.video.*;
 import com.nesrux.admin.catalogo.infrastructure.utils.SqlUtils;
 import com.nesrux.admin.catalogo.infrastructure.video.persistence.VideoJpaEntity;
@@ -14,6 +15,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.nesrux.admin.catalogo.domain.utils.CollectionsUtil.mapTo;
+import static com.nesrux.admin.catalogo.domain.utils.CollectionsUtil.nullIfEmpty;
 
 public class DefaultVideoGateway implements VideoGateway {
 
@@ -61,9 +65,9 @@ public class DefaultVideoGateway implements VideoGateway {
 
         final var actualPage = this.videoRepository.findAll(
                 SqlUtils.like(aQuery.terms()),
-                toString(aQuery.castMembers()),
-                toString(aQuery.categories()),
-                toString(aQuery.categories()),
+                nullIfEmpty(mapTo(aQuery.castMembers(), Identifier::getValue)),
+                nullIfEmpty(mapTo(aQuery.categories(), Identifier::getValue)),
+                nullIfEmpty(mapTo(aQuery.genres(), Identifier::getValue)),
                 page
         );
         return new Pagination<>(
@@ -79,12 +83,4 @@ public class DefaultVideoGateway implements VideoGateway {
                 .toAggregate();
     }
 
-    private Set<String> toString(Set<? extends Identifier> ids) {
-        if (ids == null || ids.isEmpty()) {
-            return null;
-        }
-        return ids.stream()
-                .map(Identifier::getValue)
-                .collect(Collectors.toSet());
-    }
 }
