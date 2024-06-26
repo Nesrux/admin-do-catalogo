@@ -1,7 +1,7 @@
 package com.nesrux.admin.catalogo.application.castmember.update;
 
-import com.nesrux.admin.catalogo.Fixture;
 import com.nesrux.admin.catalogo.IntegrationTest;
+import com.nesrux.admin.catalogo.domain.Fixture;
 import com.nesrux.admin.catalogo.domain.castmember.CastMember;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberGateway;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
@@ -107,7 +107,7 @@ public class UpdateCastMemberUseCaseIT {
         final var aMember = CastMember.newMember("Chris Rock", CastMemberType.DIRECTOR);
         final var expectedId = CastMemberID.from("1234");
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var expectedErrorMessage = "CastMember with ID 1234 was not found";
 
         final var aCommand = UpdateCastMemberCommand.with(expectedId.getValue(), expectedName, expectedType);

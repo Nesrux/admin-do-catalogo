@@ -1,7 +1,7 @@
 package com.nesrux.admin.catalogo.application.castmember.retrive.list;
 
-import com.nesrux.admin.catalogo.Fixture;
 import com.nesrux.admin.catalogo.IntegrationTest;
+import com.nesrux.admin.catalogo.domain.Fixture;
 import com.nesrux.admin.catalogo.domain.castmember.CastMember;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberGateway;
 import com.nesrux.admin.catalogo.domain.pagination.SearchQuery;
@@ -32,8 +32,8 @@ public class ListCastMembersUseCaseIT {
     public void givenAValidQuery_whenCallsListCastMembers_shouldReturnAll() {
         // given
         final var members = List.of(
-                CastMember.newMember(Fixture.name(), Fixture.CastMember.type()),
-                CastMember.newMember(Fixture.name(), Fixture.CastMember.type())
+                CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()),
+                CastMember.newMember(Fixture.name(), Fixture.CastMembers.type())
         );
 
         this.castMemberRepository.saveAllAndFlush(

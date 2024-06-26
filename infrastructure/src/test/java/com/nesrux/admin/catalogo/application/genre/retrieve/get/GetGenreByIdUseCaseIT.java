@@ -1,11 +1,5 @@
 package com.nesrux.admin.catalogo.application.genre.retrieve.get;
 
-import java.util.List;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.nesrux.admin.catalogo.IntegrationTest;
 import com.nesrux.admin.catalogo.application.genre.retrive.get.GetGenreByIdUseCase;
 import com.nesrux.admin.catalogo.domain.category.Category;
@@ -15,6 +9,11 @@ import com.nesrux.admin.catalogo.domain.exceptions.NotFoundException;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 @IntegrationTest
 public class GetGenreByIdUseCaseIT {

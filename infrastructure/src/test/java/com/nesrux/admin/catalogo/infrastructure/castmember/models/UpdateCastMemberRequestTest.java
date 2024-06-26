@@ -2,6 +2,7 @@ package com.nesrux.admin.catalogo.infrastructure.castmember.models;
 
 import com.nesrux.admin.catalogo.Fixture;
 import com.nesrux.admin.catalogo.JacksonTest;
+import com.nesrux.admin.catalogo.domain.Fixture;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class UpdateCastMemberRequestTest {
     @Test
     public void testUnMarshall() throws Exception {
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var json = """
                 {
                   "name": "%s",

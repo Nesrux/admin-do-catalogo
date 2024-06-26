@@ -1,17 +1,5 @@
 package com.nesrux.admin.catalogo.application.genre.update;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
-
-import java.util.List;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.SpyBean;
-
 import com.nesrux.admin.catalogo.IntegrationTest;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
@@ -20,6 +8,18 @@ import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 import com.nesrux.admin.catalogo.infrastructure.genre.persistence.GenreRepository;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+
 @IntegrationTest
 public class UpdateGenreUseCaseIT {
 

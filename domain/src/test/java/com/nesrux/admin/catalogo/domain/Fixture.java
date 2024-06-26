@@ -27,6 +27,7 @@ public final class Fixture {
     }
 
     public static final class CastMembers {
+
         private static final CastMember JOAO = CastMember.newMember("João", CastMemberType.DIRECTOR);
         private static final CastMember MARIA = CastMember.newMember("Maria", CastMemberType.ACTOR);
         private static final CastMember CATARINA = CastMember.newMember("Catarina", CastMemberType.DIRECTOR);

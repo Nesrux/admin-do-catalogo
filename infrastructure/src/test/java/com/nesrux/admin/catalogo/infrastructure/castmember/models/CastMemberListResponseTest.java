@@ -1,7 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.castmember.models;
 
-import com.nesrux.admin.catalogo.Fixture;
 import com.nesrux.admin.catalogo.JacksonTest;
+import com.nesrux.admin.catalogo.domain.Fixture;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ class CastMemberListResponseTest {
     public void testMarshall() throws Exception {
         final var expectedId = CastMemberID.unique().getValue();
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var expectedCreatedAt = Instant.now();
 
         final var response = new CastMemberListResponse(

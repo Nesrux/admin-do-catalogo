@@ -1,7 +1,7 @@
 package com.nesrux.admin.catalogo.application.castmember.delete;
 
-import com.nesrux.admin.catalogo.Fixture;
 import com.nesrux.admin.catalogo.IntegrationTest;
+import com.nesrux.admin.catalogo.domain.Fixture;
 import com.nesrux.admin.catalogo.domain.castmember.CastMember;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberGateway;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
@@ -20,7 +20,7 @@ public class DeleteCastMemberUseCaseIT {
     @Test
     void givenAValidId_whenCallsDeleteCastMember_shouldDeleteIT() {
         //given
-        final var aMember = CastMember.newMember(Fixture.name(), Fixture.CastMember.type());
+        final var aMember = CastMember.newMember(Fixture.name(), Fixture.CastMembers.type());
         final var expectedId = aMember.getId();
 
         //when
