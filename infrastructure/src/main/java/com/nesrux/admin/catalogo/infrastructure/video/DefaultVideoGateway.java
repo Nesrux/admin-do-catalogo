@@ -1,16 +1,19 @@
 package com.nesrux.admin.catalogo.infrastructure.video;
 
+import com.nesrux.admin.catalogo.domain.Identifier;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
-import com.nesrux.admin.catalogo.domain.video.Video;
-import com.nesrux.admin.catalogo.domain.video.VideoGateway;
-import com.nesrux.admin.catalogo.domain.video.VideoID;
-import com.nesrux.admin.catalogo.domain.video.VideoSearchQuery;
+import com.nesrux.admin.catalogo.domain.video.*;
+import com.nesrux.admin.catalogo.infrastructure.utils.SqlUtils;
 import com.nesrux.admin.catalogo.infrastructure.video.persistence.VideoJpaEntity;
 import com.nesrux.admin.catalogo.infrastructure.video.persistence.VideoRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class DefaultVideoGateway implements VideoGateway {
 
@@ -49,12 +52,39 @@ public class DefaultVideoGateway implements VideoGateway {
     }
 
     @Override
-    public Pagination<Video> findAll(final VideoSearchQuery aQuery) {
-        return null;
+    public Pagination<VideoPreview> findAll(final VideoSearchQuery aQuery) {
+        final var page = PageRequest.of(
+                aQuery.page(),
+                aQuery.perPage(),
+                Sort.by(Sort.Direction.fromString(aQuery.direction()), aQuery.sort())
+        );
+
+        final var actualPage = this.videoRepository.findAll(
+                SqlUtils.like(aQuery.terms()),
+                toString(aQuery.castMembers()),
+                toString(aQuery.categories()),
+                toString(aQuery.categories()),
+                page
+        );
+        return new Pagination<>(
+                actualPage.getNumber(),
+                actualPage.getSize(),
+                actualPage.getTotalElements(),
+                actualPage.toList()
+        );
     }
 
     private Video save(Video aVideo) {
         return this.videoRepository.save(VideoJpaEntity.from(aVideo))
                 .toAggregate();
+    }
+
+    private Set<String> toString(Set<? extends Identifier> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return null;
+        }
+        return ids.stream()
+                .map(Identifier::getValue)
+                .collect(Collectors.toSet());
     }
 }

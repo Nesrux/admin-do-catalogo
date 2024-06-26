@@ -13,6 +13,6 @@ public interface VideoGateway {
 
     Video update(Video aVideo);
 
-    Pagination<Video> findAll(VideoSearchQuery aQuery);
+    Pagination<VideoPreview> findAll(VideoSearchQuery aQuery);
 
 }
