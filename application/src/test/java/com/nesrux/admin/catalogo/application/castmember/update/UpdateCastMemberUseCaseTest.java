@@ -1,6 +1,6 @@
 package com.nesrux.admin.catalogo.application.castmember.update;
 
-import com.nesrux.admin.catalogo.application.Fixture;
+import com.nesrux.admin.catalogo.domain.Fixture;
 import com.nesrux.admin.catalogo.application.UseCaseTest;
 import com.nesrux.admin.catalogo.domain.castmember.CastMember;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberGateway;

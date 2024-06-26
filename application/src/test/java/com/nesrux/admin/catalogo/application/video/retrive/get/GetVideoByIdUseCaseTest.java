@@ -1,6 +1,6 @@
 package com.nesrux.admin.catalogo.application.video.retrive.get;
 
-import com.nesrux.admin.catalogo.application.Fixture;
+import com.nesrux.admin.catalogo.domain.Fixture;
 import com.nesrux.admin.catalogo.application.UseCaseTest;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import com.nesrux.admin.catalogo.domain.category.CategoryID;

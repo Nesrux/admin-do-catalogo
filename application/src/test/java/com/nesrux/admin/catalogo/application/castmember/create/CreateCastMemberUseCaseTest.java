@@ -1,7 +1,7 @@
 package com.nesrux.admin.catalogo.application.castmember.create;
 
-import com.nesrux.admin.catalogo.application.Fixture;
 import com.nesrux.admin.catalogo.application.UseCaseTest;
+import com.nesrux.admin.catalogo.domain.Fixture;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberGateway;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberType;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
@@ -24,7 +24,6 @@ public class CreateCastMemberUseCaseTest extends UseCaseTest {
     private DefaultCreateCastMemberUseCase useCase;
     @Mock
     private CastMemberGateway gateway;
-
 
     @Override
     protected List<Object> getMocks() {
