@@ -1,4 +1,4 @@
-package com.nesrux.admin.catalogo.application;
+package com.nesrux.admin.catalogo.domain;
 
 import com.github.javafaker.Faker;
 import com.nesrux.admin.catalogo.domain.castmember.CastMember;
@@ -103,7 +103,7 @@ public final class Fixture {
                 "System Design no Mercado Livre na prática",
                 description(),
                 Year.of(2022),
-                Fixture.Videos.randomDuration(),
+                Videos.randomDuration(),
                 Fixture.bool(),
                 Fixture.bool(),
                 randomRating(),
@@ -121,7 +121,7 @@ public final class Fixture {
                     title(),
                     description(),
                     Year.of(2022),
-                    Fixture.Videos.randomDuration(),
+                    Videos.randomDuration(),
                     Fixture.bool(),
                     Fixture.bool(),
                     randomRating(),
