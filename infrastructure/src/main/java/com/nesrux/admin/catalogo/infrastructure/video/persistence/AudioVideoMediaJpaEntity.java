@@ -11,6 +11,9 @@ public class AudioVideoMediaJpaEntity {
     @Id
     private String id;
 
+    @Column(name = "checksum", nullable = false)
+    private String checksum;
+
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -20,7 +23,7 @@ public class AudioVideoMediaJpaEntity {
     @Column(name = "enconded_path", nullable = false)
     private String encondedPath;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "media_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private MediaStatus status;
 
@@ -29,6 +32,7 @@ public class AudioVideoMediaJpaEntity {
 
     public AudioVideoMediaJpaEntity(
             final String id,
+            final String checksum,
             final String name,
             final String filePath,
             final String encondedPath,
@@ -42,6 +46,7 @@ public class AudioVideoMediaJpaEntity {
 
     public static AudioVideoMediaJpaEntity from(final AudioVideoMedia media) {
         return new AudioVideoMediaJpaEntity(
+                media.id(),
                 media.checksum(),
                 media.name(),
                 media.rawLocation(),
@@ -53,6 +58,7 @@ public class AudioVideoMediaJpaEntity {
     public AudioVideoMedia toDomain() {
         return AudioVideoMedia.with(
                 getId(),
+                getChecksum(),
                 getName(),
                 getFilePath(),
                 getEncondedPath(),
@@ -64,39 +70,53 @@ public class AudioVideoMediaJpaEntity {
         return id;
     }
 
-    public void setId(final String id) {
+    public AudioVideoMediaJpaEntity setId(String id) {
         this.id = id;
+        return this;
+    }
+
+    public String getChecksum() {
+        return checksum;
+    }
+
+    public AudioVideoMediaJpaEntity setChecksum(String checksum) {
+        this.checksum = checksum;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(final String name) {
+    public AudioVideoMediaJpaEntity setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getFilePath() {
         return filePath;
     }
 
-    public void setFilePath(final String filePath) {
+    public AudioVideoMediaJpaEntity setFilePath(String filePath) {
         this.filePath = filePath;
+        return this;
     }
 
     public String getEncondedPath() {
         return encondedPath;
     }
 
-    public void setEncondedPath(final String encondedPath) {
+    public AudioVideoMediaJpaEntity setEncondedPath(String encondedPath) {
         this.encondedPath = encondedPath;
+        return this;
     }
 
     public MediaStatus getStatus() {
         return status;
     }
 
-    public void setStatus(final MediaStatus status) {
+    public AudioVideoMediaJpaEntity setStatus(MediaStatus status) {
         this.status = status;
+        return this;
     }
 }

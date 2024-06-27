@@ -115,11 +115,12 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
     }
 
     private AudioVideoMedia audioVideo(final Type type) {
-        final var checkSum = IdUtils.uuid();
+        final var id = IdUtils.uuid();
         return AudioVideoMedia.with(
-                checkSum,
+                id,
+                "abc",
                 type.name().toLowerCase(),
-                "/videos" + checkSum,
+                "/videos" + id,
                 "",
                 MediaStatus.PENDING);
     }

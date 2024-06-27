@@ -9,6 +9,7 @@ import com.nesrux.admin.catalogo.infrastructure.video.persistence.VideoJpaEntity
 import com.nesrux.admin.catalogo.infrastructure.video.persistence.VideoRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 
 import static com.nesrux.admin.catalogo.domain.utils.CollectionsUtil.mapTo;
 import static com.nesrux.admin.catalogo.domain.utils.CollectionsUtil.nullIfEmpty;
-
+@Component
 public class DefaultVideoGateway implements VideoGateway {
 
     private final VideoRepository videoRepository;

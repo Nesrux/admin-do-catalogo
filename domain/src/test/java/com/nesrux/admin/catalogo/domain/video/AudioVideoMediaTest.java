@@ -1,5 +1,6 @@
 package com.nesrux.admin.catalogo.domain.video;
 
+import com.nesrux.admin.catalogo.domain.utils.IdUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,14 +17,13 @@ public class AudioVideoMediaTest {
 
         // when
         final var actualVideo =
-                AudioVideoMedia.with(expectedChecksum, expectedName, expectedRawLocation, expectedEncodedLocation, expectedStatus);
+                AudioVideoMedia.with(expectedChecksum, expectedName, expectedRawLocation);
 
         // then
         Assertions.assertNotNull(actualVideo);
         Assertions.assertEquals(expectedChecksum, actualVideo.checksum());
         Assertions.assertEquals(expectedName, actualVideo.name());
         Assertions.assertEquals(expectedRawLocation, actualVideo.rawLocation());
-        Assertions.assertEquals(expectedEncodedLocation, actualVideo.encodedLocation());
         Assertions.assertEquals(expectedStatus, actualVideo.status());
     }
 
@@ -34,10 +34,10 @@ public class AudioVideoMediaTest {
         final var expectedRawLocation = "/images/ac";
 
         final var img1 =
-                AudioVideoMedia.with(expectedChecksum, "Random", expectedRawLocation, "", MediaStatus.PENDING);
+                AudioVideoMedia.with(expectedChecksum, "Random", expectedRawLocation);
 
         final var img2 =
-                AudioVideoMedia.with(expectedChecksum, "Simple", expectedRawLocation, "", MediaStatus.PENDING);
+                AudioVideoMedia.with(expectedChecksum, "Simple", expectedRawLocation);
 
         // then
         Assertions.assertEquals(img1, img2);
@@ -46,29 +46,31 @@ public class AudioVideoMediaTest {
 
     @Test
     public void givenInvalidParams_whenCallsWith_ShouldReturnError() {
+        final var expectedID = IdUtils.uuid();
+
         Assertions.assertThrows(
                 NullPointerException.class,
-                () -> AudioVideoMedia.with(null, "Random", "/videos", "/videos", MediaStatus.PENDING)
+                () -> AudioVideoMedia.with(null, "abc", "video", "/videos", "/videos", MediaStatus.PENDING)
         );
 
         Assertions.assertThrows(
                 NullPointerException.class,
-                () -> AudioVideoMedia.with("abc", null, "/videos", "/videos", MediaStatus.PENDING)
+                () -> AudioVideoMedia.with(expectedID, null, "video", "/videos", "/videos", MediaStatus.PENDING)
         );
 
         Assertions.assertThrows(
                 NullPointerException.class,
-                () -> AudioVideoMedia.with("abc", "Random", null, "/videos", MediaStatus.PENDING)
+                () -> AudioVideoMedia.with(expectedID, "abc", "video", null, "/videos", MediaStatus.PENDING)
         );
 
         Assertions.assertThrows(
                 NullPointerException.class,
-                () -> AudioVideoMedia.with("abc", "Random", "/videos", null, MediaStatus.PENDING)
+                () -> AudioVideoMedia.with(expectedID, "abc", null, "/videos", null, MediaStatus.PENDING)
         );
 
         Assertions.assertThrows(
                 NullPointerException.class,
-                () -> AudioVideoMedia.with("abc", "Random", "/videos", "/videos", null)
+                () -> AudioVideoMedia.with(expectedID, "abc", "video", "/videos", "/videos", null)
         );
     }
 

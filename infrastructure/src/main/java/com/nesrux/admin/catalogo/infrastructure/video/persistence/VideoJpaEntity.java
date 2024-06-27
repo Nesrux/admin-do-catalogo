@@ -349,4 +349,22 @@ public class VideoJpaEntity {
         this.castMembers = members;
         return this;
     }
+
+    public Set<CategoryID> getCategoriesId() {
+        return this.categories.stream()
+                .map(it -> CategoryID.from(it.getId().getCategoryId()))
+                .collect(Collectors.toSet());
+    }
+
+    public Set<GenreID> getGenresId() {
+        return this.genres.stream()
+                .map(it -> GenreID.from(it.getId().getGenreId()))
+                .collect(Collectors.toSet());
+    }
+
+    public Set<CastMemberID> getMembersId() {
+        return this.castMembers.stream()
+                .map(it -> CastMemberID.from(it.getId().getCastMemberId()))
+                .collect(Collectors.toSet());
+    }
 }

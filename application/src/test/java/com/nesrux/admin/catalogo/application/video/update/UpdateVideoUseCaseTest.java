@@ -1123,6 +1123,7 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
                     final var resouce = t.getArgument(1, Resource.class);
                     return AudioVideoMedia.with(
                             IdUtils.uuid(),
+                            "abc",
                             resouce.name(),
                             "/img",
                             "",
