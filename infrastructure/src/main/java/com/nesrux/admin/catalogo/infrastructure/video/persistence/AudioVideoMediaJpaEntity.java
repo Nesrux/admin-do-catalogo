@@ -20,7 +20,7 @@ public class AudioVideoMediaJpaEntity {
     @Column(name = "file_path", nullable = false)
     private String filePath;
 
-    @Column(name = "enconded_path", nullable = false)
+    @Column(name = "encoded_path", nullable = false)
     private String encondedPath;
 
     @Column(name = "media_status", nullable = false)
@@ -38,6 +38,7 @@ public class AudioVideoMediaJpaEntity {
             final String encondedPath,
             final MediaStatus status) {
         this.id = id;
+        this.checksum = checksum;
         this.name = name;
         this.filePath = filePath;
         this.encondedPath = encondedPath;
