@@ -148,10 +148,10 @@ public class DefaultVideoGatewayTest {
         final var expectedCastMember = Set.<CastMemberID>of();
 
         final var aVideo = Video.newVideo(
-                        expectedTitle, expectedDescription, expectedLaunchYear,
-                        expectedDuration, expectedOpened, expectedPublished,
-                        expectedRating, expectedCategories, expectedGenres, expectedCastMember
-                );
+                expectedTitle, expectedDescription, expectedLaunchYear,
+                expectedDuration, expectedOpened, expectedPublished,
+                expectedRating, expectedCategories, expectedGenres, expectedCastMember
+        );
 
 
         //when
@@ -174,11 +174,11 @@ public class DefaultVideoGatewayTest {
         Assertions.assertEquals(expectedCategories, actualResult.getCategories());
         Assertions.assertEquals(expectedGenres, actualResult.getGenres());
         Assertions.assertEquals(expectedCastMember, actualResult.getCastMembers());
-        Assertions.assertTrue( actualResult.getVideo().isEmpty());
-        Assertions.assertTrue( actualResult.getTrailer().isEmpty());
-        Assertions.assertTrue( actualResult.getBanner().isEmpty());
-        Assertions.assertTrue( actualResult.getThumbnail().isEmpty());
-        Assertions.assertTrue( actualResult.getThumbnailHalf().isEmpty());
+        Assertions.assertTrue(actualResult.getVideo().isEmpty());
+        Assertions.assertTrue(actualResult.getTrailer().isEmpty());
+        Assertions.assertTrue(actualResult.getBanner().isEmpty());
+        Assertions.assertTrue(actualResult.getThumbnail().isEmpty());
+        Assertions.assertTrue(actualResult.getThumbnailHalf().isEmpty());
 
         final var persistedVideo = this.videoRepository.findById(aVideo.getId().getValue()).get();
 
@@ -200,7 +200,118 @@ public class DefaultVideoGatewayTest {
         Assertions.assertNull(persistedVideo.getBanner());
         Assertions.assertNull(persistedVideo.getThumbnail());
         Assertions.assertNull(persistedVideo.getThumbnailHalf());
+    }
+
+    @Test
+    @Transactional
+    public void givenAValidVideo_whenCallsUpdate_shouldPersisted() {
+        //given
+        final var aVideo = videoGateway.create(Video.newVideo(
+                Fixture.Videos.title(),
+                Fixture.Videos.description(),
+                Year.of(Fixture.Videos.year()),
+                Fixture.Videos.randomDuration(),
+                Fixture.bool(),
+                Fixture.bool(),
+                Fixture.Videos.randomRating(),
+                Set.<CategoryID>of(),
+                Set.<GenreID>of(),
+                Set.<CastMemberID>of()
+        ));
+
+
+        final var joao = this.castMemberGateway.create(Fixture.CastMembers.joao());
+        final var aulas = this.categoryGateway.create(Fixture.Categories.aulas());
+        final var tech = this.genreGateway.create(Fixture.Genres.tech());
+
+        final var expectedTitle = Fixture.Videos.title();
+        final var expectedDescription = Fixture.Videos.description();
+        final var expectedLaunchYear = Year.of(Fixture.Videos.year());
+        final var expectedDuration = Fixture.Videos.randomDuration();
+        final var expectedOpened = Fixture.bool();
+        final var expectedPublished = Fixture.bool();
+        final var expectedRating = Fixture.Videos.randomRating();
+        final var expectedCategories = Set.<CategoryID>of(aulas.getId());
+        final var expectedGenres = Set.<GenreID>of(tech.getId());
+        final var expectedCastMember = Set.<CastMemberID>of(joao.getId());
+
+        final AudioVideoMedia expectedVideo = AudioVideoMedia.with("123", "video", "/media/video");
+        final AudioVideoMedia expectedTrailer = AudioVideoMedia.with("123", "trailer", "/media/trailer");
+        final ImageMedia expectedBanner = ImageMedia.with("123", "banner", "/media/banner");
+        final ImageMedia expectedThumb = ImageMedia.with("123", "Thumb", "/media/Thumb");
+        final ImageMedia expectedThumbHalf = ImageMedia.with("123", "ThumbHalf", "/media/ThumbHalf");
+
+
+        final var updatedVideo = Video.with(aVideo)
+                .update(
+                        expectedTitle,
+                        expectedDescription,
+                        expectedLaunchYear,
+                        expectedDuration,
+                        expectedOpened,
+                        expectedPublished,
+                        expectedRating,
+                        expectedCategories,
+                        expectedGenres,
+                        expectedCastMember
+                ).setVideo(expectedVideo)
+                .setTrailer(expectedTrailer)
+                .setBanner(expectedBanner)
+                .setThumbnail(expectedThumb)
+                .setThumbnailHalf(expectedThumbHalf);
+
+
+        //when
+        Assertions.assertEquals(this.videoRepository.count(), 1);
+
+        final var actualResult = videoGateway.update(updatedVideo);
+
+        Assertions.assertEquals(this.videoRepository.count(), 1);
+
+        //then
+        Assertions.assertNotNull(actualResult);
+        Assertions.assertNotNull(actualResult.getId());
+        Assertions.assertEquals(expectedTitle, actualResult.getTitle());
+        Assertions.assertEquals(expectedDescription, actualResult.getDescription());
+        Assertions.assertEquals(expectedLaunchYear, actualResult.getLaunchedAt());
+        Assertions.assertEquals(expectedDuration, actualResult.getDuration());
+        Assertions.assertEquals(expectedOpened, actualResult.getOpened());
+        Assertions.assertEquals(expectedPublished, actualResult.getPublished());
+        Assertions.assertEquals(expectedRating, actualResult.getRating());
+        Assertions.assertEquals(expectedCategories, actualResult.getCategories());
+        Assertions.assertEquals(expectedGenres, actualResult.getGenres());
+        Assertions.assertEquals(expectedCastMember, actualResult.getCastMembers());
+        Assertions.assertEquals(expectedVideo.name(), actualResult.getVideo().get().name());
+        Assertions.assertEquals(expectedTrailer.name(), actualResult.getTrailer().get().name());
+        Assertions.assertEquals(expectedBanner.name(), actualResult.getBanner().get().name());
+        Assertions.assertEquals(expectedThumb.name(), actualResult.getThumbnail().get().name());
+        Assertions.assertEquals(expectedThumbHalf.name(), actualResult.getThumbnailHalf().get().name());
+        Assertions.assertNotNull(actualResult.getCreatedAt());
+        Assertions.assertTrue(aVideo.getUpdatedAt().isBefore(actualResult.getUpdatedAt()));
+
+        final var persistedVideo = this.videoRepository.findById(aVideo.getId().getValue()).get();
+
+
+        Assertions.assertNotNull(persistedVideo);
+        Assertions.assertNotNull(persistedVideo.getId());
+        Assertions.assertEquals(expectedTitle, persistedVideo.getTitle());
+        Assertions.assertEquals(expectedDescription, persistedVideo.getDescription());
+        Assertions.assertEquals(expectedLaunchYear, Year.of(persistedVideo.getYerarLaunched()));
+        Assertions.assertEquals(expectedDuration, persistedVideo.getDuration());
+        Assertions.assertEquals(expectedOpened, persistedVideo.isOpened());
+        Assertions.assertEquals(expectedPublished, persistedVideo.isPublished());
+        Assertions.assertEquals(expectedRating, persistedVideo.getRating());
+        Assertions.assertEquals(expectedCategories, persistedVideo.getCategoriesId());
+        Assertions.assertEquals(expectedGenres, persistedVideo.getGenresId());
+        Assertions.assertEquals(expectedCastMember, persistedVideo.getMembersId());
+        Assertions.assertEquals(expectedVideo.name(), persistedVideo.getVideo().getName());
+        Assertions.assertEquals(expectedTrailer.name(), persistedVideo.getTrailer().getName());
+        Assertions.assertEquals(expectedBanner.name(), persistedVideo.getBanner().getName());
+        Assertions.assertEquals(expectedThumb.name(), persistedVideo.getThumbnail().getName());
+        Assertions.assertEquals(expectedThumbHalf.name(), persistedVideo.getThumbnailHalf().getName());
+        Assertions.assertTrue(persistedVideo.getUpdatedAt().isAfter(aVideo.getUpdatedAt()));
 
     }
+
 
 }
