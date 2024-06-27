@@ -131,11 +131,21 @@ public class VideoJpaEntity {
                 aVideo.getDuration(),
                 aVideo.getCreatedAt(),
                 aVideo.getUpdatedAt(),
-                aVideo.getVideo().map(AudioVideoMediaJpaEntity::from).orElse(null),
-                aVideo.getTrailer().map(AudioVideoMediaJpaEntity::from).orElse(null),
-                aVideo.getBanner().map(ImageMediaJpaEntity::from).orElse(null),
-                aVideo.getThumbnail().map(ImageMediaJpaEntity::from).orElse(null),
-                aVideo.getThumbnailHalf().map(ImageMediaJpaEntity::from).orElse(null)
+                aVideo.getVideo()
+                        .map(AudioVideoMediaJpaEntity::from)
+                        .orElse(null),
+                aVideo.getTrailer()
+                        .map(AudioVideoMediaJpaEntity::from)
+                        .orElse(null),
+                aVideo.getBanner()
+                        .map(ImageMediaJpaEntity::from)
+                        .orElse(null),
+                aVideo.getThumbnail()
+                        .map(ImageMediaJpaEntity::from)
+                        .orElse(null),
+                aVideo.getThumbnailHalf()
+                        .map(ImageMediaJpaEntity::from)
+                        .orElse(null)
         );
 
         aVideo.getCategories().forEach(entity::addCategory);
@@ -157,11 +167,21 @@ public class VideoJpaEntity {
                 getRating(),
                 getCreatedAt(),
                 getUpdatedAt(),
-                Optional.of(getBanner().toDomain()).orElse(null),
-                Optional.of(getThumbnail().toDomain()).orElse(null),
-                Optional.of(getThumbnailHalf().toDomain()).orElse(null),
-                Optional.of(getTrailer().toDomain()).orElse(null),
-                Optional.of(getVideo().toDomain()).orElse(null),
+                Optional.ofNullable(getBanner())
+                        .map(ImageMediaJpaEntity::toDomain)
+                        .orElse(null),
+                Optional.ofNullable(getThumbnail())
+                        .map(ImageMediaJpaEntity::toDomain)
+                        .orElse(null),
+                Optional.ofNullable(getThumbnailHalf())
+                        .map(ImageMediaJpaEntity::toDomain)
+                        .orElse(null),
+                Optional.ofNullable(getTrailer())
+                        .map(AudioVideoMediaJpaEntity::toDomain)
+                        .orElse(null),
+                Optional.ofNullable(getVideo())
+                        .map(AudioVideoMediaJpaEntity::toDomain)
+                        .orElse(null),
                 getCategories().stream()
                         .map(it -> CategoryID.from(it.getId().getCategoryId()))
                         .collect(Collectors.toSet()),

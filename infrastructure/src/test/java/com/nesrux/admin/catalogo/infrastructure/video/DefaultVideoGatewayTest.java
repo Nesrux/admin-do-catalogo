@@ -147,22 +147,11 @@ public class DefaultVideoGatewayTest {
         final var expectedGenres = Set.<GenreID>of();
         final var expectedCastMember = Set.<CastMemberID>of();
 
-        final AudioVideoMedia expectedVideo = AudioVideoMedia.with("123", "video", "/media/video");
-        final AudioVideoMedia expectedTrailer = AudioVideoMedia.with("123", "trailer", "/media/trailer");
-        final ImageMedia expectedBanner = ImageMedia.with("123", "banner", "/media/banner");
-        final ImageMedia expectedThumb = ImageMedia.with("123", "Thumb", "/media/Thumb");
-        final ImageMedia expectedThumbHalf = ImageMedia.with("123", "ThumbHalf", "/media/ThumbHalf");
-
-
         final var aVideo = Video.newVideo(
                         expectedTitle, expectedDescription, expectedLaunchYear,
                         expectedDuration, expectedOpened, expectedPublished,
                         expectedRating, expectedCategories, expectedGenres, expectedCastMember
-                ).setVideo(expectedVideo)
-                .setTrailer(expectedTrailer)
-                .setBanner(expectedBanner)
-                .setThumbnail(expectedThumb)
-                .setThumbnailHalf(expectedThumbHalf);
+                );
 
 
         //when
@@ -185,11 +174,11 @@ public class DefaultVideoGatewayTest {
         Assertions.assertEquals(expectedCategories, actualResult.getCategories());
         Assertions.assertEquals(expectedGenres, actualResult.getGenres());
         Assertions.assertEquals(expectedCastMember, actualResult.getCastMembers());
-        Assertions.assertEquals(expectedVideo.name(), actualResult.getVideo().get().name());
-        Assertions.assertEquals(expectedTrailer.name(), actualResult.getTrailer().get().name());
-        Assertions.assertEquals(expectedBanner.name(), actualResult.getBanner().get().name());
-        Assertions.assertEquals(expectedThumb.name(), actualResult.getThumbnail().get().name());
-        Assertions.assertEquals(expectedThumbHalf.name(), actualResult.getThumbnailHalf().get().name());
+        Assertions.assertTrue( actualResult.getVideo().isEmpty());
+        Assertions.assertTrue( actualResult.getTrailer().isEmpty());
+        Assertions.assertTrue( actualResult.getBanner().isEmpty());
+        Assertions.assertTrue( actualResult.getThumbnail().isEmpty());
+        Assertions.assertTrue( actualResult.getThumbnailHalf().isEmpty());
 
         final var persistedVideo = this.videoRepository.findById(aVideo.getId().getValue()).get();
 
@@ -206,11 +195,11 @@ public class DefaultVideoGatewayTest {
         Assertions.assertEquals(expectedCategories, persistedVideo.getCategoriesId());
         Assertions.assertEquals(expectedGenres, persistedVideo.getGenresId());
         Assertions.assertEquals(expectedCastMember, persistedVideo.getMembersId());
-        Assertions.assertEquals(expectedVideo.name(), persistedVideo.getVideo().getName());
-        Assertions.assertEquals(expectedTrailer.name(), persistedVideo.getTrailer().getName());
-        Assertions.assertEquals(expectedBanner.name(), persistedVideo.getBanner().getName());
-        Assertions.assertEquals(expectedThumb.name(), persistedVideo.getThumbnail().getName());
-        Assertions.assertEquals(expectedThumbHalf.name(), persistedVideo.getThumbnailHalf().getName());
+        Assertions.assertNull(persistedVideo.getVideo());
+        Assertions.assertNull(persistedVideo.getTrailer());
+        Assertions.assertNull(persistedVideo.getBanner());
+        Assertions.assertNull(persistedVideo.getThumbnail());
+        Assertions.assertNull(persistedVideo.getThumbnailHalf());
 
     }
 
