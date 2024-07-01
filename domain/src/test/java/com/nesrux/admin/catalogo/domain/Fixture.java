@@ -60,9 +60,8 @@ public final class Fixture {
         private static final Genre ACAO = Genre.newGenre("Ação", true);
         private static final Genre TERROR = Genre.newGenre("Terror", false);
         private static final Genre AVENTURA = Genre.newGenre("Aventura", true);
-        private static final Genre TECH =
-                Genre.newGenre("Technology", true);
-
+        private static final Genre TECH = Genre.newGenre("Technology", true);
+        private static final Genre BUSINESS = Genre.newGenre("Business", true);
 
         public static Genre randomGenre() {
             return FAKER.options().option(
@@ -75,6 +74,10 @@ public final class Fixture {
         public static Genre tech() {
             return Genre.with(TECH);
         }
+
+        public static Genre business() {
+            return Genre.with(BUSINESS);
+        }
     }
 
     public static final class Categories {
@@ -82,9 +85,14 @@ public final class Fixture {
         private static final Category SERIES = Category.newCategory("Séries", "A categoria de Séries", false);
         private static final Category FILMES = Category.newCategory("Filmes", "A categoria de Filmes", true);
         private static final Category AULAS = Category.newCategory("Aulas", "Video aulas", true);
+        private static final Category LIVES = Category.newCategory("Lives", "Livestream de conteudos variados", true);
 
         public static Category aulas() {
             return Category.with(AULAS);
+        }
+
+        public static Category lives() {
+            return Category.with(LIVES);
         }
 
         public static Category randomCategory() {
@@ -117,7 +125,7 @@ public final class Fixture {
             return Video.with(SYSTEM_DESIGN);
         }
 
-        public static  Video randomVideo(){
+        public static Video randomVideo() {
             return Video.newVideo(
                     title(),
                     description(),
