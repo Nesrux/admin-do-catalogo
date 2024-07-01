@@ -36,8 +36,7 @@ public class GoogleCloudProperties implements InitializingBean {
     @Override
     public String toString() {
         return "GoogleCloudProperties{" +
-                "credentials='" + credentials + '\'' +
-                ", projectId='" + projectId + '\'' +
+                "projectId='" + projectId + '\'' +
                 '}';
     }
 }
