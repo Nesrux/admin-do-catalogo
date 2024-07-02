@@ -988,22 +988,16 @@ public class CreateVideoUSeCaseTest extends UseCaseTest {
     private void mockImageMedia() {
         when(mediaResourceGateway.storeImage(any(), any()))
                 .thenAnswer(t -> {
-                    final var resouce = t.getArgument(1, Resource.class);
-                    return ImageMedia.with(IdUtils.uuid(), resouce.name(), "/img");
+                    final var resource = t.getArgument(1, VideoResource.class);
+                    return Fixture.Videos.image(resource.type());
                 });
     }
 
     private void mockAudioVideoMedia() {
         when(mediaResourceGateway.storeAudioVideo(any(), any()))
                 .thenAnswer(t -> {
-                    final var resouce = t.getArgument(1, Resource.class);
-                    return AudioVideoMedia.with(
-                            IdUtils.uuid(),
-                            "abc",
-                            resouce.name(),
-                            "/img",
-                            "",
-                            MediaStatus.PENDING);
+                    final var resource = t.getArgument(1, VideoResource.class);
+                    return Fixture.Videos.audioVideo(resource.type());
                 });
     }
 

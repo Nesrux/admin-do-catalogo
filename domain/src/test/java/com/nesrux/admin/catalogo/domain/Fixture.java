@@ -6,10 +6,8 @@ import com.nesrux.admin.catalogo.domain.castmember.CastMemberType;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
 import com.nesrux.admin.catalogo.domain.utils.IdUtils;
-import com.nesrux.admin.catalogo.domain.video.Rating;
+import com.nesrux.admin.catalogo.domain.video.*;
 import com.nesrux.admin.catalogo.domain.resource.Resource;
-import com.nesrux.admin.catalogo.domain.video.Video;
-import com.nesrux.admin.catalogo.domain.video.VideoMediaType;
 
 import java.time.Year;
 import java.util.Set;
@@ -26,6 +24,10 @@ public final class Fixture {
 
     public static boolean bool() {
         return FAKER.bool().bool();
+    }
+
+    public static String checksum() {
+        return "03fe62de";
     }
 
     public static final class CastMembers {
@@ -152,6 +154,25 @@ public final class Fixture {
             final byte[] content = "Conteudo".getBytes();
 
             return Resource.with(checksum, content, contentType, type.name().toLowerCase());
+        }
+
+
+        public static AudioVideoMedia audioVideo(final VideoMediaType type) {
+            final var checksum = Fixture.checksum();
+            return AudioVideoMedia.with(
+                    checksum,
+                    type.name().toLowerCase(),
+                    "/videos/" + checksum
+            );
+        }
+
+        public static ImageMedia image(final VideoMediaType type) {
+            final var checksum = Fixture.checksum();
+            return ImageMedia.with(
+                    checksum,
+                    type.name().toLowerCase(),
+                    "/images/" + checksum
+            );
         }
 
         public static Integer year() {

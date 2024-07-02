@@ -13,10 +13,7 @@ import com.nesrux.admin.catalogo.domain.genre.GenreID;
 import com.nesrux.admin.catalogo.domain.validation.Error;
 import com.nesrux.admin.catalogo.domain.validation.ValidationHandler;
 import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
-import com.nesrux.admin.catalogo.domain.video.MediaResourceGateway;
-import com.nesrux.admin.catalogo.domain.video.Rating;
-import com.nesrux.admin.catalogo.domain.video.Video;
-import com.nesrux.admin.catalogo.domain.video.VideoGateway;
+import com.nesrux.admin.catalogo.domain.video.*;
 
 import java.time.Year;
 import java.util.ArrayList;
@@ -26,6 +23,8 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+import static com.nesrux.admin.catalogo.domain.video.VideoMediaType.*;
 
 public class DefaultCreateVideoUseCase extends CreateVideoUseCase {
     private final CategoryGateway categoryGateway;
@@ -86,23 +85,23 @@ public class DefaultCreateVideoUseCase extends CreateVideoUseCase {
 
         try {
             final var aVideoMedia = aCommand.getVideo()
-                    .map(it -> this.mediaResourceGateway.storeAudioVideo(anId, it))
+                    .map(it -> this.mediaResourceGateway.storeAudioVideo(anId, VideoResource.with(it, VIDEO)))
                     .orElse(null);
 
             final var aTrailerMedia = aCommand.getTrailer()
-                    .map(it -> this.mediaResourceGateway.storeAudioVideo(anId, it))
+                    .map(it -> this.mediaResourceGateway.storeAudioVideo(anId, VideoResource.with(it, TRAILER)))
                     .orElse(null);
 
             final var aBannerMedia = aCommand.getBanner()
-                    .map(it -> this.mediaResourceGateway.storeImage(anId, it))
+                    .map(it -> this.mediaResourceGateway.storeImage(anId, VideoResource.with(it, BANNER)))
                     .orElse(null);
 
             final var aThumbnail = aCommand.getThumbnail()
-                    .map(it -> this.mediaResourceGateway.storeImage(anId, it))
+                    .map(it -> this.mediaResourceGateway.storeImage(anId, VideoResource.with(it, THUMBNAIL)))
                     .orElse(null);
 
             final var athumbHalf = aCommand.getThumbnailHalf()
-                    .map(it -> this.mediaResourceGateway.storeImage(anId, it))
+                    .map(it -> this.mediaResourceGateway.storeImage(anId, VideoResource.with(it, THUMBNAIL_HALF)))
                     .orElse(null);
 
 
