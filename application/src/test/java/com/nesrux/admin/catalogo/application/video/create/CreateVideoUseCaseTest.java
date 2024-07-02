@@ -11,7 +11,6 @@ import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
 import com.nesrux.admin.catalogo.domain.resource.Resource;
-import com.nesrux.admin.catalogo.domain.utils.IdUtils;
 import com.nesrux.admin.catalogo.domain.video.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -27,7 +26,7 @@ import java.util.Set;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.Mockito.*;
 
-public class CreateVideoUSeCaseTest extends UseCaseTest {
+public class CreateVideoUseCaseTest extends UseCaseTest {
 
     @InjectMocks
     private DefaultCreateVideoUseCase useCase;
