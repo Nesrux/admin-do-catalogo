@@ -1,6 +1,6 @@
 package com.nesrux.admin.catalogo.application.video.create;
 
-import com.nesrux.admin.catalogo.domain.video.Resource;
+import com.nesrux.admin.catalogo.domain.resource.Resource;
 
 import java.util.Optional;
 import java.util.Set;

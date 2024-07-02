@@ -1,5 +1,7 @@
 package com.nesrux.admin.catalogo.domain.video;
 
+import com.nesrux.admin.catalogo.domain.resource.Resource;
+
 public interface MediaResourceGateway {
     AudioVideoMedia storeAudioVideo(VideoID anId, Resource aResource);
 

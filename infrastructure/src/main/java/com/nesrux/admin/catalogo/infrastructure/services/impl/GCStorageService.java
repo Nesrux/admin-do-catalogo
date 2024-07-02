@@ -3,7 +3,7 @@ package com.nesrux.admin.catalogo.infrastructure.services.impl;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
-import com.nesrux.admin.catalogo.domain.video.Resource;
+import com.nesrux.admin.catalogo.domain.resource.Resource;
 import com.nesrux.admin.catalogo.infrastructure.services.StorageService;
 
 import java.util.Collection;

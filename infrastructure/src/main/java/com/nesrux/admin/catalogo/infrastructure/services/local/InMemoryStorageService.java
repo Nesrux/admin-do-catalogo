@@ -1,6 +1,6 @@
 package com.nesrux.admin.catalogo.infrastructure.services.local;
 
-import com.nesrux.admin.catalogo.domain.video.Resource;
+import com.nesrux.admin.catalogo.domain.resource.Resource;
 import com.nesrux.admin.catalogo.infrastructure.services.StorageService;
 
 import java.util.*;
@@ -9,9 +9,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class InMemoryStorageService implements StorageService {
     private final Map<String, Resource> storage;
 
-    public Map<String, Resource> storage(){
+    public Map<String, Resource> storage() {
         return this.storage;
     }
+
     public void reset() {
         this.storage.clear();
     }
@@ -28,7 +29,7 @@ public class InMemoryStorageService implements StorageService {
 
     @Override
     public Optional<Resource> get(String name) {
-        return this.storage.get(name);
+        return Optional.ofNullable(this.storage.get(name));
     }
 
     @Override

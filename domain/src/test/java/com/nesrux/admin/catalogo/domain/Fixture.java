@@ -5,9 +5,11 @@ import com.nesrux.admin.catalogo.domain.castmember.CastMember;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberType;
 import com.nesrux.admin.catalogo.domain.category.Category;
 import com.nesrux.admin.catalogo.domain.genre.Genre;
+import com.nesrux.admin.catalogo.domain.utils.IdUtils;
 import com.nesrux.admin.catalogo.domain.video.Rating;
-import com.nesrux.admin.catalogo.domain.video.Resource;
+import com.nesrux.admin.catalogo.domain.resource.Resource;
 import com.nesrux.admin.catalogo.domain.video.Video;
+import com.nesrux.admin.catalogo.domain.video.VideoMediaType;
 
 import java.time.Year;
 import java.util.Set;
@@ -140,15 +142,16 @@ public final class Fixture {
             );
         }
 
-        public static Resource resource(final Resource.Type type) {
+        public static Resource resource(final VideoMediaType type) {
             final String contentType = Match(type).of(
-                    Case($(List(Resource.Type.VIDEO, Resource.Type.TRAILER)::contains), "video/mp4"),
+                    Case($(List(VideoMediaType.VIDEO, VideoMediaType.TRAILER)::contains), "video/mp4"),
                     Case($(), "image/jpg")
             );
 
+            final String checksum = IdUtils.uuid();
             final byte[] content = "Conteudo".getBytes();
 
-            return Resource.with(content, contentType, type.name().toLowerCase(), type);
+            return Resource.with(checksum, content, contentType, type.name().toLowerCase());
         }
 
         public static Integer year() {

@@ -1,14 +1,13 @@
 package com.nesrux.admin.catalogo.application.video.retrive.get;
 
-import com.nesrux.admin.catalogo.domain.Fixture;
 import com.nesrux.admin.catalogo.application.UseCaseTest;
+import com.nesrux.admin.catalogo.domain.Fixture;
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotFoundException;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
 import com.nesrux.admin.catalogo.domain.utils.IdUtils;
 import com.nesrux.admin.catalogo.domain.video.*;
-import com.nesrux.admin.catalogo.domain.video.Resource.Type;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -47,11 +46,11 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
         final var expectedCategories = Set.<CategoryID>of(Fixture.Categories.randomCategory().getId());
         final var expectedGenres = Set.<GenreID>of(Fixture.Genres.randomGenre().getId());
         final var expectedCastMember = Set.<CastMemberID>of(Fixture.CastMembers.randomMember().getId());
-        final var expectedVideo = audioVideo(Type.VIDEO);
-        final var expectedBanner = imageMedia(Type.BANNER);
-        final var expectedTrailer = audioVideo(Type.TRAILER);
-        final var expectedThumb = imageMedia(Type.THUMBNAIL);
-        final var expectedThumbHalf = imageMedia(Type.THUMBNAIL_HALF);
+        final var expectedVideo = audioVideo(VideoMediaType.VIDEO);
+        final var expectedBanner = imageMedia(VideoMediaType.BANNER);
+        final var expectedTrailer = audioVideo(VideoMediaType.TRAILER);
+        final var expectedThumb = imageMedia(VideoMediaType.THUMBNAIL);
+        final var expectedThumbHalf = imageMedia(VideoMediaType.THUMBNAIL_HALF);
 
         final var aVideo = Video.newVideo(
                         expectedTitle,
@@ -114,7 +113,7 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
         Assertions.assertEquals(expectedErrorMessage, expectedError.getMessage());
     }
 
-    private AudioVideoMedia audioVideo(final Type type) {
+    private AudioVideoMedia audioVideo(final VideoMediaType type) {
         final var id = IdUtils.uuid();
         return AudioVideoMedia.with(
                 id,
@@ -125,7 +124,7 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
                 MediaStatus.PENDING);
     }
 
-    private ImageMedia imageMedia(final Type type) {
+    private ImageMedia imageMedia(final VideoMediaType type) {
         final var checkSum = IdUtils.uuid();
         return ImageMedia.with(
                 checkSum,
