@@ -37,7 +37,7 @@ public class GCStorageService implements StorageService {
                         blob.getCrc32cToHexString(),
                         blob.getContent(),
                         blob.getContentType(),
-                        name
+                        blob.getName()
                 ));
     }
 
