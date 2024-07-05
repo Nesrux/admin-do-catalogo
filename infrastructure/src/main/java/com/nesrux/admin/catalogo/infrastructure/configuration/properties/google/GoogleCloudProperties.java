@@ -1,4 +1,4 @@
-package com.nesrux.admin.catalogo.infrastructure.configuration.properties;
+package com.nesrux.admin.catalogo.infrastructure.configuration.properties.google;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

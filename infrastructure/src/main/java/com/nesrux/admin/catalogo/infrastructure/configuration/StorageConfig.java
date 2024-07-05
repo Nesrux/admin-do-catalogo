@@ -1,7 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.configuration;
 
 import com.google.cloud.storage.Storage;
-import com.nesrux.admin.catalogo.infrastructure.configuration.properties.GoogleStorageProperties;
+import com.nesrux.admin.catalogo.infrastructure.configuration.properties.google.GoogleStorageProperties;
 import com.nesrux.admin.catalogo.infrastructure.services.StorageService;
 import com.nesrux.admin.catalogo.infrastructure.services.impl.GCStorageService;
 import com.nesrux.admin.catalogo.infrastructure.services.local.InMemoryStorageService;
