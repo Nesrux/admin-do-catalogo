@@ -28,7 +28,7 @@ public class GoogleCloudConfig {
     }
 
     @Bean
-    @ConfigurationProperties("google.cloud.storage.catalogo-video")
+    @ConfigurationProperties("google.cloud.storage.catalogo-videos")
     public GoogleStorageProperties googleStorageProperties() {
         return new GoogleStorageProperties();
     }

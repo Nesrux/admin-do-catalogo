@@ -3,7 +3,7 @@ google:
     credentials: ${GOOGLE_CLOUD_CREDENTIALS}
     project-id: ${GOOGLE_CLOUD_PROJECT_ID}
     storage:
-      catalogo-video:
+      catalogo-videos:
         bucket: codeflixfc3_catalogo_videos # <- importante para registrar no github
         connect-timeout: 1000
         readTimeout: 2000
