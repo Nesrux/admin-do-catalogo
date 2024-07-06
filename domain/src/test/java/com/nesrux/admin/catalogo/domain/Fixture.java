@@ -185,6 +185,10 @@ public final class Fixture {
             );
         }
 
+        public static VideoMediaType ramdomVideoMediaType() {
+            return FAKER.options().option(VideoMediaType.values());
+        }
+
         public static Rating randomRating() {
             return FAKER.options().option(Rating.values());
         }

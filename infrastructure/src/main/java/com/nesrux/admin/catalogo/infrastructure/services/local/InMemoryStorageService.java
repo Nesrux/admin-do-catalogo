@@ -47,4 +47,5 @@ public class InMemoryStorageService implements StorageService {
     public void store(String name, Resource resource) {
         this.storage.put(name, resource);
     }
+
 }
