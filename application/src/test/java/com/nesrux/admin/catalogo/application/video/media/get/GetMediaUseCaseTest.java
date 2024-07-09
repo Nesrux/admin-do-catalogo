@@ -54,7 +54,6 @@ public class GetMediaUseCaseTest extends UseCaseTest {
         //given
         final var expectedId = VideoID.unique();
         final var expectedType = Fixture.Videos.ramdomVideoMediaType();
-        final var expectedResource = Fixture.Videos.resource(expectedType);
 
         when(mediaResourceGateway.getResource(expectedId, expectedType))
                 .thenReturn(Optional.empty());
@@ -62,7 +61,7 @@ public class GetMediaUseCaseTest extends UseCaseTest {
         final var aCommand = GetMediaCommand.with(expectedId.getValue(), expectedType.name());
 
         //then
-        final var actualResult = Assertions.assertThrows(NotFoundException.class,
+        Assertions.assertThrows(NotFoundException.class,
                 () -> this.useCase.execute(aCommand));
 
     }
