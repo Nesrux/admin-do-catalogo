@@ -9,12 +9,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 public class GetMediaUseCaseTest extends UseCaseTest {
     @InjectMocks
@@ -44,7 +43,9 @@ public class GetMediaUseCaseTest extends UseCaseTest {
 
         //then
         Assertions.assertNotNull(actualResult);
-        Assertions.assertEquals(expectedResource, actualResult);
+        Assertions.assertEquals(expectedResource.content(), actualResult.content());
+        Assertions.assertEquals(expectedResource.contentType(), actualResult.contentType());
+        Assertions.assertEquals(expectedResource.name(), actualResult.name());
 
     }
 
@@ -60,12 +61,9 @@ public class GetMediaUseCaseTest extends UseCaseTest {
 
         final var aCommand = GetMediaCommand.with(expectedId.getValue(), expectedType.name());
 
-        //when
+        //then
         final var actualResult = Assertions.assertThrows(NotFoundException.class,
                 () -> this.useCase.execute(aCommand));
-
-        //then
-
 
     }
 
