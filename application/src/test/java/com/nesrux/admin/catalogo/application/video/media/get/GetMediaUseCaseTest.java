@@ -67,5 +67,22 @@ public class GetMediaUseCaseTest extends UseCaseTest {
 
     }
 
+    @Test
+    public void givenVideoIdAndType_whenTypeDoesntExistis_thenReturNotFoundException() {
+        //given
+        final var expectedId = VideoID.unique();
+        final var expectedErrorMessageError = "Media type ERROR STRING doesn't exists";
+
+        final var aCommand = GetMediaCommand.with(expectedId.getValue(), "ERROR STRING");
+
+        //when
+        final var actualExceptions = Assertions.assertThrows(NotFoundException.class,
+                () -> this.useCase.execute(aCommand));
+
+        //then
+        Assertions.assertEquals(expectedErrorMessageError, actualExceptions.firstErrorMessage());
+
+    }
+
 
 }
