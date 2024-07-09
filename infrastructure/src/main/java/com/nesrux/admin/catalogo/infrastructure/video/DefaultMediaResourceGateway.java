@@ -7,6 +7,7 @@ import com.nesrux.admin.catalogo.infrastructure.services.StorageService;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class DefaultMediaResourceGateway implements MediaResourceGateway {
@@ -23,7 +24,7 @@ public class DefaultMediaResourceGateway implements MediaResourceGateway {
 
     @Override
     public AudioVideoMedia storeAudioVideo(final VideoID anId, final VideoResource videoResource) {
-        final var filePath = filePath(anId, videoResource);
+        final var filePath = filePath(anId, videoResource.type());
         final var aResource = videoResource.resource();
 
         store(filePath, aResource);
@@ -34,7 +35,7 @@ public class DefaultMediaResourceGateway implements MediaResourceGateway {
 
     @Override
     public ImageMedia storeImage(final VideoID anId, final VideoResource videoResource) {
-        final var filePath = filePath(anId, videoResource);
+        final var filePath = filePath(anId, videoResource.type());
         final var aResource = videoResource.resource();
 
         store(filePath, aResource);
@@ -48,6 +49,11 @@ public class DefaultMediaResourceGateway implements MediaResourceGateway {
         this.storageService.deleteAll(ids);
     }
 
+    @Override
+    public Optional<Resource> getResource(final VideoID anId, final VideoMediaType type) {
+        return this.storageService.get(filePath(anId, type));
+    }
+
     private String fileName(final VideoMediaType aType) {
         return fileNamePattern.replace("{type}", aType.name());
     }
@@ -56,10 +62,10 @@ public class DefaultMediaResourceGateway implements MediaResourceGateway {
         return locationPattern.replace("{videoId}", anId.getValue());
     }
 
-    private String filePath(final VideoID anId, final VideoResource aResource) {
+    private String filePath(final VideoID anId, final VideoMediaType aType) {
         return folder(anId)
                 .concat("/")
-                .concat(fileName(aResource.type()));
+                .concat(fileName(aType));
     }
 
     private void store(String filePath, Resource aResource) {

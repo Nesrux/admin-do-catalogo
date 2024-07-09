@@ -8,3 +8,4 @@ public record GetMediaCommand(
         return new GetMediaCommand(anId, aType);
     }
 }
+
