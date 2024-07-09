@@ -98,6 +98,7 @@ public class CreateCastMemberUseCaseTest extends UseCaseTest {
         verify(gateway, times(0)).create(any());
     }
 
+
     @Test
     public void givenAnInvalidType_whenCallsCreateCastMember_shouldThrowsNotifications() {
         //given
