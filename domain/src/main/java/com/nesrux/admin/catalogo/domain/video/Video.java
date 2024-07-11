@@ -333,4 +333,21 @@ public class Video extends AggregateRoot<VideoID> {
         );
     }
 
+    public Video processing(final VideoMediaType aType) {
+        if (VideoMediaType.VIDEO == aType) {
+            getVideo().ifPresent(media -> setVideo(media.processing()));
+        } else if (VideoMediaType.TRAILER == aType) {
+            getTrailer().ifPresent(media -> setTrailer(media.processing()));
+        }
+        return this;
+    }
+
+    public Video completed(final VideoMediaType aType, final String encondedPath) {
+        if (VideoMediaType.VIDEO == aType) {
+            getVideo().ifPresent(media -> setVideo(media.completed(encondedPath)));
+        } else if (VideoMediaType.TRAILER == aType) {
+            getTrailer().ifPresent(media -> setTrailer(media.completed(encondedPath)));
+        }
+        return this;
+    }
 }

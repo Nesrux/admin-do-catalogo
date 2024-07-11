@@ -47,7 +47,7 @@ public class UpdateMediaStatusUseCaseTest extends UseCaseTest {
 
         when(videoGateway.update(any()))
                 .thenAnswer(returnsFirstArg());
-        final var aCommand = UpdateMediaCommand.with(
+        final var aCommand = UpdateMediaStatusCommand.with(
                 expectedStatus,
                 expectedId.getValue(),
                 expectedMedia.id(),
@@ -92,7 +92,8 @@ public class UpdateMediaStatusUseCaseTest extends UseCaseTest {
 
         when(videoGateway.update(any()))
                 .thenAnswer(returnsFirstArg());
-        final var aCommand = UpdateMediaCommand.with(
+
+        final var aCommand = UpdateMediaStatusCommand.with(
                 expectedStatus,
                 expectedId.getValue(),
                 expectedMedia.id(),
@@ -135,7 +136,7 @@ public class UpdateMediaStatusUseCaseTest extends UseCaseTest {
         when(videoGateway.findById(any()))
                 .thenReturn(Optional.of(aVideo));
 
-        final var aCommand = UpdateMediaCommand.with(
+        final var aCommand = UpdateMediaStatusCommand.with(
                 expectedStatus,
                 expectedId.getValue(),
                 "Invalid_Id",
