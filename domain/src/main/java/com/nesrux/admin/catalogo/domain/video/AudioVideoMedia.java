@@ -97,13 +97,13 @@ public class AudioVideoMedia extends ValueObject {
 
     }
 
-    public AudioVideoMedia completed(final String encondedPath) {
+    public AudioVideoMedia completed(final String encodedPath) {
         return AudioVideoMedia.with(
                 id(),
                 checksum(),
                 name(),
                 rawLocation(),
-                encondedPath,
+                encodedPath,
                 MediaStatus.COMPLETED
         );
     }
