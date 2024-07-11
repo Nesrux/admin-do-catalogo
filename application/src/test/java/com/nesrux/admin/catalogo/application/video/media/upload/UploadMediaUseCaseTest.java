@@ -1,8 +1,6 @@
-package com.nesrux.admin.catalogo.application.video.media.update;
+package com.nesrux.admin.catalogo.application.video.media.upload;
 
 import com.nesrux.admin.catalogo.application.UseCaseTest;
-import com.nesrux.admin.catalogo.application.video.media.upload.DefaultUploadMediaUseCase;
-import com.nesrux.admin.catalogo.application.video.media.upload.UploadMediaCommand;
 import com.nesrux.admin.catalogo.domain.Fixture;
 import com.nesrux.admin.catalogo.domain.exceptions.NotFoundException;
 import com.nesrux.admin.catalogo.domain.video.MediaResourceGateway;
