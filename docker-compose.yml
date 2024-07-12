@@ -25,7 +25,7 @@ services:
       - 15672:15672
       - 5672:5672
     networks:
-      - adm_videos_network
+      - adm-videos-network
 
 
 networks:
