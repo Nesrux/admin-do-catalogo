@@ -1,5 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.configuration;
 
+import com.nesrux.admin.catalogo.infrastructure.configuration.annotations.VideoCreatedQueue;
+import com.nesrux.admin.catalogo.infrastructure.configuration.annotations.VideoEncodedQueue;
 import com.nesrux.admin.catalogo.infrastructure.configuration.properties.amqp.QueueProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -10,13 +12,16 @@ public class AmqpConfig {
 
     @Bean
     @ConfigurationProperties("amqp.queues.video-created")
-    public QueueProperties queueCreatedVideo() {
+    @VideoCreatedQueue
+    QueueProperties videoCreatedQueueProperties() {
         return new QueueProperties();
     }
 
     @Bean
     @ConfigurationProperties("amqp.queues.video-encoded")
-    public QueueProperties queueEncodedVideo() {
+    @VideoEncodedQueue
+    QueueProperties videoEncodedQueueProperties() {
         return new QueueProperties();
     }
+
 }

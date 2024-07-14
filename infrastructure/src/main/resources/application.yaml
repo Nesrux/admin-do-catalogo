@@ -1,16 +1,3 @@
-amqp:
-  admin:
-    auto-create: false
-  queues:
-    video-created:
-      exchange: video.events
-      routing-key: video.created
-      queue: video.created.queue
-    video-enconded:
-      exchange: video.events
-      routing-key: video.enconded
-      queue: video.encoded.queue
-
 google:
   cloud:
     credentials: ${GOOGLE_CLOUD_CREDENTIALS}
@@ -74,3 +61,16 @@ storage:
   catalogo-videos:
     filename-pattern: type-{type}
     location-pattern: videoId-{videoId}
+
+amqp:
+  admin:
+    auto-create: false
+  queues:
+    video-created:
+      exchange: video.events
+      routing-key: video.created
+      queue: video.created.queue
+    video-encoded:
+      exchange: video.events
+      routing-key: video.encoded
+      queue: video.encoded.queue

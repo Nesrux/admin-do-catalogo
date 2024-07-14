@@ -6,6 +6,7 @@ import org.springframework.beans.factory.InitializingBean;
 
 public class QueueProperties implements InitializingBean {
     private static final Logger log = LoggerFactory.getLogger(QueueProperties.class);
+
     private String exchange;
     private String routingKey;
     private String queue;
@@ -23,6 +24,21 @@ public class QueueProperties implements InitializingBean {
 
     public String queue() {
         return queue;
+    }
+
+    public QueueProperties setExchange(String exchange) {
+        this.exchange = exchange;
+        return this;
+    }
+
+    public QueueProperties setRoutingKey(String routingKey) {
+        this.routingKey = routingKey;
+        return this;
+    }
+
+    public QueueProperties setQueue(String queue) {
+        this.queue = queue;
+        return this;
     }
 
     @Override
