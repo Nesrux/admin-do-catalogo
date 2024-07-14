@@ -17,8 +17,8 @@ public class DefaultMediaResourceGateway implements MediaResourceGateway {
 
     public DefaultMediaResourceGateway(final StorageProperties props,
                                        final StorageService storageService) {
-        this.fileNamePattern = Objects.requireNonNull(props.filenamePattern());
-        this.locationPattern = Objects.requireNonNull(props.locationPattern());
+        this.fileNamePattern = Objects.requireNonNull(props.getFilenamePattern());
+        this.locationPattern = Objects.requireNonNull(props.getLocationPattern());
         this.storageService = Objects.requireNonNull(storageService);
     }
 

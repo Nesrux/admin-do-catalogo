@@ -1,6 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure;
 
 import com.nesrux.admin.catalogo.infrastructure.configuration.WebServerConfig;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.AbstractEnvironment;
@@ -14,5 +15,8 @@ public class Main {
         System.setProperty(AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME, "low");
         SpringApplication.run(WebServerConfig.class, args);
     }
+
+    @RabbitListener(queues = "video.encoded.queue")
+    void dummyListener(){}
 
 }
