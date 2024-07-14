@@ -13,7 +13,7 @@ public class StorageProperties implements InitializingBean {
     public StorageProperties() {
     }
 
-    public String locationPattern() {
+    public String getLocationPattern() {
         return locationPattern;
     }
 
@@ -22,12 +22,12 @@ public class StorageProperties implements InitializingBean {
         return this;
     }
 
-    public String filenamePattern() {
+    public String getFilenamePattern() {
         return filenamePattern;
     }
 
-    public StorageProperties setFileNamePattern(String fileNamePattern) {
-        this.filenamePattern = fileNamePattern;
+    public StorageProperties setFilenamePattern(String filenamePattern) {
+        this.filenamePattern = filenamePattern;
         return this;
     }
 

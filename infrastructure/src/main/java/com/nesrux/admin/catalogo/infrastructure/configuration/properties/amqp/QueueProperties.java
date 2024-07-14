@@ -14,16 +14,8 @@ public class QueueProperties implements InitializingBean {
     public QueueProperties() {
     }
 
-    public String exchange() {
+    public String getExchange() {
         return exchange;
-    }
-
-    public String routingKey() {
-        return routingKey;
-    }
-
-    public String queue() {
-        return queue;
     }
 
     public QueueProperties setExchange(String exchange) {
@@ -31,9 +23,17 @@ public class QueueProperties implements InitializingBean {
         return this;
     }
 
+    public String getRoutingKey() {
+        return routingKey;
+    }
+
     public QueueProperties setRoutingKey(String routingKey) {
         this.routingKey = routingKey;
         return this;
+    }
+
+    public String getQueue() {
+        return queue;
     }
 
     public QueueProperties setQueue(String queue) {
