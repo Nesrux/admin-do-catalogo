@@ -21,7 +21,6 @@ public abstract class Entity<ID extends Identifier> {
     }
 
 
-
     public ID getId() {
         return id;
     }
@@ -30,7 +29,7 @@ public abstract class Entity<ID extends Identifier> {
         return Collections.unmodifiableList(domainEvents);
     }
 
-    public void publishDomainEvent(final DomainEventPublisher publisher) {
+    public void publishDomainEvent(final DomainEventPublisher<DomainEvent> publisher) {
         if (publisher == null) return;
         getDomainEvents()
                 .forEach(publisher::publishEvent);
