@@ -106,11 +106,11 @@ public class DefaultCreateVideoUseCase extends CreateVideoUseCase {
 
 
             return this.videoGateway.create(aVideo)
-                    .setVideo(aVideoMedia)
-                    .setTrailer(aTrailerMedia)
-                    .setBanner(aBannerMedia)
-                    .setThumbnail(aThumbnail)
-                    .setThumbnailHalf(athumbHalf);
+                    .updateVideoMedia(aVideoMedia)
+                    .updateTrailerMedia(aTrailerMedia)
+                    .updateBannerMedia(aBannerMedia)
+                    .updateThumbnailMedia(aThumbnail)
+                    .updateThumbHalfMedia(athumbHalf);
         } catch (final Throwable t) {
             this.mediaResourceGateway.clearResources(anId);
             throw InternalErrorException.with("An error on create video was observed [videoId: %s]".formatted(anId.getValue()), t);

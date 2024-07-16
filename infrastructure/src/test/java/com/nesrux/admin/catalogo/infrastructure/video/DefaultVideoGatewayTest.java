@@ -16,8 +16,6 @@ import com.nesrux.admin.catalogo.infrastructure.video.persistence.VideoRepositor
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -103,11 +101,11 @@ public class DefaultVideoGatewayTest {
                         expectedTitle, expectedDescription, expectedLaunchYear,
                         expectedDuration, expectedOpened, expectedPublished,
                         expectedRating, expectedCategories, expectedGenres, expectedCastMember
-                ).setVideo(expectedVideo)
-                .setTrailer(expectedTrailer)
-                .setBanner(expectedBanner)
-                .setThumbnail(expectedThumb)
-                .setThumbnailHalf(expectedThumbHalf);
+                ).updateVideoMedia(expectedVideo)
+                .updateTrailerMedia(expectedTrailer)
+                .updateBannerMedia(expectedBanner)
+                .updateThumbnailMedia(expectedThumb)
+                .updateThumbHalfMedia(expectedThumbHalf);
 
 
         //when
@@ -281,11 +279,11 @@ public class DefaultVideoGatewayTest {
                         expectedCategories,
                         expectedGenres,
                         expectedCastMember
-                ).setVideo(expectedVideo)
-                .setTrailer(expectedTrailer)
-                .setBanner(expectedBanner)
-                .setThumbnail(expectedThumb)
-                .setThumbnailHalf(expectedThumbHalf);
+                ).updateVideoMedia(expectedVideo)
+                .updateTrailerMedia(expectedTrailer)
+                .updateBannerMedia(expectedBanner)
+                .updateThumbnailMedia(expectedThumb)
+                .updateThumbHalfMedia(expectedThumbHalf);
 
 
         //when
@@ -423,11 +421,11 @@ public class DefaultVideoGatewayTest {
                                 expectedTitle, expectedDescription, expectedLaunchYear,
                                 expectedDuration, expectedOpened, expectedPublished,
                                 expectedRating, expectedCategories, expectedGenres, expectedCastMember
-                        ).setVideo(expectedVideo)
-                        .setTrailer(expectedTrailer)
-                        .setBanner(expectedBanner)
-                        .setThumbnail(expectedThumb)
-                        .setThumbnailHalf(expectedThumbHalf)
+                        ).updateVideoMedia(expectedVideo)
+                        .updateTrailerMedia(expectedTrailer)
+                        .updateBannerMedia(expectedBanner)
+                        .updateThumbnailMedia(expectedThumb)
+                        .updateThumbHalfMedia(expectedThumbHalf)
         );
 
         final var expectedId = aVideo.getId();

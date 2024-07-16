@@ -2,14 +2,12 @@ package com.nesrux.admin.catalogo.domain.video;
 
 import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 import com.nesrux.admin.catalogo.domain.category.CategoryID;
-import com.nesrux.admin.catalogo.domain.event.DomainEvent;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
 import com.nesrux.admin.catalogo.domain.validation.handler.ThrowsValidationHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.Year;
-import java.util.List;
 import java.util.Set;
 
 public class VideoTest {
@@ -183,7 +181,7 @@ public class VideoTest {
                 AudioVideoMedia.with("abc", "Video.mp4", "/123/videos");
 
         // when
-        final var actualVideo = Video.with(aVideo).setVideo(aVideoMedia);
+        final var actualVideo = Video.with(aVideo).updateVideoMedia(aVideoMedia);
 
         // then
         Assertions.assertNotNull(actualVideo);
@@ -245,7 +243,7 @@ public class VideoTest {
                 AudioVideoMedia.with("abc", "Trailer.mp4", "/123/videos");
 
         // when
-        final var actualVideo = Video.with(aVideo).setTrailer(aTrailerMedia);
+        final var actualVideo = Video.with(aVideo).updateTrailerMedia(aTrailerMedia);
 
         // then
         Assertions.assertNotNull(actualVideo);
@@ -307,7 +305,7 @@ public class VideoTest {
                 ImageMedia.with("abc", "Trailer.mp4", "/123/videos");
 
         // when
-        final var actualVideo = Video.with(aVideo).setBanner(aBannerMedia);
+        final var actualVideo = Video.with(aVideo).updateBannerMedia(aBannerMedia);
 
         // then
         Assertions.assertNotNull(actualVideo);
@@ -369,7 +367,7 @@ public class VideoTest {
                 ImageMedia.with("abc", "Trailer.mp4", "/123/videos");
 
         // when
-        final var actualVideo = Video.with(aVideo).setThumbnail(aThumbMedia);
+        final var actualVideo = Video.with(aVideo).updateThumbnailMedia(aThumbMedia);
 
         // then
         Assertions.assertNotNull(actualVideo);
@@ -431,7 +429,7 @@ public class VideoTest {
                 ImageMedia.with("abc", "Trailer.mp4", "/123/videos");
 
         // when
-        final var actualVideo = Video.with(aVideo).setThumbnailHalf(aThumbMedia);
+        final var actualVideo = Video.with(aVideo).updateThumbHalfMedia(aThumbMedia);
 
         // then
         Assertions.assertNotNull(actualVideo);
