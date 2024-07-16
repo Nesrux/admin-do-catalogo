@@ -2,7 +2,6 @@ package com.nesrux.admin.catalogo.infrastructure.video;
 
 import com.nesrux.admin.catalogo.domain.Identifier;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
-import com.nesrux.admin.catalogo.domain.utils.CollectionsUtil;
 import com.nesrux.admin.catalogo.domain.video.*;
 import com.nesrux.admin.catalogo.infrastructure.configuration.annotations.VideoCreatedQueue;
 import com.nesrux.admin.catalogo.infrastructure.services.EventService;
@@ -16,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static com.nesrux.admin.catalogo.domain.utils.CollectionsUtil.mapTo;
 import static com.nesrux.admin.catalogo.domain.utils.CollectionsUtil.nullIfEmpty;
