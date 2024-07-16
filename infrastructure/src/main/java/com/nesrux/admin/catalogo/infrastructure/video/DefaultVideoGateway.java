@@ -4,6 +4,8 @@ import com.nesrux.admin.catalogo.domain.Identifier;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.domain.utils.CollectionsUtil;
 import com.nesrux.admin.catalogo.domain.video.*;
+import com.nesrux.admin.catalogo.infrastructure.configuration.annotations.VideoCreatedQueue;
+import com.nesrux.admin.catalogo.infrastructure.services.EventService;
 import com.nesrux.admin.catalogo.infrastructure.utils.SqlUtils;
 import com.nesrux.admin.catalogo.infrastructure.video.persistence.VideoJpaEntity;
 import com.nesrux.admin.catalogo.infrastructure.video.persistence.VideoRepository;
@@ -19,13 +21,19 @@ import java.util.stream.Collectors;
 
 import static com.nesrux.admin.catalogo.domain.utils.CollectionsUtil.mapTo;
 import static com.nesrux.admin.catalogo.domain.utils.CollectionsUtil.nullIfEmpty;
+
 @Component
 public class DefaultVideoGateway implements VideoGateway {
 
     private final VideoRepository videoRepository;
+    private final EventService eventService;
 
-    public DefaultVideoGateway(VideoRepository videoRepository) {
+    public DefaultVideoGateway(
+            final VideoRepository videoRepository,
+            @VideoCreatedQueue final EventService eventService
+    ) {
         this.videoRepository = Objects.requireNonNull(videoRepository);
+        this.eventService = Objects.requireNonNull(eventService);
     }
 
     @Override
@@ -79,9 +87,13 @@ public class DefaultVideoGateway implements VideoGateway {
         );
     }
 
-    private Video save(Video aVideo) {
-        return this.videoRepository.save(VideoJpaEntity.from(aVideo))
+    private Video save(final Video aVideo) {
+        final var result = this.videoRepository.save(VideoJpaEntity.from(aVideo))
                 .toAggregate();
+
+        aVideo.publishDomainEvent(this.eventService::send);
+
+        return result;
     }
 
 }
