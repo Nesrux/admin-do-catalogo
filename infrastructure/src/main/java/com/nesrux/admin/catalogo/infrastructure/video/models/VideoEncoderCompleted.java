@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("COMPLETED")
-public record VideoEnconderCompleted(
+public record VideoEncoderCompleted(
         @JsonProperty("id") String id,
         @JsonProperty ("output_bucket_path") String outputBucket,
         @JsonProperty("video") VideoMetadata video

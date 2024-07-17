@@ -44,7 +44,7 @@ public class VideoEncoderResultTest {
         final var actualResult = this.json.parse(json);
 
         Assertions.assertThat(actualResult)
-                .isInstanceOf(VideoEnconderCompleted.class)
+                .isInstanceOf(VideoEncoderCompleted.class)
                 .hasFieldOrPropertyWithValue("id", expectedId)
                 .hasFieldOrPropertyWithValue("outputBucket", expectedOutputBucket)
                 .hasFieldOrPropertyWithValue("status", expectedStatus)
@@ -63,7 +63,7 @@ public class VideoEncoderResultTest {
         final var expectedMetadata =
                 new VideoMetadata(expectedEncoderVideoFolder, expectedResourceId, expectedFilePath);
        /// VideoEncoderCompleted
-        final var aResult = new VideoEnconderCompleted(expectedId, expectedOutputBucket, expectedMetadata);
+        final var aResult = new VideoEncoderCompleted(expectedId, expectedOutputBucket, expectedMetadata);
 
         // when
         final var actualResult = this.json.write(aResult);

@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @JacksonAnnotationsInside
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = VideoEnconderCompleted.class),
+        @JsonSubTypes.Type(value = VideoEncoderCompleted.class),
         @JsonSubTypes.Type(value = VideoEncoderError.class)
 })
 public @interface VideoResponseTypes {
