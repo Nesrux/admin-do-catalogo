@@ -188,11 +188,7 @@ public class Video extends AggregateRoot<VideoID> {
         return this;
     }
 
-    private void onAudioVideoMediaUpdated(AudioVideoMedia media) {
-        if (media != null && media.isPendingEncode()) {
-            this.registerEvent(new VideoMediaCreated(getId().getValue(), media.rawLocation()));
-        }
-    }
+
 
 
     private void setCategories(final Set<CategoryID> categories) {
@@ -368,5 +364,11 @@ public class Video extends AggregateRoot<VideoID> {
         }
 
         return this;
+    }
+
+    private void onAudioVideoMediaUpdated(AudioVideoMedia media) {
+        if (media != null && media.isPendingEncode()) {
+            this.registerEvent(new VideoMediaCreated(getId().getValue(), media.rawLocation()));
+        }
     }
 }
