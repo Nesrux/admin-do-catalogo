@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.json.JacksonTester;
 
+import java.io.IOException;
+
 @JacksonTest
 public class VideoEncoderResultTest {
     @Autowired
@@ -50,6 +52,34 @@ public class VideoEncoderResultTest {
     }
 
     @Test
+    public void testMarshallSuccessResult() throws IOException {
+        // given
+        final var expectedId = IdUtils.uuid();
+        final var expectedOutputBucket = "codeeducationtest";
+        final var expectedStatus = "COMPLETED";
+        final var expectedEncoderVideoFolder = "anyfolder";
+        final var expectedResourceId = IdUtils.uuid();
+        final var expectedFilePath = "any.mp4";
+        final var expectedMetadata =
+                new VideoMetadata(expectedEncoderVideoFolder, expectedResourceId, expectedFilePath);
+       /// VideoEncoderCompleted
+        final var aResult = new VideoEnconderCompleted(expectedId, expectedOutputBucket, expectedMetadata);
+
+        // when
+        final var actualResult = this.json.write(aResult);
+
+        Assertions.assertThat(actualResult)
+                .hasJsonPathValue("$.id", expectedId)
+                .hasJsonPathValue("$.output_bucket_path", expectedOutputBucket)
+                .hasJsonPathValue("$.status", expectedStatus)
+                .hasJsonPathValue("$.video.encoded_video_folder", expectedEncoderVideoFolder)
+                .hasJsonPathValue("$.video.resource_id", expectedResourceId)
+                .hasJsonPathValue("$.video.file_path", expectedFilePath);
+    }
+
+
+
+    @Test
     public void testUnmarshallErrorResult() throws Exception {
         // given
         final var expectedMessage = "Resource not found";
@@ -77,6 +107,28 @@ public class VideoEncoderResultTest {
                 .isInstanceOf(VideoEncoderError.class) //VideoEncoderError
                 .hasFieldOrPropertyWithValue("error", expectedMessage)
                 .hasFieldOrPropertyWithValue("message", expectedVideoMessage);
+    }
+
+    @Test
+    public void testMarshallErrorResult() throws IOException {
+        // given
+        final var expectedMessage = "Resource not found";
+        final var expectedStatus = "ERROR";
+        final var expectedResourceId = IdUtils.uuid();
+        final var expectedFilePath = "any.mp4";
+        final var expectedVideoMessage =
+                new VideoMessage(expectedResourceId, expectedFilePath);
+
+        final var aResult = new VideoEncoderError(expectedVideoMessage, expectedMessage);
+
+        // when
+        final var actualResult = this.json.write(aResult);
+
+        Assertions.assertThat(actualResult)
+                .hasJsonPathValue("$.status", expectedStatus)
+                .hasJsonPathValue("$.error", expectedMessage)
+                .hasJsonPathValue("$.message.resource_id", expectedResourceId)
+                .hasJsonPathValue("$.message.file_path", expectedFilePath);
     }
 
 }
