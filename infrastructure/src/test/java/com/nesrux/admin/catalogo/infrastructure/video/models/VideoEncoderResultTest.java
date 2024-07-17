@@ -74,7 +74,7 @@ public class VideoEncoderResultTest {
         final var actualResult = this.json.parse(json);
 
         Assertions.assertThat(actualResult)
-                .isInstanceOf(VideoEnconderError.class) //VideoEncoderError
+                .isInstanceOf(VideoEncoderError.class) //VideoEncoderError
                 .hasFieldOrPropertyWithValue("error", expectedMessage)
                 .hasFieldOrPropertyWithValue("message", expectedVideoMessage);
     }

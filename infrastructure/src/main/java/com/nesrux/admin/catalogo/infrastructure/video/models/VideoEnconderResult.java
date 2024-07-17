@@ -8,6 +8,6 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 @JsonTypeInfo(use = NAME, include = EXISTING_PROPERTY, property = "status")
 @VideoResponseTypes
 public sealed interface VideoEnconderResult
-        permits VideoEnconderCompleted, VideoEnconderError {
+        permits VideoEnconderCompleted, VideoEncoderError {
     String getStatus();
 }

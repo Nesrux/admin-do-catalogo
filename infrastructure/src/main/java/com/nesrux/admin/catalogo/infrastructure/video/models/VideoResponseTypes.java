@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @JacksonAnnotationsInside
 @JsonSubTypes({
         @JsonSubTypes.Type(value = VideoEnconderCompleted.class),
-        @JsonSubTypes.Type(value = VideoEnconderError.class)
+        @JsonSubTypes.Type(value = VideoEncoderError.class)
 })
 public @interface VideoResponseTypes {
 }
