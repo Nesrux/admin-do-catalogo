@@ -1,4 +1,4 @@
-package com.nesrux.admin.catalogo.infrastructure.configuration;
+package com.nesrux.admin.catalogo.infrastructure.configuration.usecase;
 
 import com.nesrux.admin.catalogo.application.video.media.update.DefaultUpdateMediaStatusUseCase;
 import com.nesrux.admin.catalogo.application.video.media.update.UpdateMediaStatusUseCase;

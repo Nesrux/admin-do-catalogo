@@ -1,4 +1,4 @@
-package com.nesrux.admin.catalogo.infrastructure;
+package com.nesrux.admin.catalogo;
 
 import com.nesrux.admin.catalogo.infrastructure.configuration.WebServerConfig;
 import org.springframework.boot.test.context.SpringBootTest;
