@@ -15,7 +15,4 @@ public class Main {
         System.setProperty(AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME, "low");
         SpringApplication.run(WebServerConfig.class, args);
     }
-
-
-
 }

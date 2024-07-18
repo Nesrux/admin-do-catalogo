@@ -1,7 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.services.impl;
 
 import com.nesrux.admin.catalogo.domain.video.VideoMediaCreated;
-import com.nesrux.admin.catalogo.infrastructure.AmqpTest;
+import com.nesrux.admin.catalogo.AmqpTest;
 import com.nesrux.admin.catalogo.infrastructure.configuration.annotations.VideoCreatedQueue;
 import com.nesrux.admin.catalogo.infrastructure.configuration.json.Json;
 import com.nesrux.admin.catalogo.infrastructure.services.EventService;
