@@ -65,6 +65,7 @@ public class VideoEnconderListenerTest {
         Assertions.assertEquals(expectedMessage, actualMessage);
     }
 
+    //TODO : Usar o Verify com o Argtat ou invés do argument captor
     @Test
     public void givenCompletedResult_whenCallsListener_shouldCallUseCase() throws InterruptedException {
         // given
