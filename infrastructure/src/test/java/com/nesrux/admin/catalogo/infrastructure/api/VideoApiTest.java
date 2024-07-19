@@ -113,10 +113,10 @@ class VideoApiTest {
         Assertions.assertEquals(expectedCategories, actualCmd.categories());
         Assertions.assertEquals(expectedGenres, actualCmd.genres());
         Assertions.assertEquals(expectedCastMember, actualCmd.members());
-        Assertions.assertEquals(expectedVideo.getName(), actualCmd.getVideo().get().name());
-        Assertions.assertEquals(expectedTrailer.getName(), actualCmd.getTrailer().get().name());
-        Assertions.assertEquals(expectedBanner.getName(), actualCmd.getBanner().get().name());
-        Assertions.assertEquals(expectedThumb.getName(), actualCmd.getThumbnail().get().name());
-        Assertions.assertEquals(expectedThumbHalf.getName(), actualCmd.getThumbnailHalf().get().name());
+        Assertions.assertEquals(expectedVideo.getOriginalFilename(), actualCmd.getVideo().get().name());
+        Assertions.assertEquals(expectedTrailer.getOriginalFilename(), actualCmd.getTrailer().get().name());
+        Assertions.assertEquals(expectedBanner.getOriginalFilename(), actualCmd.getBanner().get().name());
+        Assertions.assertEquals(expectedThumb.getOriginalFilename(), actualCmd.getThumbnail().get().name());
+        Assertions.assertEquals(expectedThumbHalf.getOriginalFilename(), actualCmd.getThumbnailHalf().get().name());
     }
 }
