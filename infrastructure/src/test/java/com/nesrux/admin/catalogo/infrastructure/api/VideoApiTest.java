@@ -7,6 +7,7 @@ import com.nesrux.admin.catalogo.application.video.create.CreateVideoOutput;
 import com.nesrux.admin.catalogo.application.video.create.CreateVideoUseCase;
 import com.nesrux.admin.catalogo.domain.Fixture;
 import com.nesrux.admin.catalogo.domain.video.VideoID;
+import com.nesrux.admin.catalogo.infrastructure.video.models.CreateVideoRequest;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -138,7 +139,7 @@ class VideoApiTest {
         final var expectedRating = Fixture.Videos.randomRating();
         final var expectedCategories = Set.of(aulas.getValue());
         final var expectedGenres = Set.of(tech.getValue());
-        final var expectedCastMember = Set.of(catarina.getValue());
+        final var expectedCastMembers = Set.of(catarina.getValue());
 
         final var aCommand = new CreateVideoRequest(
                 expectedTitle,
@@ -148,9 +149,9 @@ class VideoApiTest {
                 expectedOpened,
                 expectedPublished,
                 expectedRating.getName(),
-                expectedCastMember,
                 expectedCategories,
-                expectedGenres
+                expectedGenres,
+                expectedCastMembers
         );
 
         when(createVideoUseCase.execute(any()))
@@ -182,7 +183,7 @@ class VideoApiTest {
         Assertions.assertEquals(expectedRating.getName(), actualCmd.rating());
         Assertions.assertEquals(expectedCategories, actualCmd.categories());
         Assertions.assertEquals(expectedGenres, actualCmd.genres());
-        Assertions.assertEquals(expectedCastMember, actualCmd.members());
+        Assertions.assertEquals(expectedCastMembers, actualCmd.members());
 
         Assertions.assertTrue(actualCmd.getVideo().isEmpty());
         Assertions.assertTrue(actualCmd.getTrailer().isEmpty());
