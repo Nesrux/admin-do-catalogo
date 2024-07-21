@@ -6,8 +6,8 @@ import com.nesrux.admin.catalogo.application.video.retrive.get.GetVideoByIdUseCa
 import com.nesrux.admin.catalogo.domain.resource.Resource;
 import com.nesrux.admin.catalogo.infrastructure.api.VideoApi;
 import com.nesrux.admin.catalogo.infrastructure.utils.HashingUtils;
-import com.nesrux.admin.catalogo.infrastructure.video.models.CreateVideoRequest;
-import com.nesrux.admin.catalogo.infrastructure.video.models.VideoResponse;
+import com.nesrux.admin.catalogo.infrastructure.video.models.api.CreateVideoRequest;
+import com.nesrux.admin.catalogo.infrastructure.video.models.api.VideoResponse;
 import com.nesrux.admin.catalogo.infrastructure.video.presenters.VideoApiPresenter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;

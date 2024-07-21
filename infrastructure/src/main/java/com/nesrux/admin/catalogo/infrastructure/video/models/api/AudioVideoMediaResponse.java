@@ -1,4 +1,4 @@
-package com.nesrux.admin.catalogo.infrastructure.video.models;
+package com.nesrux.admin.catalogo.infrastructure.video.models.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 //TODO : refactor this class

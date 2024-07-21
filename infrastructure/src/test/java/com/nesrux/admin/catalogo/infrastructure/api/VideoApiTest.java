@@ -15,7 +15,7 @@ import com.nesrux.admin.catalogo.domain.utils.CollectionsUtil;
 import com.nesrux.admin.catalogo.domain.video.Video;
 import com.nesrux.admin.catalogo.domain.video.VideoID;
 import com.nesrux.admin.catalogo.domain.video.VideoMediaType;
-import com.nesrux.admin.catalogo.infrastructure.video.models.CreateVideoRequest;
+import com.nesrux.admin.catalogo.infrastructure.video.models.api.CreateVideoRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

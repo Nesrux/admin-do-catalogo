@@ -1,4 +1,4 @@
-package com.nesrux.admin.catalogo.infrastructure.video.models;
+package com.nesrux.admin.catalogo.infrastructure.video.models.rabbitmq;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

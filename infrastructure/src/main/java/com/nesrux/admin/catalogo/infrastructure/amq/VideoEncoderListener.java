@@ -4,9 +4,9 @@ import com.nesrux.admin.catalogo.application.video.media.update.UpdateMediaStatu
 import com.nesrux.admin.catalogo.application.video.media.update.UpdateMediaStatusUseCase;
 import com.nesrux.admin.catalogo.domain.video.MediaStatus;
 import com.nesrux.admin.catalogo.infrastructure.configuration.json.Json;
-import com.nesrux.admin.catalogo.infrastructure.video.models.VideoEncoderCompleted;
-import com.nesrux.admin.catalogo.infrastructure.video.models.VideoEncoderError;
-import com.nesrux.admin.catalogo.infrastructure.video.models.VideoEnconderResult;
+import com.nesrux.admin.catalogo.infrastructure.video.models.rabbitmq.VideoEncoderCompleted;
+import com.nesrux.admin.catalogo.infrastructure.video.models.rabbitmq.VideoEncoderError;
+import com.nesrux.admin.catalogo.infrastructure.video.models.rabbitmq.VideoEnconderResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

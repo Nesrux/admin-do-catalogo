@@ -2,6 +2,7 @@ package com.nesrux.admin.catalogo.infrastructure.video.models;
 
 import com.nesrux.admin.catalogo.JacksonTest;
 import com.nesrux.admin.catalogo.domain.utils.IdUtils;
+import com.nesrux.admin.catalogo.infrastructure.video.models.rabbitmq.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

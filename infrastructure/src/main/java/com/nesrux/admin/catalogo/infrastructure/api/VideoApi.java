@@ -1,7 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.api;
 
-import com.nesrux.admin.catalogo.infrastructure.video.models.CreateVideoRequest;
-import com.nesrux.admin.catalogo.infrastructure.video.models.VideoResponse;
+import com.nesrux.admin.catalogo.infrastructure.video.models.api.CreateVideoRequest;
+import com.nesrux.admin.catalogo.infrastructure.video.models.api.VideoResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
