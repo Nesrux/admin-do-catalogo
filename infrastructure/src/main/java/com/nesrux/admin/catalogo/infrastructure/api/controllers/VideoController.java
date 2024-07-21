@@ -2,10 +2,13 @@ package com.nesrux.admin.catalogo.infrastructure.api.controllers;
 
 import com.nesrux.admin.catalogo.application.video.create.CreateVideoCommand;
 import com.nesrux.admin.catalogo.application.video.create.CreateVideoUseCase;
+import com.nesrux.admin.catalogo.application.video.retrive.get.GetVideoByIdUseCase;
 import com.nesrux.admin.catalogo.domain.resource.Resource;
 import com.nesrux.admin.catalogo.infrastructure.api.VideoApi;
 import com.nesrux.admin.catalogo.infrastructure.utils.HashingUtils;
 import com.nesrux.admin.catalogo.infrastructure.video.models.CreateVideoRequest;
+import com.nesrux.admin.catalogo.infrastructure.video.models.VideoResponse;
+import com.nesrux.admin.catalogo.infrastructure.video.presenters.VideoApiPresenter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,10 +19,14 @@ import java.util.Set;
 
 @RestController
 public class VideoController implements VideoApi {
-    private final CreateVideoUseCase useCase;
+    private final CreateVideoUseCase createVideoUseCase;
+    private final GetVideoByIdUseCase getVideoByIdUseCase;
 
-    public VideoController(final CreateVideoUseCase useCase) {
-        this.useCase = Objects.requireNonNull(useCase);
+    public VideoController(
+            final CreateVideoUseCase createVideoUseCase,
+            final GetVideoByIdUseCase getVideoByIdUseCase) {
+        this.createVideoUseCase = Objects.requireNonNull(createVideoUseCase);
+        this.getVideoByIdUseCase = Objects.requireNonNull(getVideoByIdUseCase);
     }
 
     @Override
@@ -57,7 +64,7 @@ public class VideoController implements VideoApi {
                 resourceOf(thumbFile),
                 resourceOf(thumbHalfFile));
 
-        final var output = this.useCase.execute(aCommd);
+        final var output = this.createVideoUseCase.execute(aCommd);
         return ResponseEntity.created(URI.create("/videos/" + output.id())).body(output);
     }
 
@@ -76,8 +83,13 @@ public class VideoController implements VideoApi {
                 payload.castMembers()
         );
 
-        final var output = this.useCase.execute(aCommd);
+        final var output = this.createVideoUseCase.execute(aCommd);
         return ResponseEntity.created(URI.create("/videos/" + output.id())).body(output);
+    }
+
+    @Override
+    public VideoResponse getById(final String id) {
+        return VideoApiPresenter.present(this.getVideoByIdUseCase.execute(id));
     }
 
     private Resource resourceOf(final MultipartFile file) {

@@ -88,7 +88,7 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
         Assertions.assertEquals(asString(expectedGenres), actualVideo.genres());
         Assertions.assertEquals(asString(expectedCastMember), actualVideo.castMembers());
         Assertions.assertEquals(expectedVideo, actualVideo.video());
-        Assertions.assertEquals(expectedTrailer, actualVideo.treiler());
+        Assertions.assertEquals(expectedTrailer, actualVideo.trailer());
         Assertions.assertEquals(expectedBanner, actualVideo.banner());
         Assertions.assertEquals(expectedThumb, actualVideo.thumbnail());
         Assertions.assertEquals(expectedThumbHalf, actualVideo.thumbnailHalf());

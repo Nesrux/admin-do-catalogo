@@ -28,7 +28,7 @@ public record VideoOutput(
         ImageMedia thumbnail,
         ImageMedia thumbnailHalf,
         AudioVideoMedia video,
-        AudioVideoMedia treiler,
+        AudioVideoMedia trailer,
         Instant createdAt,
         Instant updatedAt
 ) {
