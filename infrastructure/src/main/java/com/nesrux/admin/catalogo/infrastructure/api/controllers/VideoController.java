@@ -5,6 +5,7 @@ import com.nesrux.admin.catalogo.application.video.create.CreateVideoUseCase;
 import com.nesrux.admin.catalogo.domain.resource.Resource;
 import com.nesrux.admin.catalogo.infrastructure.api.VideoApi;
 import com.nesrux.admin.catalogo.infrastructure.utils.HashingUtils;
+import com.nesrux.admin.catalogo.infrastructure.video.models.CreateVideoRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,6 +56,25 @@ public class VideoController implements VideoApi {
                 resourceOf(bannerFile),
                 resourceOf(thumbFile),
                 resourceOf(thumbHalfFile));
+
+        final var output = this.useCase.execute(aCommd);
+        return ResponseEntity.created(URI.create("/videos/" + output.id())).body(output);
+    }
+
+    @Override
+    public ResponseEntity<?> createPartial(final CreateVideoRequest payload) {
+        final var aCommd = CreateVideoCommand.with(
+                payload.title(),
+                payload.description(),
+                payload.duration(),
+                payload.yearLaunched(),
+                payload.opened(),
+                payload.published(),
+                payload.rating(),
+                payload.categories(),
+                payload.genres(),
+                payload.castMembers()
+        );
 
         final var output = this.useCase.execute(aCommd);
         return ResponseEntity.created(URI.create("/videos/" + output.id())).body(output);

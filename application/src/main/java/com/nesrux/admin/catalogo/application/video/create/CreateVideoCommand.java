@@ -60,6 +60,37 @@ public record CreateVideoCommand(
 
     }
 
+    public static CreateVideoCommand with(
+            String title,
+            String description,
+            Double duration,
+            Integer yearLaunched,
+            Boolean opened,
+            Boolean published,
+            String rating,
+            Set<String> categories,
+            Set<String> genres,
+            Set<String> castMembers
+    ) {
+        return new CreateVideoCommand(
+                title,
+                description,
+                yearLaunched,
+                duration,
+                opened,
+                published,
+                rating,
+                categories,
+                genres,
+                castMembers,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+    }
+
     public Optional<Resource> getVideo() {
         return Optional.ofNullable(video);
     }
