@@ -23,6 +23,7 @@ import java.util.Set;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -32,7 +33,7 @@ class VideoApiTest {
     private MockMvc mvc;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private ObjectMapper mapper;
 
     @MockBean
     private CreateVideoUseCase createVideoUseCase;
@@ -118,5 +119,75 @@ class VideoApiTest {
         Assertions.assertEquals(expectedBanner.getOriginalFilename(), actualCmd.getBanner().get().name());
         Assertions.assertEquals(expectedThumb.getOriginalFilename(), actualCmd.getThumbnail().get().name());
         Assertions.assertEquals(expectedThumbHalf.getOriginalFilename(), actualCmd.getThumbnailHalf().get().name());
+    }
+
+    @Test
+    void givenAvalidCommdan_whenCalssCreatePartial_shouldReturnId() throws Exception {
+        //given
+        final var expectedID = VideoID.unique();
+        final var catarina = Fixture.CastMembers.catarina().getId();
+        final var tech = Fixture.Genres.tech().getId();
+        final var aulas = Fixture.Categories.aulas().getId();
+
+        final var expectedTitle = Fixture.Videos.title();
+        final var expectedDescription = Fixture.Videos.description();
+        final var expectedLaunchYear = Year.of(Fixture.Videos.year());
+        final var expectedDuration = Fixture.Videos.randomDuration();
+        final var expectedOpened = Fixture.bool();
+        final var expectedPublished = Fixture.bool();
+        final var expectedRating = Fixture.Videos.randomRating();
+        final var expectedCategories = Set.of(aulas.getValue());
+        final var expectedGenres = Set.of(tech.getValue());
+        final var expectedCastMember = Set.of(catarina.getValue());
+
+        final var aCommand = new CreateVideoRequest(
+                expectedTitle,
+                expectedDescription,
+                expectedDuration,
+                expectedLaunchYear.getValue(),
+                expectedOpened,
+                expectedPublished,
+                expectedRating.getName(),
+                expectedCastMember,
+                expectedCategories,
+                expectedGenres
+        );
+
+        when(createVideoUseCase.execute(any()))
+                .thenReturn(new CreateVideoOutput(expectedID.getValue()));
+
+        //when
+        final var aRequest = post("/videos")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(mapper.writeValueAsBytes(aCommand));
+
+        this.mvc.perform(aRequest)
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", "/videos/" + expectedID.getValue()))
+                .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.id", Matchers.equalTo(expectedID.getValue())));
+        //then
+        final var cmdCaptor = ArgumentCaptor.forClass(CreateVideoCommand.class);
+
+        verify(createVideoUseCase).execute(cmdCaptor.capture());
+
+        final var actualCmd = cmdCaptor.getValue();
+        Assertions.assertEquals(expectedTitle, actualCmd.title());
+        Assertions.assertEquals(expectedDescription, actualCmd.description());
+        Assertions.assertEquals(expectedLaunchYear.getValue(), actualCmd.launchedAt());
+        Assertions.assertEquals(expectedDuration, actualCmd.duration());
+        Assertions.assertEquals(expectedOpened, actualCmd.opened());
+        Assertions.assertEquals(expectedPublished, actualCmd.published());
+        Assertions.assertEquals(expectedRating.getName(), actualCmd.rating());
+        Assertions.assertEquals(expectedCategories, actualCmd.categories());
+        Assertions.assertEquals(expectedGenres, actualCmd.genres());
+        Assertions.assertEquals(expectedCastMember, actualCmd.members());
+
+        Assertions.assertTrue(actualCmd.getVideo().isEmpty());
+        Assertions.assertTrue(actualCmd.getTrailer().isEmpty());
+        Assertions.assertTrue(actualCmd.getBanner().isEmpty());
+        Assertions.assertTrue(actualCmd.getThumbnail().isEmpty());
+        Assertions.assertTrue(actualCmd.getThumbnailHalf().isEmpty());
     }
 }
