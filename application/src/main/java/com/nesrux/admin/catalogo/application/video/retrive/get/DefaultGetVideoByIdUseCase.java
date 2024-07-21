@@ -7,7 +7,7 @@ import com.nesrux.admin.catalogo.domain.video.VideoID;
 
 import java.util.Objects;
 
-public class DefaultGetVideoByIdUseCase extends GetByIdUseCase {
+public class DefaultGetVideoByIdUseCase extends GetVideoByIdUseCase {
     private final VideoGateway videoGateway;
 
     public DefaultGetVideoByIdUseCase(final VideoGateway videoGateway) {
