@@ -433,7 +433,7 @@ class VideoApiTest {
         response.andExpect(status().isUnprocessableEntity())
                 .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.message", equalTo(expectedErrorMessage)))
-                .andExpect(jsonPath("$.erros", hasSize(expectedErrorCount)))
+                .andExpect(jsonPath("$.errors", hasSize(expectedErrorCount)))
                 .andExpect(jsonPath("$.errors[0].message", equalTo(expectedErrorMessage)));
 
         verify(updateVideoUseCase).execute(any());

@@ -119,7 +119,9 @@ public class VideoController implements VideoApi {
         );
         final var output = this.updateVideoUseCase.execute(aCommand);
 
-        return ResponseEntity.ok(VideoApiPresenter.present(output));
+        return ResponseEntity.ok()
+                .location(URI.create("/videos/" + output.id()))
+                .body(VideoApiPresenter.present(output));
     }
 
     private Resource resourceOf(final MultipartFile file) {
