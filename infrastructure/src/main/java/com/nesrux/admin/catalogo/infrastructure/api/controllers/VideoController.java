@@ -103,7 +103,7 @@ public class VideoController implements VideoApi {
     }
 
     @Override
-    public ResponseEntity<?> update(String id, UpdateVideoRequest payload) {
+    public ResponseEntity<?> update(final String id, final UpdateVideoRequest payload) {
         final var aCommand = UpdateVideoCommand.with(
                 id,
                 payload.title(),
@@ -122,6 +122,11 @@ public class VideoController implements VideoApi {
         return ResponseEntity.ok()
                 .location(URI.create("/videos/" + output.id()))
                 .body(VideoApiPresenter.present(output));
+    }
+
+    @Override
+    public void deleteById(final String id) {
+        this.deleteVideoUseCase.execute(id);
     }
 
     private Resource resourceOf(final MultipartFile file) {

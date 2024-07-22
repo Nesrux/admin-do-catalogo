@@ -78,4 +78,15 @@ public interface VideoApi {
     ResponseEntity<?> update(
             @PathVariable String id,
             @RequestBody UpdateVideoRequest payload);
+
+    @DeleteMapping(
+            value = "{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Delete a video by it's identifier")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Video Deleted"),
+            @ApiResponse(responseCode = "500", description = "An internal sercer error was thrown")
+    })
+    void deleteById(@PathVariable(name = "id") String id);
 }
