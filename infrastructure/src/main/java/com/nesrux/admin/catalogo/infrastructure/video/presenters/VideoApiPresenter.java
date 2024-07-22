@@ -1,10 +1,12 @@
 package com.nesrux.admin.catalogo.infrastructure.video.presenters;
 
 import com.nesrux.admin.catalogo.application.video.retrive.get.VideoOutput;
+import com.nesrux.admin.catalogo.application.video.update.UpdateVideoOutput;
 import com.nesrux.admin.catalogo.domain.video.AudioVideoMedia;
 import com.nesrux.admin.catalogo.domain.video.ImageMedia;
 import com.nesrux.admin.catalogo.infrastructure.video.models.api.AudioVideoMediaResponse;
 import com.nesrux.admin.catalogo.infrastructure.video.models.api.ImageMediaResponse;
+import com.nesrux.admin.catalogo.infrastructure.video.models.api.UpdateVideoResponse;
 import com.nesrux.admin.catalogo.infrastructure.video.models.api.VideoResponse;
 
 public interface VideoApiPresenter {
@@ -46,5 +48,9 @@ public interface VideoApiPresenter {
                 media.encodedLocation(),
                 media.status().name()
         );
+    }
+
+    static UpdateVideoResponse present(final UpdateVideoOutput output) {
+        return new UpdateVideoResponse(output.id());
     }
 }

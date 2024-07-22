@@ -1,6 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.api;
 
 import com.nesrux.admin.catalogo.infrastructure.video.models.api.CreateVideoRequest;
+import com.nesrux.admin.catalogo.infrastructure.video.models.api.UpdateVideoRequest;
 import com.nesrux.admin.catalogo.infrastructure.video.models.api.VideoResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -62,4 +63,19 @@ public interface VideoApi {
             @ApiResponse(responseCode = "500", description = "An internal sercer error was thrown")
     })
     VideoResponse getById(@PathVariable String id);
+
+    @PutMapping(
+            value = "{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "update a video by it's identifier")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Video retrived successfully"),
+            @ApiResponse(responseCode = "404", description = "Video was not found"),
+            @ApiResponse(responseCode = "422", description = "A validation error was thrown"),
+            @ApiResponse(responseCode = "500", description = "An internal sercer error was thrown")
+    })
+    ResponseEntity<?> update(
+            @PathVariable String id,
+            @RequestBody UpdateVideoRequest payload);
 }

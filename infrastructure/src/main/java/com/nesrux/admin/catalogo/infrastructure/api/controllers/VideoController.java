@@ -2,11 +2,15 @@ package com.nesrux.admin.catalogo.infrastructure.api.controllers;
 
 import com.nesrux.admin.catalogo.application.video.create.CreateVideoCommand;
 import com.nesrux.admin.catalogo.application.video.create.CreateVideoUseCase;
+import com.nesrux.admin.catalogo.application.video.delete.DeleteVideoUseCase;
 import com.nesrux.admin.catalogo.application.video.retrive.get.GetVideoByIdUseCase;
+import com.nesrux.admin.catalogo.application.video.update.UpdateVideoCommand;
+import com.nesrux.admin.catalogo.application.video.update.UpdateVideoUseCase;
 import com.nesrux.admin.catalogo.domain.resource.Resource;
 import com.nesrux.admin.catalogo.infrastructure.api.VideoApi;
 import com.nesrux.admin.catalogo.infrastructure.utils.HashingUtils;
 import com.nesrux.admin.catalogo.infrastructure.video.models.api.CreateVideoRequest;
+import com.nesrux.admin.catalogo.infrastructure.video.models.api.UpdateVideoRequest;
 import com.nesrux.admin.catalogo.infrastructure.video.models.api.VideoResponse;
 import com.nesrux.admin.catalogo.infrastructure.video.presenters.VideoApiPresenter;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +25,18 @@ import java.util.Set;
 public class VideoController implements VideoApi {
     private final CreateVideoUseCase createVideoUseCase;
     private final GetVideoByIdUseCase getVideoByIdUseCase;
+    private final UpdateVideoUseCase updateVideoUseCase;
+    private final DeleteVideoUseCase deleteVideoUseCase;
 
     public VideoController(
             final CreateVideoUseCase createVideoUseCase,
-            final GetVideoByIdUseCase getVideoByIdUseCase) {
+            final GetVideoByIdUseCase getVideoByIdUseCase,
+            final UpdateVideoUseCase updateVideoUseCase,
+            final DeleteVideoUseCase deleteVideoUseCase) {
         this.createVideoUseCase = Objects.requireNonNull(createVideoUseCase);
         this.getVideoByIdUseCase = Objects.requireNonNull(getVideoByIdUseCase);
+        this.updateVideoUseCase = Objects.requireNonNull(updateVideoUseCase);
+        this.deleteVideoUseCase = Objects.requireNonNull(deleteVideoUseCase);
     }
 
     @Override
@@ -90,6 +100,26 @@ public class VideoController implements VideoApi {
     @Override
     public VideoResponse getById(final String id) {
         return VideoApiPresenter.present(this.getVideoByIdUseCase.execute(id));
+    }
+
+    @Override
+    public ResponseEntity<?> update(String id, UpdateVideoRequest payload) {
+        final var aCommand = UpdateVideoCommand.with(
+                id,
+                payload.title(),
+                payload.description(),
+                payload.yearLaunched(),
+                payload.duration(),
+                payload.opened(),
+                payload.published(),
+                payload.rating(),
+                payload.categories(),
+                payload.genres(),
+                payload.castMembers()
+        );
+        final var output = this.updateVideoUseCase.execute(aCommand);
+
+        return ResponseEntity.ok(VideoApiPresenter.present(output));
     }
 
     private Resource resourceOf(final MultipartFile file) {
