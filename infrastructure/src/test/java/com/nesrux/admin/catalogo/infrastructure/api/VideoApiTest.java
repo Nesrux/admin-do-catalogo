@@ -446,7 +446,7 @@ class VideoApiTest {
         doNothing()
                 .when(deleteVideoUseCase).execute(any());
         //when
-        final var aRequest = delete("/videos/{id}", expectedID.getValue());
+        final var aRequest = delete("/videos/" + expectedID.getValue());
         final var aResponse = this.mvc.perform(aRequest);
         //then
         aResponse.andExpect(status().isNoContent());

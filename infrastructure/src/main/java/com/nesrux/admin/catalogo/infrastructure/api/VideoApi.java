@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -79,11 +80,9 @@ public interface VideoApi {
             @PathVariable String id,
             @RequestBody UpdateVideoRequest payload);
 
-    @DeleteMapping(
-            value = "{id}",
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "{id}")
     @Operation(summary = "Delete a video by it's identifier")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Video Deleted"),
             @ApiResponse(responseCode = "500", description = "An internal sercer error was thrown")
