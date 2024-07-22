@@ -39,8 +39,7 @@ import java.util.Set;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -437,6 +436,20 @@ class VideoApiTest {
                 .andExpect(jsonPath("$.errors[0].message", equalTo(expectedErrorMessage)));
 
         verify(updateVideoUseCase).execute(any());
+    }
 
+    @Test
+    public void givenAValidId_whenCallsDeleteById_shouldDeleteIt() throws Exception {
+        //given
+        final var expectedID = VideoID.unique();
+
+        doNothing()
+                .when(deleteVideoUseCase).execute(any());
+        //when
+        final var aRequest = delete("/videos/{id}", expectedID.getValue());
+        final var aResponse = this.mvc.perform(aRequest);
+        //then
+        aResponse.andExpect(status().isNoContent());
+        verify(deleteVideoUseCase).execute(eq(expectedID.getValue()));
     }
 }
