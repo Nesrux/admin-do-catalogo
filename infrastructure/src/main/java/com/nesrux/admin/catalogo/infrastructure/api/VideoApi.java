@@ -105,8 +105,20 @@ public interface VideoApi {
             @RequestParam(name = "sort", required = false, defaultValue = "title") String sort,
             @RequestParam(name = "dir", required = false, defaultValue = "asc") String direction,
             @RequestParam(name = "cast_members_ids", required = false, defaultValue = "") Set<String> castMembers,
-            @RequestParam(name = "categories_ids", required = false, defaultValue = "") Set<String> categories,
+            @RequestParam(name = "categoriess_ids", required = false, defaultValue = "") Set<String> categories,
             @RequestParam(name = "genres_ids", required = false, defaultValue = "") Set<String> genres
+    );
+
+    @GetMapping(value = "{id}/medias/{type}")
+    @Operation(summary = "Get a video media by it's type")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Media retrived successfully"),
+            @ApiResponse(responseCode = "404", description = "Media was not found"),
+            @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
+    })
+    ResponseEntity<byte[]> getMediaByType(
+            @PathVariable(name = "id") String id,
+            @PathVariable(name = "type") String type
     );
 
 }

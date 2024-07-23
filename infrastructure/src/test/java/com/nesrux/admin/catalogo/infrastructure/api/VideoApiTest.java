@@ -6,6 +6,7 @@ import com.nesrux.admin.catalogo.application.video.create.CreateVideoCommand;
 import com.nesrux.admin.catalogo.application.video.create.CreateVideoOutput;
 import com.nesrux.admin.catalogo.application.video.create.CreateVideoUseCase;
 import com.nesrux.admin.catalogo.application.video.delete.DeleteVideoUseCase;
+import com.nesrux.admin.catalogo.application.video.media.get.GetMediaUseCase;
 import com.nesrux.admin.catalogo.application.video.retrive.get.GetVideoByIdUseCase;
 import com.nesrux.admin.catalogo.application.video.retrive.get.VideoOutput;
 import com.nesrux.admin.catalogo.application.video.retrive.list.ListVideosUseCase;
