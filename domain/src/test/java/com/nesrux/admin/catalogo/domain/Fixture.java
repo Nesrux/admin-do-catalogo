@@ -138,9 +138,9 @@ public final class Fixture {
                     Fixture.bool(),
                     Fixture.bool(),
                     randomRating(),
-                    Set.of(Categories.randomCategory().getId()),
-                    Set.of(Genres.randomGenre().getId()),
-                    Set.of(CastMembers.randomMember().getId())
+                    Set.of(Categories.aulas().getId()),
+                    Set.of(Genres.tech().getId()),
+                    Set.of(CastMembers.joao().getId())
             );
         }
 
