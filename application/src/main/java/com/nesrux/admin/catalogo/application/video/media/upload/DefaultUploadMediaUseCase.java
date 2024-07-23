@@ -20,7 +20,7 @@ public class DefaultUploadMediaUseCase extends UploadMediaUseCase {
     @Override
     public UploadMediaOutput execute(final UploadMediaCommand aCommand) {
         final var anId = VideoID.from(aCommand.videoId());
-        final var aResource = aCommand.resource();
+        final var aResource = aCommand.videoResource();
 
         final var aVideo = this.videoGateway.findById(anId)
                 .orElseThrow(() -> notfound(anId));

@@ -4,7 +4,7 @@ import com.nesrux.admin.catalogo.domain.video.VideoResource;
 
 public record UploadMediaCommand(
         String videoId,
-        VideoResource resource
+        VideoResource videoResource
 ) {
 
     public static UploadMediaCommand with(final String aVideoId, final VideoResource aResource) {

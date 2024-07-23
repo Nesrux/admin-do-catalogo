@@ -28,7 +28,7 @@ public class RabbitEventServiceTest {
     @Test
     public void shouldSendMessage() throws InterruptedException {
         //given
-        final var notification = new VideoMediaCreated("resource", "filePath");
+        final var notification = new VideoMediaCreated("videoResource", "filePath");
         final var expectedMessage = Json.writeValueAsString(notification);
 
         //when
