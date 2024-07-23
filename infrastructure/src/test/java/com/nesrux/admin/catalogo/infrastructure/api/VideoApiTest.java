@@ -8,6 +8,9 @@ import com.nesrux.admin.catalogo.application.video.create.CreateVideoUseCase;
 import com.nesrux.admin.catalogo.application.video.delete.DeleteVideoUseCase;
 import com.nesrux.admin.catalogo.application.video.media.get.GetMediaUseCase;
 import com.nesrux.admin.catalogo.application.video.media.get.MediaOutput;
+import com.nesrux.admin.catalogo.application.video.media.upload.UploadMediaCommand;
+import com.nesrux.admin.catalogo.application.video.media.upload.UploadMediaOutput;
+import com.nesrux.admin.catalogo.application.video.media.upload.UploadMediaUseCase;
 import com.nesrux.admin.catalogo.application.video.retrive.get.GetVideoByIdUseCase;
 import com.nesrux.admin.catalogo.application.video.retrive.get.VideoOutput;
 import com.nesrux.admin.catalogo.application.video.retrive.list.ListVideosUseCase;
@@ -31,7 +34,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
@@ -74,6 +76,9 @@ class VideoApiTest {
 
     @MockBean
     private GetMediaUseCase getMediaUseCase;
+
+    @MockBean
+    private UploadMediaUseCase uploadMediaUseCase;
 
     @Test
     void givenAvlidCommand_whenCallsCreateFull_shouldReturnAnId() throws Exception {
@@ -600,6 +605,41 @@ class VideoApiTest {
                 .andExpect(header().string(CONTENT_LENGTH, String.valueOf(expectedMedia.content().length)))
                 .andExpect(header().string(CONTENT_DISPOSITION, "attachment; filename=%s".formatted(expectedMedia.name())))
                 .andExpect(content().bytes(expectedMedia.content()));
+
+    }
+
+    @Test
+    void givenAValidVideoAndFile_whenCallsUploadMedia_shouldStoreIt() throws Exception {
+        //given
+        final var expectedId = VideoID.unique();
+        final var expectedType = VideoMediaType.VIDEO;
+        final var expectedResource = Fixture.Videos.resource(expectedType);
+        final var expectedVideo =
+                new MockMultipartFile("video_file", expectedResource.name(), expectedResource.contentType(), expectedResource.content());]
+
+        when(uploadMediaUseCase.execute(any()))
+                .thenReturn(new UploadMediaOutput(expectedId.getValue(), expectedType));
+
+        final var aRequest = multipart("/videos/{id}/medias/{type}", expectedId.getValue(), expectedType.name())
+                .file(expectedVideo)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.MULTIPART_FORM_DATA);
+
+        final var response = this.mvc.perform(aRequest);
+        // when
+        response.andExpect(status().isCreated())
+                .andExpect(header().string(LOCATION, "/videos/%s/medias/%s".formatted(expectedId.getValue(), expectedType.name())))
+                .andExpect(header().string(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.video.id", equalTo(expectedId.getValue())))
+                .andExpect(jsonPath("$.video.type", equalTo(expectedType.name())));
+
+        final var captor = ArgumentCaptor.forClass(UploadMediaCommand.class);
+
+        verify(uploadMediaUseCase).execute(captor.capture());
+
+        final var actualCommand = captor.getValue();
+        Assertions.assertEquals(expectedId.getValue(), actualCommand.videoId());
+        Assertions.assertEquals(expectedResource, actualCommand.videoResource().resource());
 
     }
 }
