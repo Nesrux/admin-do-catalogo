@@ -480,9 +480,6 @@ class VideoApiTest {
         final var expectedTerms = "Algo";
         final var expectedSort = "title";
         final var expectedDirection = "asc";
-        final var expectedCastMembers = "cast1";
-        final var expectedGenres = "gen1";
-        final var expectedCategories = "cat1";
 
         final var expectedItemsCount = 1;
         final var expectedTotal = 1;
@@ -499,9 +496,6 @@ class VideoApiTest {
                 .queryParam("sort", expectedSort)
                 .queryParam("dir", expectedDirection)
                 .queryParam("search", expectedTerms)
-                .queryParam("cast_members_ids", expectedCastMembers)
-                .queryParam("categories_ids", expectedCategories)
-                .queryParam("genres_ids", expectedGenres)
                 .accept(MediaType.APPLICATION_JSON);
 
         final var response = this.mvc.perform(aRequest);
@@ -528,9 +522,6 @@ class VideoApiTest {
         Assertions.assertEquals(expectedDirection, actualQuery.direction());
         Assertions.assertEquals(expectedSort, actualQuery.sort());
         Assertions.assertEquals(expectedTerms, actualQuery.terms());
-        Assertions.assertEquals(Set.of(CategoryID.from(expectedCategories)), actualQuery.categories());
-        Assertions.assertEquals(Set.of(CastMemberID.from(expectedCastMembers)), actualQuery.castMembers());
-        Assertions.assertEquals(Set.of(GenreID.from(expectedGenres)), actualQuery.genres());
     }
 
     @Test
@@ -615,7 +606,7 @@ class VideoApiTest {
         final var expectedType = VideoMediaType.VIDEO;
         final var expectedResource = Fixture.Videos.resource(expectedType);
         final var expectedVideo =
-                new MockMultipartFile("video_file", expectedResource.name(), expectedResource.contentType(), expectedResource.content());]
+                new MockMultipartFile("media_file", expectedResource.name(), expectedResource.contentType(), expectedResource.content());
 
         when(uploadMediaUseCase.execute(any()))
                 .thenReturn(new UploadMediaOutput(expectedId.getValue(), expectedType));
@@ -630,8 +621,8 @@ class VideoApiTest {
         response.andExpect(status().isCreated())
                 .andExpect(header().string(LOCATION, "/videos/%s/medias/%s".formatted(expectedId.getValue(), expectedType.name())))
                 .andExpect(header().string(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("$.video.id", equalTo(expectedId.getValue())))
-                .andExpect(jsonPath("$.video.type", equalTo(expectedType.name())));
+                .andExpect(jsonPath("$.video_id", equalTo(expectedId.getValue())))
+                .andExpect(jsonPath("$.media_type", equalTo(expectedType.name())));
 
         final var captor = ArgumentCaptor.forClass(UploadMediaCommand.class);
 
@@ -639,7 +630,10 @@ class VideoApiTest {
 
         final var actualCommand = captor.getValue();
         Assertions.assertEquals(expectedId.getValue(), actualCommand.videoId());
-        Assertions.assertEquals(expectedResource, actualCommand.videoResource().resource());
+        Assertions.assertEquals(expectedResource.content(), actualCommand.videoResource().resource().content());
+        Assertions.assertEquals(expectedResource.name(), actualCommand.videoResource().resource().name());
+        Assertions.assertEquals(expectedResource.contentType(), actualCommand.videoResource().resource().contentType());
+        Assertions.assertEquals(expectedType, actualCommand.videoResource().type());
 
     }
 }

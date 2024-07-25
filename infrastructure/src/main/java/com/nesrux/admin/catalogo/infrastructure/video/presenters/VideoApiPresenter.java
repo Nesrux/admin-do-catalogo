@@ -1,5 +1,6 @@
 package com.nesrux.admin.catalogo.infrastructure.video.presenters;
 
+import com.nesrux.admin.catalogo.application.video.media.upload.UploadMediaOutput;
 import com.nesrux.admin.catalogo.application.video.retrive.get.VideoOutput;
 import com.nesrux.admin.catalogo.application.video.retrive.list.VideoListOutput;
 import com.nesrux.admin.catalogo.application.video.update.UpdateVideoOutput;
@@ -66,5 +67,9 @@ public interface VideoApiPresenter {
 
     static Pagination<VideoListResponse> present(final Pagination<VideoListOutput> aPage) {
         return aPage.map(VideoApiPresenter::present);
+    }
+
+    static UploadMediaResponse present(final UploadMediaOutput output) {
+        return new UploadMediaResponse(output.videoId(), output.mediaType());
     }
 }
