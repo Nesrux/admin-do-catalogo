@@ -3,13 +3,14 @@ package com.nesrux.admin.catalogo.domain.genre;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nesrux.admin.catalogo.domain.UnitTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 
-public class GenreTest {
+public class GenreTest extends UnitTest {
     @Test
     public void givenAvalidParams_whenCallNewGenre_ShouldIntantiateAGenre() {
         final var expectedName = "Ação";

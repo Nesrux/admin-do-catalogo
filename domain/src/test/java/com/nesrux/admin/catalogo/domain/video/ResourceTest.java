@@ -1,6 +1,7 @@
 package com.nesrux.admin.catalogo.domain.video;
 
 
+import com.nesrux.admin.catalogo.domain.UnitTest;
 import com.nesrux.admin.catalogo.domain.resource.Resource;
 import com.nesrux.admin.catalogo.domain.utils.IdUtils;
 import org.junit.jupiter.api.Assertions;
@@ -8,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
 
-public class ResourceTest {
+public class ResourceTest  extends UnitTest {
     @Test
     public void givenAvalidParams_whenCallsNewResource_thenInstantiate() {
         //given

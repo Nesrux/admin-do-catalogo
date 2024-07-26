@@ -1,10 +1,11 @@
 package com.nesrux.admin.catalogo.domain.castmember;
 
+import com.nesrux.admin.catalogo.domain.UnitTest;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class CastMemberTest {
+public class CastMemberTest extends UnitTest {
     @Test
     public void givenAvalidParams_whenCallsNewNumber_ThenInstantiateACastMember() {
         final var expectedName = "Vin Diesel";

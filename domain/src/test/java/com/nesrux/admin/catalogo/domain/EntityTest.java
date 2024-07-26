@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class EntityTest {
+public class EntityTest extends UnitTest {
     @Test
     public void givenNullEvent_whenInstantiete_shouldBeOk() {
         //given
