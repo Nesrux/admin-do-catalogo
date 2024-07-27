@@ -20,5 +20,5 @@ jobs:
            distribution: 'adopt'
         # 3. Executa os testes da aplicação
       - name: run application tests
-        run: ./gradlew test
+        run: sudo ./gradlew test
 
