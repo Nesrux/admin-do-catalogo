@@ -17,7 +17,7 @@ jobs:
          uses: actions/setup-java@v3
          with:
            java-version: '17'
-           distribuition: 'adopt'
+           distribution: 'adopt'
         # 3. Executa os testes da aplicação
       - name: run application tests
         run: ./gradlew test
