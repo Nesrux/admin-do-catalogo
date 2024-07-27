@@ -2,7 +2,6 @@ name: CI Pipeline
 
 on:
   push:
-  #Habilitar o gatilho manual através da interface do github actions
   workflow_dispatch:
 
 jobs:
@@ -11,7 +10,7 @@ jobs:
     name: Test runner
     runs-on: ubuntu-Latest
     steps:
-      - # 1. checkout do código fonte
+       # 1. checkout do código fonte
       -  uses: actions/checkout@v3
       # 2. configura a Jdk na maquina
       -  name :  Set up Jdk 17
