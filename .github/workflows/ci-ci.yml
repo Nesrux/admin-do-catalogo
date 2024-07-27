@@ -1,10 +1,14 @@
-name: Ci/Cd Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
       - main
       - master
+      - develop
+      - 'hotfix/**'
+      - 'release/**'
+      - 'modulos/**'
   workflow_dispatch:
 
 env:
@@ -25,34 +29,31 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-      # 3. Coloca o ./gradlw como executavel
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
       # 3. Executar os testes da aplicação
       - name: Run application tests
         run: ./gradlew test
 
-  #1. Job para buildar a aplicaço
+  # Job para buildar a aplicação
   build:
     name: Build runner
     needs: tests
     runs-on: ubuntu-latest
-    #Configuração de passos do job
+    # Configuração de passos do nosso job
     steps:
+      # 1. Check-out do código fonte
       - uses: actions/checkout@v3
-      #2.Faz o setup do Java no ubuntu
+      # 2. Configurar a JDK na máquina
       - name: Set up JDK@17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'adopt'
-
-        # 3. Valida a existência do gradle wrapper
-      - name: Validate gradle wrapper
-        uses: gradle/wrapper-validation-action@v3
-      # 4. Build a aplicação
+      # 3. Valida a existência do gradle wrapper
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+      # 4. Realizar o build para gerar o artefato final
       - name: Build da aplicação
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: clean build -x test
       # 5. Definir a variavel branch name
@@ -67,10 +68,10 @@ jobs:
           echo "Tag        ---> ${{ env.BUILD_TAG }}"
       # 7. Log in to DockerHub
       - name: Log in to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v2
         with:
-            username: ${{ secrets.DOCKER_HUB_USER }}
-            password: ${{ secrets.DOCKER_HUB_PWD }}
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_PWD }}
       # 8. Build & Deploy da imagem
       - name: Build & push da imagem do docker
         uses: docker/build-push-action@v3
