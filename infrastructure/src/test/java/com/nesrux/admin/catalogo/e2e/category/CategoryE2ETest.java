@@ -1,10 +1,12 @@
 package com.nesrux.admin.catalogo.e2e.category;
 
+import com.nesrux.admin.catalogo.E2ETest;
 import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.e2e.MockDls;
 import com.nesrux.admin.catalogo.infrastructure.category.models.UpdateCategoryRequest;
 import com.nesrux.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -12,6 +14,7 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
@@ -19,8 +22,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@Testcontainers
-//@E2ETest
+@Testcontainers
+@E2ETest
 public class CategoryE2ETest implements MockDls {
 
     @Autowired
@@ -45,7 +48,7 @@ public class CategoryE2ETest implements MockDls {
         return this.mvc;
     }
 
-    // @Test
+    @Test
     public void asACatalogAdminIShouldBeAbleToCreateANewCategoryWithValidValues() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, categoryRepository.count());
@@ -66,7 +69,7 @@ public class CategoryE2ETest implements MockDls {
         Assertions.assertNull(actualCategory.getDeletedAt());
     }
 
-    //@Test
+    @Test
     public void asACatalogAdminIShouldBeAbleToNavigateToAllCategories() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, categoryRepository.count());
@@ -107,7 +110,7 @@ public class CategoryE2ETest implements MockDls {
                 .andExpect(jsonPath("$.items", hasSize(0)));
     }
 
-    // @Test
+    @Test
     public void asACatalogAdminIShouldBeAbleToSearchBetweenAllCategories() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, categoryRepository.count());
@@ -125,7 +128,7 @@ public class CategoryE2ETest implements MockDls {
                 .andExpect(jsonPath("$.items[0].name", equalTo("Filmes")));
     }
 
-    //  @Test
+    @Test
     public void asACatalogAdminIShouldBeAbleToSortAllCategoriesByDescriptionDesc() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, categoryRepository.count());
@@ -145,7 +148,7 @@ public class CategoryE2ETest implements MockDls {
                 .andExpect(jsonPath("$.items[2].name", equalTo("Séries")));
     }
 
-    //   @Test
+    @Test
     public void asACatalogAdminIShouldBeAbleToGetACategoryByItsIdentifier() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, categoryRepository.count());
@@ -166,7 +169,7 @@ public class CategoryE2ETest implements MockDls {
         Assertions.assertNull(actualCategory.deletedAt());
     }
 
-    //  @Test
+    @Test
     public void asACatalogAdminIShouldBeAbleToSeeATreatedErrorByGettingANotFoundCategory() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, categoryRepository.count());
@@ -180,7 +183,7 @@ public class CategoryE2ETest implements MockDls {
                 .andExpect(jsonPath("$.message", equalTo("Category with ID 123 was not found")));
     }
 
-    //  @Test
+    @Test
     public void asACatalogAdminIShouldBeAbleToUpdateACategoryByItsIdentifier() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, categoryRepository.count());
@@ -206,7 +209,7 @@ public class CategoryE2ETest implements MockDls {
         Assertions.assertNull(actualCategory.getDeletedAt());
     }
 
-    //  @Test
+    @Test
     public void asACatalogAdminIShouldBeAbleToInactivateACategoryByItsIdentifier() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, categoryRepository.count());
@@ -232,7 +235,7 @@ public class CategoryE2ETest implements MockDls {
         Assertions.assertNotNull(actualCategory.getDeletedAt());
     }
 
-    //  @Test
+    @Test
     public void asACatalogAdminIShouldBeAbleToActivateACategoryByItsIdentifier() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, categoryRepository.count());
@@ -258,7 +261,7 @@ public class CategoryE2ETest implements MockDls {
         Assertions.assertNull(actualCategory.getDeletedAt());
     }
 
-    //@Test
+    @Test
     public void asACatalogAdminIShouldBeAbleToDeleteACategoryByItsIdentifier() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, categoryRepository.count());
@@ -271,7 +274,7 @@ public class CategoryE2ETest implements MockDls {
         Assertions.assertFalse(this.categoryRepository.existsById(actualId.getValue()));
     }
 
-    //   @Test
+    @Test
     public void asACatalogAdminIShouldNotSeeAnErrorByDeletingANotExistentCategory() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
         Assertions.assertEquals(0, categoryRepository.count());
