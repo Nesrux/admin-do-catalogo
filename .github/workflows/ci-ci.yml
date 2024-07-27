@@ -65,8 +65,8 @@ jobs:
           echo "Branch     ---> ${{ github.head_ref || github.ref_name }}"
           echo "Run number ---> ${{ github.run_number }}"
           echo "Tag        ---> ${{ env.BUILD_TAG }}"
-          echo "Secret ----> ${{ secrets.DOCKER_HUB_USER }}
-          echo "Secret ----> ${{ secrets.DOCKER_HUB_KEY }}
+          echo "Secret ----> ${{ secrets.DOCKER_HUB_USER }}"
+          echo "Secret ----> ${{ secrets.DOCKER_HUB_KEY }}"
       # 7. Log in to DockerHub
       - name: Log in to DockerHub
         uses: docker/login-action@v3
