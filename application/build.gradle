@@ -1,22 +1,15 @@
 plugins {
-    id 'java'
+    id 'java-conventions'
+    id 'java-library'
 }
 
 group = 'com.nesrux.admin.catalogo.application'
-version = '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
-}
 
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":infrastructure"))
 
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation(project(path: ':domain', configuration: 'testClasses'))
+
+
 }
 
-test {
-    useJUnitPlatform()
-}
