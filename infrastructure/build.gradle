@@ -45,9 +45,9 @@ dependencies {
         version { strictly("1.33") }
     }
 
-    testImplementation('org.testcontainers:testcontainers:1.17.6')
-    testImplementation('org.testcontainers:mysql:1.17.6')
-    testImplementation('org.testcontainers:junit-jupiter:1.17.6')
+    testImplementation ('org.testcontainers:testcontainers:1.20.0')
+    testImplementation("org.testcontainers:mysql:1.20.0")
+    testImplementation("org.testcontainers:junit-jupiter:1.20.0")
 
     testImplementation('org.flywaydb:flyway-core')
     testImplementation('org.flywaydb:flyway-mysql:9.11.0')
