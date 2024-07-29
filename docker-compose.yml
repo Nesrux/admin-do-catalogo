@@ -1,8 +1,8 @@
 services:
   app:
     container_name: adm_videos_app
-    # build: .
-    image: nesrux/admin-do-catalogo:main-8
+    build: .
+    # image: nesrux/admin-do-catalogo:main-8
     profiles: ["app"]
     restart: unless-stopped
     env_file:
@@ -51,7 +51,7 @@ services:
     command:
       - start-dev
     networks:
-      - adm_videos_network
+      - adm-videos-network
 
 
 networks:
