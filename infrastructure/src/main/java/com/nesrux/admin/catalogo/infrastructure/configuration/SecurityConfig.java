@@ -35,19 +35,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
         return http
-                .csrf((csrf) -> csrf.disable())
-                .authorizeHttpRequests(
-                        (authorize) -> {
-                            authorize
-                                    .antMatchers("/cast_members*").hasAnyRole(ROLE_ADMIN, ROLE_CAST_MEMBERS)
-                                    .antMatchers("/categories*").hasAnyRole(ROLE_ADMIN, ROLE_CATEGORIES)
-                                    .antMatchers("/genres*").hasAnyRole(ROLE_ADMIN, ROLE_GENRES)
-                                    .antMatchers("/videos*").hasAnyRole(ROLE_ADMIN, ROLE_VIDEOS)
-                                    .anyRequest().hasRole(ROLE_ADMIN);
-                        })
+                .csrf(csrf -> {
+                    csrf.disable();
+                })
+                .authorizeHttpRequests(authorize -> {
+                    authorize
+                            .antMatchers("/cast_members*").hasAnyRole(ROLE_ADMIN, ROLE_CAST_MEMBERS)
+                            .antMatchers("/categories*").hasAnyRole(ROLE_ADMIN, ROLE_CATEGORIES)
+                            .antMatchers("/genres*").hasAnyRole(ROLE_ADMIN, ROLE_GENRES)
+                            .antMatchers("/videos*").hasAnyRole(ROLE_ADMIN, ROLE_VIDEOS)
+                            .anyRequest().hasRole(ROLE_ADMIN);
+                })
                 .oauth2ResourceServer(oauth -> {
-                    oauth.jwt().jwtAuthenticationConverter(new KeyCloakJWTConverter());
-                }).sessionManagement(session -> {
+                    oauth.jwt()
+                            .jwtAuthenticationConverter(new KeycloakJwtConverter());
+                })
+                .sessionManagement(session -> {
                     session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 })
                 .headers(headers -> {
@@ -56,16 +59,16 @@ public class SecurityConfig {
                 .build();
     }
 
-    static class KeyCloakJWTConverter implements Converter<Jwt, AbstractAuthenticationToken> {
-        private final KeyCloakAuthoritiesConverter authoritiesConverter;
+    static class KeycloakJwtConverter implements Converter<Jwt, AbstractAuthenticationToken> {
 
-        KeyCloakJWTConverter() {
-            this.authoritiesConverter = new KeyCloakAuthoritiesConverter();
+        private final KeycloakAuthoritiesConverter authoritiesConverter;
+
+        public KeycloakJwtConverter() {
+            this.authoritiesConverter = new KeycloakAuthoritiesConverter();
         }
 
         @Override
         public AbstractAuthenticationToken convert(final Jwt jwt) {
-
             return new JwtAuthenticationToken(jwt, extractAuthorities(jwt), extractPrincipal(jwt));
         }
 
@@ -78,29 +81,32 @@ public class SecurityConfig {
         }
     }
 
-    static class KeyCloakAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
+    static class KeycloakAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
-        public static final String REALM_ACCESS = "realm_access";
-        public static final String ROLES = "roles";
-        public static final String RESOURCE_ACCESS = "resource_access";
+        private static final String REALM_ACCESS = "realm_access";
+        private static final String ROLES = "roles";
+        private static final String RESOURCE_ACCESS = "resource_access";
+        private static final String SEPARATOR = "_";
+        private static final String ROLE_PREFIX = "ROLE_";
 
         @Override
         public Collection<GrantedAuthority> convert(final Jwt jwt) {
-            final var reamRoles = extractRealmRoles(jwt);
+            final var realmRoles = extractRealmRoles(jwt);
             final var resourceRoles = extractResourceRoles(jwt);
-            return Stream.concat(reamRoles, resourceRoles)
-                    .map(role -> new SimpleGrantedAuthority(role.toUpperCase()))
+
+            return Stream.concat(realmRoles, resourceRoles)
+                    .map(role -> new SimpleGrantedAuthority(ROLE_PREFIX + role.toUpperCase()))
                     .collect(Collectors.toSet());
         }
 
         private Stream<String> extractResourceRoles(final Jwt jwt) {
+
             final Function<Map.Entry<String, Object>, Stream<String>> mapResource =
                     resource -> {
                         final var key = resource.getKey();
                         final var value = (JSONObject) resource.getValue();
                         final var roles = (Collection<String>) value.get(ROLES);
-                        return roles.stream()
-                                .map(role -> key.concat("_").concat(ROLES));
+                        return roles.stream().map(role -> key.concat(SEPARATOR).concat(role));
                     };
 
             final Function<Set<Map.Entry<String, Object>>, Collection<String>> mapResources =
@@ -109,11 +115,10 @@ public class SecurityConfig {
                             .toList();
 
             return Optional.ofNullable(jwt.getClaimAsMap(RESOURCE_ACCESS))
-                    .map(Map::entrySet)
+                    .map(resources -> resources.entrySet())
                     .map(mapResources)
                     .orElse(Collections.emptyList())
                     .stream();
-
         }
 
         private Stream<String> extractRealmRoles(final Jwt jwt) {
@@ -121,7 +126,6 @@ public class SecurityConfig {
                     .map(resource -> (Collection<String>) resource.get(ROLES))
                     .orElse(Collections.emptyList())
                     .stream();
-
         }
     }
 }
