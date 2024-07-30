@@ -4,6 +4,11 @@ amqp:
   username: ${AMQP_RABBIT_USERNAME}
   password: ${AMQP_RABBIT_PASSWORD}
 
+keycloak:
+  realm: ${KEYCLOAK_REAM:fc3-codeflix}
+  host: ${KEYCLOAK_HOST:http://localhost:8442}
+
+
 mysql:
   username: ${DATABASE_MYSQL_USERNAME:root}
   password: ${DATABASE_MYSQL_PASSWORD:123456}
