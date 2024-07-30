@@ -6,7 +6,7 @@ amqp:
 
 keycloak:
   realm: ${KEYCLOAK_REAM:fc3-codeflix}
-  host: ${KEYCLOAK_HOST:http://localhost:8442}
+  host: ${KEYCLOAK_HOST:http://localhost:8443}
 
 
 mysql:

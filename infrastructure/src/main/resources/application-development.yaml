@@ -8,7 +8,7 @@ amqp:
 
 keycloak:
   realm: fc3-codeflix
-  host: http://localhost:8442
+  host: http://localhost:8443
 
 mysql:
   username: root
