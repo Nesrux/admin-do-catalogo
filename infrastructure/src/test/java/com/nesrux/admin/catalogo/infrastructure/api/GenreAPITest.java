@@ -1,6 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nesrux.admin.catalogo.ApiTest;
 import com.nesrux.admin.catalogo.ControllerTest;
 import com.nesrux.admin.catalogo.application.genre.create.CreateGenreOutput;
 import com.nesrux.admin.catalogo.application.genre.create.CreateGenreUseCase;
@@ -69,20 +70,18 @@ public class GenreAPITest {
 
         final var aCommand = new CreateGenreRequest(expectedName, expectedCategories, expectedIsActive);
 
-        when(createGenreUseCase.execute(any()))
-                .thenReturn(CreateGenreOutput.from(expectedId));
+        when(createGenreUseCase.execute(any())).thenReturn(CreateGenreOutput.from(expectedId));
 
         // when
         final var aRequest = post("/genres")
+                .with(ApiTest.GENRES_JWT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(aCommand));
 
-        final var response = this.mvc.perform(aRequest)
-                .andDo(print());
+        final var response = this.mvc.perform(aRequest).andDo(print());
 
         // then
-        response.andExpect(status().isCreated())
-                .andExpect(header().string("Location", "/genres/" + expectedId))
+        response.andExpect(status().isCreated()).andExpect(header().string("Location", "/genres/" + expectedId))
                 .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.id", equalTo(expectedId)));
 
@@ -98,21 +97,16 @@ public class GenreAPITest {
 
         final var aCommand = new CreateGenreRequest(expectedName, expectedCategories, expectedIsActive);
 
-        when(createGenreUseCase.execute(any()))
-                .thenThrow(new NotificationException("Error",
-                        Notification.create(new Error(expectedErrorMessage))));
+        when(createGenreUseCase.execute(any())).thenThrow(new NotificationException("Error", Notification.create(new Error(expectedErrorMessage))));
 
         // when
-        final var aRequest = post("/genres")
-                .contentType(MediaType.APPLICATION_JSON)
+        final var aRequest = post("/genres").with(ApiTest.GENRES_JWT).contentType(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(aCommand));
 
-        final var response = this.mvc.perform(aRequest)
-                .andDo(print());
+        final var response = this.mvc.perform(aRequest).andDo(print());
 
         // then
-        response.andExpect(status().isUnprocessableEntity())
-                .andExpect(header().string("Location", nullValue()))
+        response.andExpect(status().isUnprocessableEntity()).andExpect(header().string("Location", nullValue()))
                 .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.errors", hasSize(1)))
                 .andExpect(jsonPath("$.errors[0].message", equalTo(expectedErrorMessage)));
@@ -125,25 +119,22 @@ public class GenreAPITest {
         final var expectedName = "Ação";
         final var expectedCategories = List.of("1234", "3345");
         final var expectedIsActive = false;
-        final var aGenre = Genre.newGenre(expectedName, expectedIsActive).addCategories(expectedCategories.stream().map(CategoryID::from).toList());
+        final var aGenre = Genre.newGenre(expectedName, expectedIsActive)
+                .addCategories(expectedCategories.stream().map(CategoryID::from).toList());
         final var expectedId = aGenre.getId().getValue();
 
-        when(getGenreByIdUseCase.execute(any()))
-                .thenReturn(GenreOutput.from(aGenre));
+        when(getGenreByIdUseCase.execute(any())).thenReturn(GenreOutput.from(aGenre));
 
         //when
-        final var request = get("/genres/{id}", expectedId)
-                .accept(MediaType.APPLICATION_JSON)
+        final var aRequest = get("/genres/{id}", expectedId).accept(MediaType.APPLICATION_JSON)
+                .with(ApiTest.GENRES_JWT)
                 .contentType(MediaType.APPLICATION_JSON);
 
-        final var response = this.mvc.perform(request)
-                .andDo(print());
+        final var response = this.mvc.perform(aRequest).andDo(print());
 
         //then
-        response.andExpect(status().isOk())
-                .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("$.id", equalTo(expectedId)))
-                .andExpect(jsonPath("$.name", equalTo(expectedName)))
+        response.andExpect(status().isOk()).andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.id", equalTo(expectedId))).andExpect(jsonPath("$.name", equalTo(expectedName)))
                 .andExpect(jsonPath("$.categories_id", equalTo(expectedCategories)))
                 .andExpect(jsonPath("$.is_active", equalTo(expectedIsActive)))
                 .andExpect(jsonPath("$.created_at", equalTo(aGenre.getCreatedAt().toString())))
@@ -160,15 +151,14 @@ public class GenreAPITest {
         final var expectedErrorMessage = "Genre with ID 123 was not found";
         final var expectedId = GenreID.from("123");
 
-        when(getGenreByIdUseCase.execute(any()))
-                .thenThrow(NotFoundException.with(Genre.class, expectedId));
+        when(getGenreByIdUseCase.execute(any())).thenThrow(NotFoundException.with(Genre.class, expectedId));
         //when
         final var request = get("/genres/{id}", expectedId.getValue())
+                .with(ApiTest.GENRES_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
-        final var response = this.mvc.perform(request)
-                .andDo(print());
+        final var response = this.mvc.perform(request).andDo(print());
 
         //then
         response.andExpect(status().isNotFound())
@@ -190,20 +180,18 @@ public class GenreAPITest {
 
         final var aCommand = new UpdateGenreRequest(expectedName, expectedCategories, expectedIsActive);
 
-        when(updateGenreUseCase.execute(any()))
-                .thenReturn(UpdateGenreOutput.from(aGenre));
+        when(updateGenreUseCase.execute(any())).thenReturn(UpdateGenreOutput.from(aGenre));
 
         // when
         final var aRequest = put("/genres/{id}", expectedId.getValue())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(this.mapper.writeValueAsString(aCommand));
 
-        final var response = this.mvc.perform(aRequest)
-                .andDo(print());
+                .with(ApiTest.GENRES_JWT)
+                .contentType(MediaType.APPLICATION_JSON).content(this.mapper.writeValueAsString(aCommand));
+
+        final var response = this.mvc.perform(aRequest).andDo(print());
 
         // then
-        response.andExpect(status().isOk())
-                .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
+        response.andExpect(status().isOk()).andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.id", equalTo(expectedId.getValue())));
 
     }
@@ -219,19 +207,16 @@ public class GenreAPITest {
         final var aGenre = Genre.newGenre("Ação", expectedIsActive);
         final var expectedId = aGenre.getId().getValue();
 
-        final var aCommand =
-                new UpdateGenreRequest(expectedName, expectedCategories, expectedIsActive);
+        final var aCommand = new UpdateGenreRequest(expectedName, expectedCategories, expectedIsActive);
 
-        when(updateGenreUseCase.execute(any()))
-                .thenThrow(new NotificationException("Error", Notification.create(new Error(expectedErrorMessage))));
+        when(updateGenreUseCase.execute(any())).thenThrow(new NotificationException("Error", Notification.create(new Error(expectedErrorMessage))));
 
         // when
         final var aRequest = put("/genres/{id}", expectedId)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(this.mapper.writeValueAsString(aCommand));
+                .with(ApiTest.GENRES_JWT)
+                .contentType(MediaType.APPLICATION_JSON).content(this.mapper.writeValueAsString(aCommand));
 
-        final var response = this.mvc.perform(aRequest)
-                .andDo(print());
+        final var response = this.mvc.perform(aRequest).andDo(print());
 
         // then
         response.andExpect(status().isUnprocessableEntity())
@@ -244,11 +229,11 @@ public class GenreAPITest {
     public void givenAvalidId_whenCallsDeleteById_shouldBeOk() throws Exception {
         //given
         final var expectedId = "123";
-        doNothing().when(deleteGenreUseCase).
-                execute(any());
+        doNothing().when(deleteGenreUseCase).execute(any());
 
         //when
         final var aRequest = delete("/genres/{id}", expectedId)
+                .with(ApiTest.GENRES_JWT)
                 .accept(MediaType.APPLICATION_JSON);
 
         final var result = this.mvc.perform(aRequest).andDo(print());
@@ -274,23 +259,19 @@ public class GenreAPITest {
 
         final var expectedItems = List.of(GenreListOutput.from(aGenre));
 
-        when(listGenreUseCase.execute(any()))
-                .thenReturn(new Pagination<>(expectedPage, expectedPerPage, expectedTotal, expectedItems));
+        when(listGenreUseCase.execute(any())).thenReturn(new Pagination<>(expectedPage, expectedPerPage, expectedTotal, expectedItems));
 
         // when
         final var aRequest = get("/genres")
-                .queryParam("page", String.valueOf(expectedPage))
-                .queryParam("perPage", String.valueOf(expectedPerPage))
-                .queryParam("sort", expectedSort)
-                .queryParam("dir", expectedDirection)
-                .queryParam("search", expectedTerms)
+                .with(ApiTest.GENRES_JWT).queryParam("page", String.valueOf(expectedPage))
+                .queryParam("perPage", String.valueOf(expectedPerPage)).queryParam("sort", expectedSort)
+                .queryParam("dir", expectedDirection).queryParam("search", expectedTerms)
                 .accept(MediaType.APPLICATION_JSON);
 
         final var response = this.mvc.perform(aRequest);
 
         // then
-        response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.current_page", equalTo(expectedPage)))
+        response.andExpect(status().isOk()).andExpect(jsonPath("$.current_page", equalTo(expectedPage)))
                 .andExpect(jsonPath("$.per_page", equalTo(expectedPerPage)))
                 .andExpect(jsonPath("$.total", equalTo(expectedTotal)))
                 .andExpect(jsonPath("$.items", hasSize(expectedItemsCount)))
