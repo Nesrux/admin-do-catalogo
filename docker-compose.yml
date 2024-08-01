@@ -16,6 +16,7 @@ services:
       - adm-videos-network
   mysql:
     container_name: adm_videos_mysql
+    profiles: ["sql"]
     image: mysql:8.0
     environment:
       - MYSQL_ROOT_PASSWORD=123456
