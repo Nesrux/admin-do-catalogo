@@ -1,6 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nesrux.admin.catalogo.ApiTest;
 import com.nesrux.admin.catalogo.ControllerTest;
 import com.nesrux.admin.catalogo.application.video.create.CreateVideoCommand;
 import com.nesrux.admin.catalogo.application.video.create.CreateVideoOutput;
@@ -132,6 +133,7 @@ class VideoApiTest {
                 .param("genres_id", tech.getValue())
                 .param("cast_members_id", catarina.getValue())
                 .accept(MediaType.APPLICATION_JSON)
+                .with(ApiTest.VIDEOS_JWT)
                 .contentType(MediaType.MULTIPART_FORM_DATA);
 
         this.mvc.perform(aRequest)
@@ -201,6 +203,7 @@ class VideoApiTest {
         //when
         final var aRequest = post("/videos")
                 .accept(MediaType.APPLICATION_JSON)
+                .with(ApiTest.VIDEOS_JWT)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(mapper.writeValueAsBytes(aCommand));
 
@@ -280,7 +283,9 @@ class VideoApiTest {
                 .thenReturn(VideoOutput.from(aVideo));
         //when
         final var aRequest = get("/videos/" + expectedId)
+                .with(ApiTest.VIDEOS_JWT)
                 .accept(MediaType.APPLICATION_JSON);
+
 
         final var response = this.mvc.perform(aRequest);
 
@@ -365,6 +370,7 @@ class VideoApiTest {
         //when
         final var aRequest = put("/videos/" + expectedID.getValue())
                 .accept(MediaType.APPLICATION_JSON)
+                .with(ApiTest.VIDEOS_JWT)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(mapper.writeValueAsBytes(aCommand));
 
@@ -439,6 +445,7 @@ class VideoApiTest {
         //when
         final var aRequest = put("/videos/" + expectedID.getValue())
                 .accept(MediaType.APPLICATION_JSON)
+                .with(ApiTest.VIDEOS_JWT)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(mapper.writeValueAsBytes(aCommand));
 
@@ -463,7 +470,8 @@ class VideoApiTest {
         doNothing()
                 .when(deleteVideoUseCase).execute(any());
         //when
-        final var aRequest = delete("/videos/" + expectedID.getValue());
+        final var aRequest = delete("/videos/" + expectedID.getValue())
+                .with(ApiTest.VIDEOS_JWT);
         final var aResponse = this.mvc.perform(aRequest);
         //then
         aResponse.andExpect(status().isNoContent());
@@ -496,7 +504,9 @@ class VideoApiTest {
                 .queryParam("sort", expectedSort)
                 .queryParam("dir", expectedDirection)
                 .queryParam("search", expectedTerms)
+                .with(ApiTest.VIDEOS_JWT)
                 .accept(MediaType.APPLICATION_JSON);
+
 
         final var response = this.mvc.perform(aRequest);
 
@@ -545,7 +555,9 @@ class VideoApiTest {
 
         // when
         final var aRequest = get("/videos")
+                .with(ApiTest.VIDEOS_JWT)
                 .accept(MediaType.APPLICATION_JSON);
+
 
         final var response = this.mvc.perform(aRequest);
 
@@ -587,7 +599,8 @@ class VideoApiTest {
                 .thenReturn(expectedMedia);
 
         //when
-        final var aRequest = get("/videos/{id}/medias/{type}", expectedId.getValue(), expectedMediaType.name());
+        final var aRequest = get("/videos/{id}/medias/{type}", expectedId.getValue(), expectedMediaType.name())
+                .with(ApiTest.VIDEOS_JWT);
         final var result = this.mvc.perform(aRequest);
 
         //then
@@ -614,6 +627,7 @@ class VideoApiTest {
         final var aRequest = multipart("/videos/{id}/medias/{type}", expectedId.getValue(), expectedType.name())
                 .file(expectedVideo)
                 .accept(MediaType.APPLICATION_JSON)
+                .with(ApiTest.VIDEOS_JWT)
                 .contentType(MediaType.MULTIPART_FORM_DATA);
 
         final var response = this.mvc.perform(aRequest);
