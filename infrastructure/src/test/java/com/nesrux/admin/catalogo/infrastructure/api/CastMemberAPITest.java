@@ -1,6 +1,7 @@
 package com.nesrux.admin.catalogo.infrastructure.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nesrux.admin.catalogo.ApiTest;
 import com.nesrux.admin.catalogo.ControllerTest;
 import com.nesrux.admin.catalogo.application.castmember.create.CreateCastMemberOutput;
 import com.nesrux.admin.catalogo.application.castmember.create.DefaultCreateCastMemberUseCase;
@@ -29,7 +30,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.any;
@@ -74,6 +74,7 @@ public class CastMemberAPITest {
                 .thenReturn(CreateCastMemberOutput.from(expectedId));
         //when
         final var aRequest = post("/cast_members")
+                .with(ApiTest.CAST_MEMBERS_JWT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(aCommad));
 
@@ -104,6 +105,7 @@ public class CastMemberAPITest {
                 .thenThrow(NotificationException.with(new Error(expectedErrorMessage)));
         //when
         final var aRequest = post("/cast_members")
+                .with(ApiTest.CAST_MEMBERS_JWT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(aCommad));
 
@@ -136,10 +138,10 @@ public class CastMemberAPITest {
                 .thenReturn(CastMemberOutput.from(aMember));
         //when
         final var aRequest = get("/cast_members/{id}", expectedID)
+                .with(ApiTest.CAST_MEMBERS_JWT)
                 .contentType(MediaType.APPLICATION_JSON);
 
         final var response = this.mvc.perform(aRequest);
-        //them
         // then
         response.andExpect(status().isOk())
                 .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
@@ -163,6 +165,7 @@ public class CastMemberAPITest {
 
         // when
         final var aRequest = get("/cast_members/{id}", expectedId.getValue())
+                .with(ApiTest.CAST_MEMBERS_JWT)
                 .accept(MediaType.APPLICATION_JSON);
 
         final var response = this.mvc.perform(aRequest);
@@ -189,6 +192,7 @@ public class CastMemberAPITest {
                 .thenReturn(UpdateCastMemberOutput.from(expectedId));
         //when
         final var aRequest = put("/cast_members/{id}", expectedId.getValue())
+                .with(ApiTest.CAST_MEMBERS_JWT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(aCommad));
 
@@ -222,6 +226,7 @@ public class CastMemberAPITest {
                 .thenThrow(NotificationException.with(new Error(expectedErrorMessage)));
         //when
         final var aRequest = put("/cast_members/{id}", expectedId.getValue())
+                .with(ApiTest.CAST_MEMBERS_JWT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(aCommad));
 
@@ -256,6 +261,7 @@ public class CastMemberAPITest {
                 .thenThrow(NotFoundException.with(CastMember.class, expectedId));
         //when
         final var aRequest = put("/cast_members/{id}", expectedId.getValue())
+                .with(ApiTest.CAST_MEMBERS_JWT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(aCommad));
 
@@ -285,6 +291,7 @@ public class CastMemberAPITest {
         //when
         final var aRequest = delete("/cast_members/{id}",
                 expectedId.getValue())
+                .with(ApiTest.CAST_MEMBERS_JWT)
                 .accept(MediaType.APPLICATION_JSON);
 
         final var response = this.mvc.perform(aRequest)
@@ -317,6 +324,7 @@ public class CastMemberAPITest {
 
         // when
         final var aRequest = get("/cast_members")
+                .with(ApiTest.CAST_MEMBERS_JWT)
                 .queryParam("page", String.valueOf(expectedPage))
                 .queryParam("perPage", String.valueOf(expectedPerPage))
                 .queryParam("search", expectedTerms)
@@ -367,6 +375,7 @@ public class CastMemberAPITest {
 
         // when
         final var aRequest = get("/cast_members")
+                .with(ApiTest.CAST_MEMBERS_JWT)
                 .accept(MediaType.APPLICATION_JSON);
 
         final var response = this.mvc.perform(aRequest);
