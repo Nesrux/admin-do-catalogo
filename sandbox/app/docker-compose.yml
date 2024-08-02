@@ -1,32 +1,34 @@
 services:
-  app:
-    container_name: adm_videos_app
-    build: .
-    # image: nesrux/admin-do-catalogo:main-8
-    profiles: ["app"]
-    restart: unless-stopped
-    env_file:
-      - .env
-    ports:
-      - 8080:8080
-    depends_on:
-      - mysql
-      - rabbit
-    networks:
-      - adm-videos-network
+  #  app:
+  #    container_name: adm_videos_app
+  #    build: ../..
+  #    # image: nesrux/admin-do-catalogo:main-8
+  #    profiles: [ "app" ]
+  #    restart: unless-stopped
+  #    env_file:
+  #      - ../../.env
+  #    ports:
+  #      - 8080:8080
+  #    depends_on:
+  #      - mysql
+  #      - rabbit
+  #    networks:
+  #      - adm-videos-network
   mysql:
     container_name: adm_videos_mysql
-    profiles: ["sql"]
     image: mysql:8.0
     environment:
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_DATABASE=adm_videos
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: adm_videos
+      MYSQL_ROOT_HOST: '%'
     security_opt:
       - seccomp:unconfined
     ports:
       - "3306:3306"
     networks:
       - adm-videos-network
+    volumes:
+      - ../.docker/mysql:/var/lib/mysql:rw
   rabbit:
     container_name: adm_videos_rabbitmq
     image: rabbitmq:3-management
@@ -51,10 +53,10 @@ services:
       - 8443:8080
     command:
       - start-dev
+    volumes:
+      - ../.docker/keycloak:/opt/keycloak/data/h2:rw
     networks:
       - adm-videos-network
-
-
 networks:
   adm-videos-network:
     driver: bridge
