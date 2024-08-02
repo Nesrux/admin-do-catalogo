@@ -43,9 +43,9 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
         final var expectedRating = Fixture.Videos.randomRating();
-        final var expectedCategories = Set.<CategoryID>of(Fixture.Categories.randomCategory().getId());
-        final var expectedGenres = Set.<GenreID>of(Fixture.Genres.randomGenre().getId());
-        final var expectedCastMember = Set.<CastMemberID>of(Fixture.CastMembers.randomMember().getId());
+        final var expectedCategories = Set.of(Fixture.Categories.randomCategory().getId());
+        final var expectedGenres = Set.of(Fixture.Genres.randomGenre().getId());
+        final var expectedCastMember = Set.of(Fixture.CastMembers.randomMember().getId());
         final var expectedVideo = audioVideo(VideoMediaType.VIDEO);
         final var expectedBanner = imageMedia(VideoMediaType.BANNER);
         final var expectedTrailer = audioVideo(VideoMediaType.TRAILER);

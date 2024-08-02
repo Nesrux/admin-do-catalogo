@@ -17,14 +17,13 @@ import org.mockito.Mockito;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class GCStorageServiceTest {
 
     private GCStorageService target;
     private Storage storage;
-    private String bucket = "test-bucket";
+    private final String bucket = "test-bucket";
 
     @BeforeEach
     public void setup() {

@@ -17,7 +17,7 @@ public class Genre extends AggregateRoot<GenreID> {
     private String name;
     private boolean active;
     private List<CategoryID> categories;
-    private Instant createdAt;
+    private final Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
 

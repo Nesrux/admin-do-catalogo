@@ -4,7 +4,6 @@ import com.nesrux.admin.catalogo.domain.castmember.CastMemberID;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity(name = "VideoCastMember")
 @Table(name = "videos_cast_members")

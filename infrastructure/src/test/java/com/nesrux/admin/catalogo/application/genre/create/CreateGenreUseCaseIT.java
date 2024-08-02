@@ -39,7 +39,7 @@ public class CreateGenreUseCaseIT {
         final var filmes = categoryGateway.create(Category.newCategory("Filmes", null, true));
         final var expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryID>of(filmes.getId());
+        final var expectedCategories = List.of(filmes.getId());
 
         final var aCommand = CreateGenreCommand.with(expectedName, expectedIsActive,
                 asString(expectedCategories));

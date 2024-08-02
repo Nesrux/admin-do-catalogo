@@ -209,7 +209,7 @@ public final class Fixture {
             return FAKER.options().option(
                     """
                             Disclaimer: O conteudo a seguir não deve ser repoduzido por pessoas
-                            não expecialista, cada cena foi pensada cuidadosamente para que todos 
+                            não expecialista, cada cena foi pensada cuidadosamente para que todos
                             os atores saissem seguros, não tente isso em casa
                             """,
                     """
@@ -227,7 +227,7 @@ public final class Fixture {
                             que retrata a dificuldade de ser um musico no interior do maranhão
                             """,
                     """
-                            Akira toriama foi mundialmente conhecido por causa das suas obras de ficção chamada Dragon Ball e 
+                            Akira toriama foi mundialmente conhecido por causa das suas obras de ficção chamada Dragon Ball e
                             blue Dragon, também teve suas obras adaptadas para games, animes, documentarios, intelizmente ele foi
                             encontrado morto essa manha, a familia não quis dar detalhes do acontecimento, muito se expecula que...
                             """,

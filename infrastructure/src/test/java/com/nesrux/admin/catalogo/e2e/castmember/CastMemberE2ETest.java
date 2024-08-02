@@ -18,6 +18,7 @@ import org.testcontainers.junit.jupiter.Container;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@SuppressWarnings("ALL")
 @E2ETest
 //@Testcontainers
 public class CastMemberE2ETest implements MockDls {

@@ -86,9 +86,9 @@ public class DefaultVideoGatewayTest {
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
         final var expectedRating = Fixture.Videos.randomRating();
-        final var expectedCategories = Set.<CategoryID>of(aulas.getId());
-        final var expectedGenres = Set.<GenreID>of(tech.getId());
-        final var expectedCastMember = Set.<CastMemberID>of(joao.getId());
+        final var expectedCategories = Set.of(aulas.getId());
+        final var expectedGenres = Set.of(tech.getId());
+        final var expectedCastMember = Set.of(joao.getId());
 
         final AudioVideoMedia expectedVideo = AudioVideoMedia.with("123", "video", "/media/video");
         final AudioVideoMedia expectedTrailer = AudioVideoMedia.with("123", "trailer", "/media/trailer");
@@ -239,9 +239,9 @@ public class DefaultVideoGatewayTest {
                 Fixture.bool(),
                 Fixture.bool(),
                 Fixture.Videos.randomRating(),
-                Set.<CategoryID>of(),
-                Set.<GenreID>of(),
-                Set.<CastMemberID>of()
+                Set.of(),
+                Set.of(),
+                Set.of()
         ));
 
 
@@ -256,9 +256,9 @@ public class DefaultVideoGatewayTest {
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
         final var expectedRating = Fixture.Videos.randomRating();
-        final var expectedCategories = Set.<CategoryID>of(aulas.getId());
-        final var expectedGenres = Set.<GenreID>of(tech.getId());
-        final var expectedCastMember = Set.<CastMemberID>of(joao.getId());
+        final var expectedCategories = Set.of(aulas.getId());
+        final var expectedGenres = Set.of(tech.getId());
+        final var expectedCastMember = Set.of(joao.getId());
 
         final AudioVideoMedia expectedVideo = AudioVideoMedia.with("123", "video", "/media/video");
         final AudioVideoMedia expectedTrailer = AudioVideoMedia.with("123", "trailer", "/media/trailer");
@@ -350,9 +350,9 @@ public class DefaultVideoGatewayTest {
                 Fixture.bool(),
                 Fixture.bool(),
                 Fixture.Videos.randomRating(),
-                Set.<CategoryID>of(),
-                Set.<GenreID>of(),
-                Set.<CastMemberID>of()
+                Set.of(),
+                Set.of(),
+                Set.of()
         ));
 
         final var expectedId = aVideo.getId();
@@ -377,9 +377,9 @@ public class DefaultVideoGatewayTest {
                 Fixture.bool(),
                 Fixture.bool(),
                 Fixture.Videos.randomRating(),
-                Set.<CategoryID>of(),
-                Set.<GenreID>of(),
-                Set.<CastMemberID>of()
+                Set.of(),
+                Set.of(),
+                Set.of()
         ));
 
         final var expectedId = aVideo.getId();
@@ -405,9 +405,9 @@ public class DefaultVideoGatewayTest {
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
         final var expectedRating = Fixture.Videos.randomRating();
-        final var expectedCategories = Set.<CategoryID>of(aulas.getId());
-        final var expectedGenres = Set.<GenreID>of(tech.getId());
-        final var expectedCastMember = Set.<CastMemberID>of(joao.getId());
+        final var expectedCategories = Set.of(aulas.getId());
+        final var expectedGenres = Set.of(tech.getId());
+        final var expectedCastMember = Set.of(joao.getId());
 
         final AudioVideoMedia expectedVideo = AudioVideoMedia.with("123", "video", "/media/video");
         final AudioVideoMedia expectedTrailer = AudioVideoMedia.with("123", "trailer", "/media/trailer");

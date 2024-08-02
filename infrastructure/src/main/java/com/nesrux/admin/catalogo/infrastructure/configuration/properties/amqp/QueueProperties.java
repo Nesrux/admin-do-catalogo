@@ -51,7 +51,7 @@ public class QueueProperties implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         log.debug(toString());
     }
 }

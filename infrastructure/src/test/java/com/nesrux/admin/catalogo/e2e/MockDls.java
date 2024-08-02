@@ -151,13 +151,11 @@ public interface MockDls {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(Json.writeValueAsString(body));
 
-        final var actualId = this.mvc().perform(aRequest)
+        return this.mvc().perform(aRequest)
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse().getHeader("Location")
                 .replace("%s/".formatted(url), "");
-
-        return actualId;
     }
 
     private ResultActions givenResult(final String url, final Object body) throws Exception {
@@ -183,8 +181,8 @@ public interface MockDls {
 
     private <T> T retrieve(final String url, final Identifier anId, final Class<T> clazz) throws Exception {
         final var aRequest = get(url + anId.getValue())
-                .accept(MediaType.APPLICATION_JSON_UTF8)
-                .contentType(MediaType.APPLICATION_JSON_UTF8);
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
 
         final var json = this.mvc().perform(aRequest)
                 .andExpect(status().isOk())
@@ -196,8 +194,8 @@ public interface MockDls {
 
     private ResultActions retrieveResult(final String url, final Identifier anId) throws Exception {
         final var aRequest = get(url + anId.getValue())
-                .accept(MediaType.APPLICATION_JSON_UTF8)
-                .contentType(MediaType.APPLICATION_JSON_UTF8);
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
 
         return this.mvc().perform(aRequest);
     }

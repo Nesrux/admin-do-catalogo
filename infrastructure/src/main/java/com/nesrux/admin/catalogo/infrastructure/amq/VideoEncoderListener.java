@@ -21,10 +21,8 @@ public class VideoEncoderListener {
     public static final String LISTENER_ID = "videoEncodedListener";
     private static final Logger log = LoggerFactory.getLogger(VideoEncoderListener.class);
 
-    private final UpdateMediaStatusUseCase updateMediaStatusUseCase;
-
     public VideoEncoderListener(UpdateMediaStatusUseCase updateMediaStatusUseCase) {
-        this.updateMediaStatusUseCase = Objects.requireNonNull(updateMediaStatusUseCase);
+        UpdateMediaStatusUseCase updateMediaStatusUseCase1 = Objects.requireNonNull(updateMediaStatusUseCase);
     }
 
     @RabbitListener(id = LISTENER_ID, queues = "${amqp.queues.video-encoded.queue}")

@@ -43,7 +43,7 @@ public class GenreMySQLGatewayTest {
 
         final var expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectCategories = List.<CategoryID>of(filmes.getId());
+        final var expectCategories = List.of(filmes.getId());
 
         final var aGenre = Genre.newGenre(expectedName, expectedIsActive)
                 .addCategories(expectCategories);
@@ -270,7 +270,6 @@ public class GenreMySQLGatewayTest {
         // when
         final var actualGenre = genreGateway.findById(aGenre.getId()).get();
 
-        // then
         // then
         Assertions.assertEquals(1, genreRepository.count());
 

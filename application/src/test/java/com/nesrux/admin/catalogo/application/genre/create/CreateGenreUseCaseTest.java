@@ -97,7 +97,7 @@ public class CreateGenreUseCaseTest extends UseCaseTest {
         // given
         final var expectedName = "Ação";
         final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryID>of(
+        final var expectedCategories = List.of(
                 CategoryID.from("1234"),
                 CategoryID.from("456"),
                 CategoryID.from("789"));
@@ -220,7 +220,7 @@ public class CreateGenreUseCaseTest extends UseCaseTest {
         final var filmes = CategoryID.from("123");
         final var series = CategoryID.from("456");
         final var documentarios = CategoryID.from("789");
-        final var expectedCategories = List.<CategoryID>of(
+        final var expectedCategories = List.of(
                 filmes, series, documentarios);
 
         final var expectedErrorMessage = "Some categories could not be found: 123, 789";
@@ -254,7 +254,7 @@ public class CreateGenreUseCaseTest extends UseCaseTest {
         final var filmes = CategoryID.from("123");
         final var series = CategoryID.from("456");
         final var documentarios = CategoryID.from("789");
-        final var expectedCategories = List.<CategoryID>of(
+        final var expectedCategories = List.of(
                 filmes, series, documentarios);
 
         final var expectedErrorMessageOne = "Some categories could not be found: 123, 789";

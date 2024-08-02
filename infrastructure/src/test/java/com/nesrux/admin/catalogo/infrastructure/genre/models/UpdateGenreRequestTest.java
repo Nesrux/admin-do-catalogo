@@ -24,7 +24,7 @@ public class UpdateGenreRequestTest {
           "name": "%s",
           "categories_id": ["%s"],
           "is_active": %s
-        }    
+        }
         """.formatted(expectedName, expectedCategories, expectedIsActive);
 
         final var actualJson = this.json.parse(json);

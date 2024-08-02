@@ -16,7 +16,6 @@ import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
 import com.nesrux.admin.catalogo.domain.resource.Resource;
-import com.nesrux.admin.catalogo.domain.utils.CollectionsUtil;
 import com.nesrux.admin.catalogo.domain.video.VideoMediaType;
 import com.nesrux.admin.catalogo.domain.video.VideoResource;
 import com.nesrux.admin.catalogo.domain.video.VideoSearchQuery;

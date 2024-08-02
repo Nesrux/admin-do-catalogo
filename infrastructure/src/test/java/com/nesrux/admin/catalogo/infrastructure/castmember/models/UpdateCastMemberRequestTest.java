@@ -21,7 +21,7 @@ public class UpdateCastMemberRequestTest {
                 {
                   "name": "%s",
                   "type": "%s"
-                }    
+                }
                 """.formatted(expectedName, expectedType);
 
         final var actualJson = this.json.parse(json);

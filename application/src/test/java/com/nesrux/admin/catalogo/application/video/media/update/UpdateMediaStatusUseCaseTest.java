@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.AdditionalAnswers.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class UpdateMediaStatusUseCaseTest extends UseCaseTest {

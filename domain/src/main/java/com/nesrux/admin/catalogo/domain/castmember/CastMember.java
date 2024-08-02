@@ -11,7 +11,7 @@ import java.time.Instant;
 public class CastMember extends AggregateRoot<CastMemberID> {
     private String name;
     private CastMemberType type;
-    private Instant createdAt;
+    private final Instant createdAt;
     private Instant updatedAt;
 
     public CastMember(final CastMemberID anId,

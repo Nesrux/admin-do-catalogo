@@ -22,7 +22,7 @@ public class CreateCategoryRequestTest {
                   "name": "%s",
                   "description": "%s",
                   "is_active": %s
-                }    
+                }
                 """.formatted(expectedName, expectedDescription, expectedIsActive);
 
         final var actualJson = this.json.parse(json);

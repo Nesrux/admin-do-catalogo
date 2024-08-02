@@ -13,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 
 import java.util.Arrays;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @IntegrationTest

@@ -3,7 +3,6 @@ package com.nesrux.admin.catalogo.application.video.retrive.list;
 import com.nesrux.admin.catalogo.domain.Fixture;
 import com.nesrux.admin.catalogo.application.UseCaseTest;
 import com.nesrux.admin.catalogo.domain.pagination.Pagination;
-import com.nesrux.admin.catalogo.domain.video.Video;
 import com.nesrux.admin.catalogo.domain.video.VideoGateway;
 import com.nesrux.admin.catalogo.domain.video.VideoPreview;
 import com.nesrux.admin.catalogo.domain.video.VideoSearchQuery;

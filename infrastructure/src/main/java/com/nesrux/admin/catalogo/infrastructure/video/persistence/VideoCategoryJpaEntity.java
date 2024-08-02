@@ -4,7 +4,6 @@ import com.nesrux.admin.catalogo.domain.category.CategoryID;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity(name = "VideoCategory")
 @Table(name = "videos_categories")

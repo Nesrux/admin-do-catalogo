@@ -63,13 +63,13 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
         final var expectedRating = Fixture.Videos.randomRating();
-        final var expectedCategories = Set.<CategoryID>of(
+        final var expectedCategories = Set.of(
                 Fixture.Categories.randomCategory().getId()
         );
-        final var expectedGenres = Set.<GenreID>of(
+        final var expectedGenres = Set.of(
                 Fixture.Genres.randomGenre().getId()
         );
-        final var expectedCastMember = Set.<CastMemberID>of(
+        final var expectedCastMember = Set.of(
                 Fixture.CastMembers.randomMember().getId()
         );
         final Resource expectedVideo = Fixture.Videos.resource(VideoMediaType.VIDEO);
@@ -142,10 +142,10 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
         final var expectedPublished = Fixture.bool();
         final var expectedRating = Fixture.Videos.randomRating();
         final var expectedCategories = Set.<CategoryID>of();
-        final var expectedGenres = Set.<GenreID>of(
+        final var expectedGenres = Set.of(
                 Fixture.Genres.randomGenre().getId()
         );
-        final var expectedCastMember = Set.<CastMemberID>of(
+        final var expectedCastMember = Set.of(
                 Fixture.CastMembers.randomMember().getId()
         );
         final Resource expectedVideo = Fixture.Videos.resource(VideoMediaType.VIDEO);
@@ -215,11 +215,11 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
         final var expectedRating = Fixture.Videos.randomRating();
-        final var expectedCategories = Set.<CategoryID>of(
+        final var expectedCategories = Set.of(
                 Fixture.Categories.randomCategory().getId()
         );
         final var expectedGenres = Set.<GenreID>of();
-        final var expectedCastMember = Set.<CastMemberID>of(
+        final var expectedCastMember = Set.of(
                 Fixture.CastMembers.randomMember().getId()
         );
         final Resource expectedVideo = Fixture.Videos.resource(VideoMediaType.VIDEO);
@@ -289,10 +289,10 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
         final var expectedRating = Fixture.Videos.randomRating();
-        final var expectedCategories = Set.<CategoryID>of(
+        final var expectedCategories = Set.of(
                 Fixture.Categories.randomCategory().getId()
         );
-        final var expectedGenres = Set.<GenreID>of(
+        final var expectedGenres = Set.of(
                 Fixture.Genres.randomGenre().getId()
         );
         final var expectedCastMember = Set.<CastMemberID>of();
@@ -362,13 +362,13 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
         final var expectedRating = Fixture.Videos.randomRating();
-        final var expectedCategories = Set.<CategoryID>of(
+        final var expectedCategories = Set.of(
                 Fixture.Categories.randomCategory().getId()
         );
-        final var expectedGenres = Set.<GenreID>of(
+        final var expectedGenres = Set.of(
                 Fixture.Genres.randomGenre().getId()
         );
-        final var expectedCastMember = Set.<CastMemberID>of(
+        final var expectedCastMember = Set.of(
                 Fixture.CastMembers.randomMember().getId()
         );
         final Resource expectedVideo = null;

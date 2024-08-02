@@ -1,10 +1,5 @@
 package com.nesrux.admin.catalogo.application.genre.create;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
 import com.nesrux.admin.catalogo.domain.category.CategoryGateway;
 import com.nesrux.admin.catalogo.domain.category.CategoryID;
 import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
@@ -13,6 +8,11 @@ import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 import com.nesrux.admin.catalogo.domain.validation.Error;
 import com.nesrux.admin.catalogo.domain.validation.ValidationHandler;
 import com.nesrux.admin.catalogo.domain.validation.handler.Notification;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class DefaultCreateGenreUseCase extends CreateGenreUseCase {
     private final CategoryGateway categoryGateway;

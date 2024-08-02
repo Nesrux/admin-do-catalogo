@@ -2,7 +2,6 @@ package com.nesrux.admin.catalogo.infrastructure.video;
 
 import com.nesrux.admin.catalogo.IntegrationTest;
 import com.nesrux.admin.catalogo.domain.Fixture;
-import com.nesrux.admin.catalogo.domain.resource.Resource;
 import com.nesrux.admin.catalogo.domain.video.*;
 import com.nesrux.admin.catalogo.infrastructure.services.StorageService;
 import com.nesrux.admin.catalogo.infrastructure.services.local.InMemoryStorageService;

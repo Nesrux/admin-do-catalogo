@@ -22,7 +22,7 @@ public class Video extends AggregateRoot<VideoID> {
     private boolean opened;
     private boolean published;
 
-    private Instant createdAt;
+    private final Instant createdAt;
     private Instant updatedAt;
 
     private ImageMedia banner;

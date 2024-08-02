@@ -12,7 +12,6 @@ import com.nesrux.admin.catalogo.domain.exceptions.NotificationException;
 import com.nesrux.admin.catalogo.domain.genre.GenreGateway;
 import com.nesrux.admin.catalogo.domain.genre.GenreID;
 import com.nesrux.admin.catalogo.domain.resource.Resource;
-import com.nesrux.admin.catalogo.domain.utils.IdUtils;
 import com.nesrux.admin.catalogo.domain.video.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,8 +22,6 @@ import java.time.Year;
 import java.util.*;
 
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
 public class UpdateVideoUseCaseTest extends UseCaseTest {
@@ -70,13 +67,13 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         final var expectedOpened = Fixture.bool();
         final var expectedPublished = Fixture.bool();
         final var expectedRating = Fixture.Videos.randomRating();
-        final var expectedCategories = Set.<CategoryID>of(
+        final var expectedCategories = Set.of(
                 Fixture.Categories.randomCategory().getId()
         );
-        final var expectedGenres = Set.<GenreID>of(
+        final var expectedGenres = Set.of(
                 Fixture.Genres.randomGenre().getId()
         );
-        final var expectedCastMember = Set.<CastMemberID>of(
+        final var expectedCastMember = Set.of(
                 Fixture.CastMembers.randomMember().getId()
         );
 
