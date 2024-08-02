@@ -16,12 +16,12 @@ import org.springframework.context.annotation.Profile;
 public class StorageConfig {
     @Bean
     @ConfigurationProperties(value = "storage.catalogo-videos")
-    public StorageProperties storageProperties(){
+    public StorageProperties storageProperties() {
         return new StorageProperties();
     }
 
     @Bean(name = "StorageService")
-    @Profile({"low", "development", "production"})
+    @ConditionalOnMissingBean
     public StorageService gcStorageService(
             final GoogleStorageProperties props,
             final Storage storage
@@ -30,7 +30,7 @@ public class StorageConfig {
     }
 
     @Bean(name = "StorageService")
-    @ConditionalOnMissingBean
+    @Profile({"low", "test-e2e", "test-integration", "development"})
     public StorageService inMemoryStorageService() {
         return new InMemoryStorageService();
     }
