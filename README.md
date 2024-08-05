@@ -124,3 +124,112 @@ essas variáveis na hora de executar os comandos, exemplo:
 ```shell
 FLYWAY_DB=jdbc:mysql://prod:3306/adm_videos FLYWAY_USER=root FLYWAY_PASS=123h1hu ./gradlew flywayValidate
 ```
+
+### Executando com Docker
+Para rodar a aplicação localmente com Docker, iremos utilizar o `docker compose` e necessita de apenas três passos:
+<br/>
+
+#### 1. Gerando o artefato produtivo (jar)
+
+Para gerar o artefato produtivo, basta executar o comando:
+```
+./gradlew bootJar
+```
+<br/>
+
+#### 2. Executando os containers independentes
+
+Para executar o MySQL e o Rabbit, basta executar o comando abaixo.
+```
+docker-compose up -d
+```
+<br/>
+
+#### 3. Executando a aplicação junto dos outros containers
+
+Depois de visualizar que os demais containers estão de pé, para rodar sua aplicação junto basta executar o comando:
+```
+docker-compose --profile app up -d
+```
+
+> **Obs.:** Caso necessite rebuildar a imagem de sua aplicação é necessário um comando adicional:
+>```
+>docker compose build --no-cache app
+>```
+
+#### Parando os containers
+
+Para encerrar os containers, basta executar o comando:
+```
+docker compose --profile app stop
+```
+
+### Keycloak
+
+#### Setup
+
+1. Adicionar no docker-compose o container do Keycloak
+    ```
+      keycloak:
+        container_name: adm_videos_keycloak
+        image: quay.io/keycloak/keycloak:20.0.3
+        environment:
+          - KEYCLOAK_ADMIN=admin
+          - KEYCLOAK_ADMIN_PASSWORD=admin
+        ports:
+          - 8443:8080
+        command:
+          - start-dev
+    ```
+2. Subir o container e navegar ate `http://localhost:8443/`
+3. Criar um realm novo para o projeto: `fc3-codeflix`
+4. Navegar ate Realm settings > General > Endpoints
+    - Esses endpoints são importantes para fazer-mos a integração
+5. Navegar ate Realm settings > Keys
+    - Iremos utilizar a chave publica do algoritmo RS256 para verificar o token
+6. Criar o client:
+    - Client Id: fc3-admin-catalogo-de-videos
+    - Client authentication: ON -- isso faz acesso confidential
+    - Redirect URL: confidential
+    - Comentar das credentials `client and secret` que usaremos para login manual
+7. Criar a role:
+    - Role: catalogo-admin
+    - Description: Role que dá permissão de admin para os usuários
+8. Criar um group:
+    - Name: catalogo-admin
+    - Role mapping: assign `catalogo-admin`
+9. Criar um usuario:
+    - Nome: myuser
+    - Groups: adicionar ao `catalogo-admin`
+    - Criar um credentials: `123456`
+10. Criar o client para o frontend:
+   - Client Id: react-auth
+   - Client authentication: OFF -- isso faz acesso publico
+   - Root URL: `http://localhost:3000`
+   - Valid redirect URIs: `http://localhost:3000/*`   -- É necessário o /* 
+   - Web origins: `http://localhost:3000`  -- Essa propriedade evita bloqueio de CORS
+   - Realm Settings -> Security Defenses -> Content-Security-Policy: `frame-src 'self'; frame-ancestors 'self' http://localhost:3000;`
+
+#### Integration
+
+1. Adicionar o starter do spring boot:
+   ```
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+    
+    testImplementation('org.springframework.security:spring-security-test')
+   ```
+2. Configuração das properties:
+   ```properties
+       keycloak:
+           realm: fc3-codeflix
+           host: http://localhost:8443
+      
+       spring:
+           security:
+               oauth2:
+                   resourceserver:
+                       jwt:
+                           jwk-set-uri: ${keycloak.host}/realms/${keycloak.realm}/protocol/openid-connect/certs
+                           issuer-uri: ${keycloak.host}/realms/${keycloak.realm}
+   ```
