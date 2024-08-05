@@ -20,9 +20,11 @@ public class VideoEncoderListener {
 
     public static final String LISTENER_ID = "videoEncodedListener";
     private static final Logger log = LoggerFactory.getLogger(VideoEncoderListener.class);
+    private final UpdateMediaStatusUseCase updateMediaStatusUseCase;
 
-    public VideoEncoderListener(UpdateMediaStatusUseCase updateMediaStatusUseCase) {
-        UpdateMediaStatusUseCase updateMediaStatusUseCase1 = Objects.requireNonNull(updateMediaStatusUseCase);
+
+    public VideoEncoderListener(final UpdateMediaStatusUseCase updateMediaStatusUseCase) {
+        this.updateMediaStatusUseCase = Objects.requireNonNull(updateMediaStatusUseCase);
     }
 
     @RabbitListener(id = LISTENER_ID, queues = "${amqp.queues.video-encoded.queue}")
@@ -30,21 +32,21 @@ public class VideoEncoderListener {
         final var aResult = Json.readValue(message, VideoEnconderResult.class);
 
         if (aResult instanceof VideoEncoderCompleted dto) {
-            log.error("[message: video.listener.income] [status:completed] [payload:{}]", message);
-            final var aCommand = new UpdateMediaStatusCommand(
+            log.error("[message:video.listener.income] [status:completed] [payload:{}]", message);
+            final var aCmd = new UpdateMediaStatusCommand(
                     MediaStatus.COMPLETED,
                     dto.id(),
                     dto.video().resourceId(),
                     dto.video().encondedVideoFolder(),
                     dto.video().filePath()
             );
-        } else if (aResult instanceof VideoEncoderError dto) {
-            log.error("[message: video.listener.income] [status:error] [payload:{}]", message);
+
+            this.updateMediaStatusUseCase.execute(aCmd);
+        } else if (aResult instanceof VideoEncoderError) {
+            log.error("[message:video.listener.income] [status:error] [payload:{}]", message);
         } else {
-            log.error("[message: video.listener.income] [status:unknown] [payload:{}]", message);
-
+            log.error("[message:video.listener.income] [status:unknown] [payload:{}]", message);
         }
-
     }
 
 }
